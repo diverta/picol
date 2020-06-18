@@ -1,0 +1,140 @@
+.c-entry
+  margin-bottom: 10px
+  background: $white-color
+  @media screen and (min-width: $pc-width)
+    grid-template-columns: 360px 1fr
+    grid-template-rows: auto 1fr auto
+    display: grid
+    margin-bottom: 24px
+
+  &__header
+    display: flex
+    align-items: center
+    height: 50px
+    margin-right: 16px
+    @media screen and (min-width: $pc-width)
+      margin-bottom: 12px
+
+  &__post-icon
+    display: block
+    width: 36px
+    height: 36px
+    margin-right: 16px
+    margin-left: 16px
+    object-fit: cover
+    border-radius: 50%
+
+  &__post-name
+    font-family: $alphabet-font-family
+    font-size: 14px
+    font-weight: bold
+    line-height: 1.05
+    flex: 1
+    margin-bottom: 0
+    word-break: break-all
+
+  &__post-name-link
+    color: $base-color
+    &:hover
+      color: $base-color
+
+  &__post-time
+    font-size: 12px
+    margin-bottom: 0
+    margin-left: 16px
+    color: $sub-color
+
+  &__body
+    margin-right: 16px
+    margin-left: 16px
+    @media screen and (min-width: $pc-width)
+      margin-bottom: 16px
+
+    &--content
+      word-break: break-word
+
+    &--content-link
+      text-decoration: unset
+      color: black
+      corsor: pointer
+      word-break: break-word
+      &:hover
+        color: black
+
+  &__image-wrapper
+    margin-bottom: 14px
+    @media screen and (min-width: $pc-width)
+      order: -1
+      grid-row: 1 / 4
+      margin-bottom: 0
+
+    .VueCarousel-pagination //sass-lint:disable-line class-name-format
+      margin-top: -12px
+      margin-bottom: 16px
+
+  &__image-wrapper--absent
+    display: none
+    @media screen and (min-width: $pc-width)
+      display: block
+      order: -1
+      grid-row: 1 / 4
+      margin-bottom: 0
+
+  &__image
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: contain
+    background-color: black
+
+  &__video
+    display: grid
+    align-items: center
+    width: 100%
+    height: 100%
+    background-color: black
+
+  &__like-button-wrapper
+    margin-bottom: 8px
+    display: flex
+    justify-content: space-between
+
+  &__like-button
+    +no-text
+    position: relative
+    display: block
+    width: 36px
+    height: 32px
+    padding: 0
+    border: 0
+    background: url('/assets/images/icon_like.svg') center center no-repeat
+    background-size: 28px 24px
+    &::before
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      content: ''
+      opacity: 0
+      background: url('/assets/images/icon_like_on.svg') center center no-repeat
+      background-size: 28px 24px
+    &.is-on
+      &::before
+        opacity: 1
+        animation: like 720ms $md-motion 0s 1 both
+
+  &__status
+    display: flex
+
+  &__status-item
+    font-size: 14px
+    font-weight: bold
+    display: flex
+    margin-bottom: 0
+
+  &__status-title
+    margin-right: .5em
+
+  &__status-count
+    margin-right: 26px

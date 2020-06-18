@@ -1,0 +1,118 @@
+.l-navigation
+  height: $header-height
+  @media screen and (min-width: $pc-width)
+    height: auto
+
+  &__items
+    position: fixed
+    z-index: $z-index-navigation
+    right: 0
+    bottom: 0
+    left: 0
+    display: flex
+    width: 100%
+    height: $header-height
+    margin-right: auto
+    margin-bottom: 0
+    margin-left: auto
+    padding-left: 0
+    list-style: none
+    border-top: 1px solid $border-color
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      top: 0
+      right: 72px
+      bottom: auto
+      left: auto
+      display: inline-flex
+      width: auto
+      white-space: nowrap
+      border-top: 0
+      background: none
+
+  &__item
+    flex: 1
+    @media screen and (min-width: $pc-width)
+      margin-right: 24px
+
+  &__icon
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    width: 32px
+    height: 32px
+    margin: auto
+    object-fit: cover
+    border-radius: 50%
+
+  %navi-button
+    +no-text
+    position: relative
+    display: block
+    width: 20vw
+    height: 44px
+    @media screen and (min-width: $pc-width)
+      font-family: $alphabet-font-family
+      font-size: 13px
+      font-weight: bold
+      display: flex
+      align-items: center
+      width: auto
+      text-indent: 0
+      color: $sub-color
+      &:hover
+        text-decoration: none
+    &::before
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      display: block
+      width: 32px
+      height: 24px
+      margin: auto
+      content: ''
+      background-repeat: no-repeat
+      background-position: center
+      background-size: contain
+      @media screen and (min-width: $pc-width)
+        position: relative
+        margin: 0 8px 0 0
+
+  &__button
+    @extend %navi-button
+
+    &--home
+      @extend %navi-button
+      &::before
+        background-image: url('/assets/images/icon_home.svg')
+      &.is-current
+        &::before
+          background-image: url('/assets/images/icon_home_on.svg')
+
+    &--search
+      @extend %navi-button
+      &::before
+        background-image: url('/assets/images/icon_search.svg')
+      &.is-current
+        &::before
+          background-image: url('/assets/images/icon_search_on.svg')
+
+    &--post
+      @extend %navi-button
+      &::before
+        background-image: url('/assets/images/icon_post.svg')
+      &.is-current
+        &::before
+          background-image: url('/assets/images/icon_post_on.svg')
+
+    &--activity
+      @extend %navi-button
+      &::before
+        background-image: url('/assets/images/icon_like.svg')
+      &.is-current
+        &::before
+          background-image: url('/assets/images/icon_like_on.svg')

@@ -1,0 +1,64 @@
+.c-circle-list
+  position: relative
+  margin: 14px 12px
+  @media screen and (min-width: $pc-width)
+    margin-right: 0
+    margin-left: 0
+    padding-top: 0
+
+  &__items
+    padding-left: 0
+    list-style: none
+    @media screen and (min-width: $pc-width)
+      flex-wrap: wrap
+      display: flex
+      margin-right: -12px
+      margin-left: -12px
+
+  &__item
+    display: flex
+    align-items: center
+    margin-bottom: 8px
+    padding: 12px 16px
+    color: $base-color
+    border-radius: 8px
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      width: calc(50% - 24px)
+      min-height: 72px
+      margin-right: 12px
+      margin-bottom: 24px
+      margin-left: 12px
+
+  &__name
+    +ellipsis
+    flex: 1
+    width: 100%
+    margin-bottom: 0
+
+  &__link
+    font-size: 14px
+    line-height: 1
+    position: relative
+    display: block
+    margin-left: 16px
+    padding: 9px 28px 9px 16px
+    color: $white-color
+    border-radius: 8px
+    background: $link-color
+    &:hover
+      text-decoration: none
+      color: $white-color
+    &::before
+      position: absolute
+      top: 0
+      right: 12px
+      bottom: 0
+      width: 6px
+      height: 6px
+      margin: auto 0
+      content: ''
+      transform: rotate(45deg)
+      border-top: 2px solid $white-color
+      border-right: 2px solid $white-color
+

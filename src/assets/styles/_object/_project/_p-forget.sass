@@ -1,0 +1,97 @@
+.p-forget
+  min-height: 100vh
+  padding: $header-height + 56px 56px 56px
+  background: $white-color
+  @media screen and (min-width: $pc-width)
+    display: flex
+    align-items: center
+    width: $modal-max-width
+    margin-right: auto
+    margin-left: auto
+    padding-top: 56px
+    background: none
+  &::before
+    @media screen and (min-width: $pc-width)
+      position: fixed
+      z-index: -1
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      content: ''
+      background: rgba($white-color, .95)
+
+  &__headline
+    @extend %headline
+    &::before
+      display: block
+      width: 120px
+      height: 52px
+      margin-bottom: 18px
+      content: ''
+      background: url('/assets/images/icon_forget.svg') center center no-repeat
+      background-size: contain
+
+  &__lead
+    @extend %lead
+
+  &__text
+    font-size: 14px
+    margin-bottom: 48px
+
+  &__input
+    @extend %input
+    margin-bottom: 80px
+
+  &__button-wrapper
+    @media screen and (min-width: $pc-width)
+      position: relative
+      display: flex
+      justify-content: center
+
+  &__submit
+    @extend %submit
+    @media screen and (min-width: $pc-width)
+      height: 56px
+      margin-right: 12px
+      margin-left: 12px
+
+  &__prev-wrapper
+    position: fixed
+    top: 0
+    right: 0
+    left: 0
+    height: $header-height
+    border-bottom: 1px solid $border-color
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      position: static
+      height: auto
+      margin-right: 12px
+      margin-left: 12px
+      border-bottom: 0
+      background: none
+
+  &__prev
+    @extend %header-prev
+    @media screen and (min-width: $pc-width)
+      font-size: 16px
+      font-weight: bold
+      position: static
+      display: flex
+      align-items: center
+      justify-content: center
+      width: 132px
+      min-height: 56px
+      text-decoration: none
+      text-indent: 0
+      color: $link-color
+      border: 2px solid $link-color
+      border-radius: 8px
+      background: $white-color
+      &:hover
+        text-decoration: none
+        color: $key-color
+    &::before
+      @media screen and (min-width: $pc-width)
+        display: none

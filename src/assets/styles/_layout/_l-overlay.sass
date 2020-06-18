@@ -1,0 +1,39 @@
+.l-overlay
+  -webkit-overflow-scrolling: touch //sass-lint:disable-line no-vendor-prefixes
+  position: fixed
+  z-index: $z-index-overlay - 1
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  display: flex
+  overflow-y: auto
+  flex-direction: column
+  justify-content: center
+  padding: 0 16px
+  background: rgba($base-color, .6)
+
+  &__body
+    z-index: $z-index-overlay
+    width: 100%
+    max-width: $modal-max-width
+    margin-right: auto
+    margin-left: auto
+    padding: 16px
+    border-radius: 8px
+    background: $white-color
+
+  &__footer
+    position: absolute
+    right: 0
+    bottom: 12px
+    left: 0
+    width: 100%
+    max-width: $modal-max-width
+    margin-right: auto
+    margin-left: auto
+    padding: 16px
+    @media screen and (min-width: $pc-width)
+      position: relative
+      margin-top: 30px
+      max-width: 342px

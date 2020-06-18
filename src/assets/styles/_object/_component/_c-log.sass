@@ -1,0 +1,89 @@
+.c-log
+  position: relative
+  @media screen and (min-width: $pc-width)
+    width: $content-max-width + 24
+    margin-right: auto
+    margin-left: auto
+
+  &__note
+    margin: 16px 0 16px 16px
+    text-shadow: 1px 1px 0 #FFF, -1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px -1px 0 #FFF, 0px 1px 0 #FFF, 0-1px 0 #FFF, -1px 0 0 #FFF, 1px 0 0 #FFF
+
+  &__items
+    margin-right: 16px
+    margin-left: 16px
+    padding-top: 14px
+    padding-left: 0
+    list-style: none
+    @media screen and (min-width: $pc-width)
+      flex-wrap: wrap
+      display: flex
+      margin-right: 0
+      margin-left: -12px
+      padding-top: 0
+
+  &__item
+    position: relative
+    margin-bottom: 8px
+    border-radius: 8px
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      width: calc(50% - 24px)
+      margin-right: 12px
+      margin-left: 12px
+
+  &__body
+    position: relative
+    display: flex
+    align-items: flex-start
+    padding: 16px 16px 12px
+    &:hover
+      text-decoration: none
+
+  &__user-icon-wrapper
+    overflow: hidden
+    width: 36px
+    height: 36px
+    margin-right: 16px
+    border-radius: 50%
+
+  &__user-icon
+    width: 36px
+    height: 36px
+    object-fit: cover
+
+  &__content
+    overflow: hidden
+    flex: 1
+    width: 100%
+
+  &__date
+    font-size: 12px
+    float: right
+    margin-bottom: 0
+    padding-left: 8px
+    white-space: nowrap
+    color: $sub-color
+
+  &__text
+    font-size: 14px
+    margin-bottom: 4px
+    color: $base-color
+
+  &__name
+    display: block
+    color: $base-color
+
+  &__name--name
+    font-weight: bold
+
+  &__like
+    font-weight: bold
+    color: $danger-color
+
+  &__entry
+    +ellipsis
+    white-space: pre-line
+    width: 100%
+    margin-bottom: 4px
+    color: $link-color

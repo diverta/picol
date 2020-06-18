@@ -1,0 +1,43 @@
+// +no-text
+=no-text
+  overflow: hidden
+  white-space: nowrap
+  text-indent: 100%
+
+// +clear
+=clear
+  &:after
+    display: block
+    clear: both
+    content: ''
+
+// +hover
+=hover
+  transition: opacity .2s linear
+  opacity: 1
+  &:hover
+    cursor: pointer
+    opacity: .5
+
+// +ellipsis
+=ellipsis
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
+// +background
+=background
+  &::before
+    position: fixed
+    z-index: -1
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    content: ''
+    background: $background-color url('/assets/images/background.svg') center 10% no-repeat
+    background-size: 140% auto
+    @media screen and (min-width: $pc-width)
+      background-repeat: repeat
+      background-position: 0 0
+      background-size: 50% auto

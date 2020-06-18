@@ -1,0 +1,122 @@
+.p-mypage
+  padding-top: 14px
+  @media screen and (min-width: $pc-width)
+    padding-top: 72px
+
+  &__profile
+    position: relative
+    margin-right: 16px
+    margin-bottom: 14px
+    margin-left: 16px
+    padding: 32px 16px 16px
+    border-radius: 8px
+    background: rgba($white-color, .9)
+    @media screen and (min-width: $pc-width)
+      display: flex
+      justify-content: space-between
+      margin-right: 0
+      margin-left: 0
+      margin-bottom: 24px
+
+  &__profile-body
+    display: flex
+    align-items: flex-start
+    margin-bottom: 16px
+    @media screen and (min-width: $pc-width)
+      flex: 1
+      margin-right: 24px
+
+  &__icon-wrapper
+    overflow: hidden
+    width: 72px
+    height: 72px
+    margin-right: 16px
+    border-radius: 50%
+
+  &__icon
+    width: 72px
+    height: 72px
+    object-fit: cover
+
+  &__account
+    font-family: $alphabet-font-family
+    font-size: 20px
+    margin-bottom: 6px
+
+  &__facility
+    font-size: 14px
+    margin-bottom: 6px
+    color: $sub-color
+
+  &__entry
+    font-size: 14px
+    margin-bottom: 6px
+
+  &__entry-number
+    font-weight: bold
+    color: $key-color
+
+  &__menu
+    flex-wrap: wrap
+    display: flex
+    margin-bottom: 0
+    padding-left: 0
+    list-style: none
+    @media screen and (min-width: $pc-width)
+      width: 320px
+
+  %menu-item
+    margin-bottom: 16px
+
+  &__menu-item
+    @extend %menu-item
+
+    &--edit
+      @extend %menu-item
+      width: 100%
+      text-align: center
+      .p-mypage
+        &__menu-link
+          padding: 5px
+          border: 2px solid $link-color
+          border-radius: 8px
+
+    &--like
+      @extend %menu-item
+      width: 50%
+      .p-mypage
+        &__menu-link
+          font-size: 13px
+          font-weight: bold
+          display: flex
+          align-items: center
+          padding-right: 8px
+          &::before
+            width: 28px
+            height: 24px
+            margin-right: 8px
+            content: ''
+            background: url('/assets/images/icon_like_on.svg') center center no-repeat
+            background-size: contain
+
+    &--comment
+      @extend %menu-item
+      width: 50%
+      .p-mypage
+        &__menu-link
+          font-size: 13px
+          font-weight: bold
+          display: flex
+          align-items: center
+          padding-right: 8px
+          &::before
+            width: 28px
+            height: 24px
+            margin-right: 8px
+            content: ''
+            background: url('/assets/images/icon_comment_on.svg') center center no-repeat
+            background-size: contain
+
+  &__menu-link
+    font-weight: bold
+    display: block

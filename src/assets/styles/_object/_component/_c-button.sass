@@ -1,0 +1,25 @@
+%button
+  font-size: 16px
+  font-weight: bold
+  display: flex
+  align-items: center
+  justify-content: center
+  width: 100%
+  min-height: 56px
+  margin-bottom: 12px
+  padding: 0
+  text-decoration: none
+  color: $link-color
+  border: 2px solid $link-color
+  border-radius: 8px
+  background: $white-color
+  &:hover
+    text-decoration: none
+
+.c-button
+  @extend %button
+
+  &--primary
+    @extend %button
+    color: $white-color
+    background: $link-color

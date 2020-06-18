@@ -1,0 +1,81 @@
+.c-enquete-list
+  position: relative
+  margin: 14px 12px
+  @media screen and (min-width: $pc-width)
+    margin-top: 0
+    margin-right: 0
+    margin-left: 0
+
+  &__items
+    padding-left: 0
+    list-style: none
+    @media screen and (min-width: $pc-width)
+      flex-wrap: wrap
+      display: flex
+      margin-right: -12px
+      margin-left: -12px
+
+  &__item
+    border-radius: 8px
+    @media screen and (min-width: $pc-width)
+      width: calc(50% - 24px)
+      margin-right: 12px
+      margin-bottom: 24px
+      margin-left: 12px
+
+  &__body
+    display: block
+    margin-bottom: 8px
+    padding: 8px 16px
+    color: $sub-color
+    border-radius: 8px
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      padding-top: 12px
+      padding-bottom: 12px
+
+  &__link
+    position: relative
+    display: block
+    margin-bottom: 8px
+    padding: 8px 16px
+    color: $base-color
+    border-radius: 8px
+    background: $white-color
+    &:hover
+      text-decoration: none
+      color: $base-color
+    &::before
+      position: absolute
+      top: 0
+      right: 12px
+      bottom: 0
+      width: 6px
+      height: 6px
+      margin: auto 0
+      content: ''
+      transform: rotate(45deg)
+      border-top: 2px solid $link-color
+      border-right: 2px solid $link-color
+    @media screen and (min-width: $pc-width)
+      padding-top: 12px
+      padding-bottom: 12px
+
+  &__status
+    font-family: $alphabet-font-family
+    font-size: 12px
+    font-weight: bold
+    display: inline-block
+    margin-bottom: 6px
+    padding: 2px 12px 1px
+    color: $white-color
+    border-radius: 8px
+    background: #ffbe4d
+    @media screen and (min-width: $pc-width)
+      margin-bottom: 8px
+    &.is-finish
+      background: #d7dadd
+
+  &__name
+    margin-bottom: 0
+
