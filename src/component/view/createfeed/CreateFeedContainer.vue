@@ -8,9 +8,12 @@
         <div class="p-post__content">
           <CreateFeedContainerFiles
             v-if="helper"
-            :helper="helper"
+            :renderSource="helper.renderSource"
+            :mediaType="helper.mediaType"
+            :imageRotationStyles="imageRotationStyles"
             :vimeo="initializedWith === 'video'"
-            @change="(state) => (postingState = state)"
+            @change="handleOnMediaInputChange"
+            @delete="(idx) => helper.remove(idx)"
           />
           <CreateFeedContainerCaption :commentInput.sync="commentInput" />
         </div>
@@ -65,6 +68,7 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
   initializedWith: null | PostFileHelper['mediaType'] = null;
   POSTING_STATUS = POSTING_STATUS;
   postingState: POSTING_STATUS = POSTING_STATUS.PRE;
+  imageRotationStyles = this.helper ? this.helper.renderSource.map(() => ({ transform: 'none' })) : [];
 
   // METHODS
   async readFeeds(topicsID: string) {
@@ -91,6 +95,55 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
     }
 
     return res;
+  }
+  handleOnMediaInputChange(e: Event, idx: number) {
+    const newFile = (e.target as any).files[0];
+    if (newFile === undefined) {
+      return;
+    }
+
+    // checking does whether this file have a proper extension.
+    if (!util.File.isProperFile({ file: newFile })) {
+      window.alert(`${newFile.name} の拡張子は対応していません。`);
+      return;
+    }
+    const mediaType = util.File.getFileType(newFile.name);
+
+    // confirm if the data is not matching types of previous files.
+    if (
+      this.helper.renderSource.some((d) => d !== null) &&
+      ((mediaType === 'image' && this.helper.mediaType === 'video' && this.helper._source.video.length !== 0) ||
+        (mediaType === 'video' && this.helper.mediaType === 'image' && this.helper._source.image.length !== 0))
+    ) {
+      const result = window.confirm(`
+        画像/動画は同時に投稿できません。
+        このファイルをアップロードする代わりに、
+        アップロード済みの${this.helper.mediaType === 'video' ? '動画' : '写真'}ファイルを削除してよろしいですか？
+      `);
+      if (result === false) {
+        return;
+      }
+    }
+    this.helper.mediaType = mediaType;
+
+    this.postingState = POSTING_STATUS.LOADING;
+    const prms =
+      mediaType === 'video'
+        ? this.helper.adoptVideo(newFile, mediaType)
+        : this.helper.adoptImage(newFile, mediaType, idx);
+    prms
+      // fix rotations
+      .then(() => {
+        if (mediaType === 'image') {
+          util.getOrientation(newFile, (orientationValue: number) => {
+            this.imageRotationStyles[idx] = {
+              transform: util.getTransformValueByExifOrientationInfo(orientationValue),
+            };
+          });
+        }
+      })
+      .then(() => (this.postingState = POSTING_STATUS.COMPLETE))
+      .catch((e) => (this.postingState = POSTING_STATUS.ERROR));
   }
 
   // LIFECYCLE HOOKS
