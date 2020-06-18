@@ -46,7 +46,12 @@ class User extends VuexModule implements IUserState {
   }
 
   @Action({ rawError: true })
-  async initialize({ member_id }: { member_id: number }) {
+  async initialize(query: { member_id?: number }) {
+    let member_id = query.member_id;
+    if (member_id === undefined) {
+      member_id = (await this.apis.authentication.getAuthenticationServiceRcmsApi1Profile({})).member_id as number;
+    }
+
     this.UPDATE_SELF_USER_MEMBER_ID(member_id);
     await this.readMemberInfos({ id: [member_id] });
   }

@@ -114,5 +114,10 @@ export default class MyPage extends Vue {
         e === CONSTANTS.APP_ERROR.NO_DATA ? $state.complete() : $state.error();
       });
   }
+
+  // LIFECYCLE HOOKS
+  mounted() {
+    this.UserStateModule.initialize({});
+  }
 }
 </script>

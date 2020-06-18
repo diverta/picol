@@ -1,8 +1,8 @@
-import { FeedStateModule, UserStateModule } from '@/store';
+import { AuthenticationService, LocalStorage } from '@/kuroco_api';
+import { Auth } from '@/kuroco_api/core/Auth';
+import { UserStateModule } from '@/store';
 import Vue from 'vue';
 import Router from 'vue-router';
-import { Auth } from '@/kuroco_api/core/Auth';
-import { AuthenticationService, MembersService, LocalStorage } from '@/kuroco_api';
 
 /**
  * makes Vue render snackbar.
