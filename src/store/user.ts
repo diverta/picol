@@ -39,13 +39,6 @@ class User extends VuexModule implements IUserState {
     };
   }
 
-  get getSmallImage(): (memberId: number) => string {
-    return (memberId) => {
-      const user = this.users.find(({ member_id }) => member_id === memberId) || ({} as any);
-      return !!user && user.image_s_exist === true ? (user.image_s_url as string) : CONSTANTS.UNKNOWN_USER_IMAGE_PATH;
-    };
-  }
-
   get myImage(): string {
     return !!this.selfUser && this.selfUser.image_exist === true
       ? (this.selfUser.image_url as string) + '&v=' + Math.random() // remove cache
