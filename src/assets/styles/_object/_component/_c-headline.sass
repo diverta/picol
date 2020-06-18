@@ -1,0 +1,32 @@
+.c-headline
+  font-size: 16px
+  font-weight: bold
+  position: fixed
+  z-index: $z-index-header
+  top: 0
+  right: 80px
+  left: 80px
+  display: flex
+  align-items: center
+  justify-content: center
+  height: $header-height - 1
+  margin-bottom: 0
+  color: $key-color
+  background: $white-color
+  @media screen and (min-width: $pc-width)
+    font-size: 24px
+    position: static
+    display: block
+    margin-bottom: 56px
+    text-align: left
+    background: none
+  &::before
+    position: absolute
+    top: 0
+    bottom: 0
+    left: -80px
+    width: 80px
+    content: ''
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      display: none

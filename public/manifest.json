@@ -1,0 +1,15 @@
+{
+  "name": "Picol",
+  "short_name": "Picol",
+  "icons": [
+    {
+      "src": "./assets/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#007bbb",
+  "background_color": "#ffffff"
+}

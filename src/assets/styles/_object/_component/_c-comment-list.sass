@@ -1,0 +1,30 @@
+.c-comment-list
+  margin-bottom: 16px
+
+  &__item
+    font-size: 0
+    display: grid
+    grid-template-columns: auto 1fr 1rem
+    padding: 0.3rem
+    margin-bottom: 0
+    border-top: 1px dashed rgba(0, 0, 0, 0.1)
+
+  &__name
+    font-family: $alphabet-font-family
+    font-size: 14px
+    font-weight: bold
+    display: inline
+    word-break: break-word
+    margin: auto 0
+
+  &__name-link
+    margin-right: 8px
+    color: $base-color
+    &:hover
+      color: $base-color
+
+  &__comment
+    font-size: 14px
+    display: inline
+    word-break: break-word
+    margin-bottom: 0

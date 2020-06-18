@@ -1,0 +1,72 @@
+.p-reading
+  position: fixed
+  z-index: $z-index-overlay
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  background: $white-color
+
+  &__header
+    position: relative
+    height: $header-height
+    border-bottom: 1px solid $border-color
+    background: $white-color
+
+  &__headline
+    font-size: 16px
+    font-weight: bold
+    position: fixed
+    z-index: $z-index-header
+    top: 0
+    right: 80px
+    left: 80px
+    display: flex
+    align-items: center
+    justify-content: center
+    height: $header-height - 1
+    margin-bottom: 0
+    color: $key-color
+    background: $white-color
+
+  &__body
+    -webkit-overflow-scrolling: touch //sass-lint:disable-line no-vendor-prefixes
+    position: relative
+    overflow-y: auto
+    height: calc(100vh - #{$header-height})
+    padding: 32px 16px
+
+  &__body-inner
+    @media screen and (min-width: $pc-width)
+      width: $content-max-width
+      margin-left: auto
+      margin-right: auto
+
+  &__close
+    +no-text
+    position: absolute
+    top: 0
+    right: 8px
+    bottom: 0
+    width: 32px
+    height: 32px
+    margin-top: auto
+    margin-bottom: auto
+    text-indent: 32px
+    &::before,
+    &::after
+      position: absolute
+      top: 0
+      right: 0
+      bottom: 0
+      left: 0
+      display: block
+      width: 16px
+      height: 2px
+      margin: auto
+      content: ''
+      background: $sub-color
+    &::before
+      transform: rotate(45deg)
+    &::after
+      transform: rotate(-45deg)

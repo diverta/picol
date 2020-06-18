@@ -1,0 +1,14 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": false,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "editor.renderControlCharacters": true,
+  "breadcrumbs.enabled": true,
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.updateImportsOnFileMove.enabled": "always"
+}

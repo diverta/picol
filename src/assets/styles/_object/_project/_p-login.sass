@@ -1,0 +1,105 @@
+.p-login
+  position: relative
+  display: flex
+  align-items: center
+  min-height: 100vh
+  padding-top: 50px
+  padding-bottom: 50px
+  @media screen and (min-width: $pc-width)
+    width: $modal-max-width + 64
+    margin-left: auto
+    margin-right: auto
+
+  &__body
+    position: relative
+    overflow: hidden
+    width: 100%
+    margin-right: 32px
+    margin-left: 32px
+    padding: 24px
+    border-radius: 8px
+    background: rgba(#fff, .9)
+
+  &__logo-wrapper
+    margin-bottom: 64px
+
+  &__logo
+    display: block
+    width: 80px
+    height: 15px
+
+  &__headline
+    @extend %headline
+
+  &__lead
+    @extend %lead
+
+  &__input
+    @extend %input
+
+  &__submit
+    @extend %submit
+
+  &__forget-wrapper
+    margin-bottom: 40px
+    text-align: center
+
+  &__forget
+    font-family: $alphabet-font-family
+    font-size: 11px
+    color: $link-color
+
+  &__oauth-list
+    display: flex
+    justify-content: center
+    width: 100%
+    margin-bottom: 20px
+    padding-left: 0
+    list-style: none
+
+  &__oauth-item
+    margin-right: 6px
+    margin-left: 6px
+
+  &__oauth-link
+    appearance: none
+    padding: 0
+    cursor: pointer
+    border: 0
+    background-color: transparent
+
+  &__oauth-image
+    display: block
+    width: 36px
+
+  &__corporate-logo-wrapper
+    position: absolute
+    right: 0
+    bottom: 20px
+    left: 0
+
+  &__help-wrapper
+    margin-bottom: 0
+    text-align: center
+
+  &__help
+    font-size: 10px
+    &::before
+      display: inline-block
+      width: 15px
+      height: 19px
+      margin-right: 4px
+      content: ''
+      vertical-align: -4px
+      background: url('/assets/images/icon_help.svg') center center no-repeat
+      background-size: contain
+
+  &__corporate-logo
+    +no-text
+    display: block
+    width: 64px
+    height: 12px
+    margin-right: auto
+    margin-left: auto
+    background: url('/assets/images/logo_diverta.svg') center center no-repeat
+    background-size: contain

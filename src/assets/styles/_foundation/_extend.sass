@@ -1,0 +1,85 @@
+%headline
+  font-family: $alphabet-font-family
+  font-size: 25px
+  font-weight: bold
+  margin-bottom: 0
+  color: $key-color
+
+%lead
+  font-family: $alphabet-font-family
+  font-size: 13px
+  font-weight: normal
+  margin-top: -4px
+  margin-bottom: 48px
+  color: $sub-color
+
+%input
+  font-family: $alphabet-font-family
+  font-size: 16px
+  font-weight: bold
+  width: 100%
+  margin-bottom: 32px
+  padding: 6px 0
+  border: 0
+  border-bottom: 2px solid $border-color
+  outline: 0
+  background: none
+  &::placeholder
+    font-weight: normal
+    opacity: .5
+  &:focus
+    border-bottom-color: #f66b9c
+    &::placeholder
+      opacity: 0
+
+%submit
+  font-family: $alphabet-font-family
+  font-size: 14px
+  font-weight: bold
+  display: block
+  width: 215px
+  height: 42px
+  margin-right: auto
+  margin-bottom: 12px
+  margin-left: auto
+  text-align: center
+  color: $white-color
+  border: 0
+  border-radius: 8px
+  background: $key-color
+
+%header-prev-wrapper
+  position: fixed
+  z-index: $z-index-header
+  top: 0
+  left: 0
+  width: 176px
+  height: $header-height - 1
+  background: $white-color
+  @media screen and (min-width: $pc-width)
+    display: none
+
+%header-prev
+  +no-text
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 8px
+  width: 32px
+  height: 32px
+  margin-top: auto
+  margin-bottom: auto
+  &::before
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 12px
+    display: block
+    width: 10px
+    height: 10px
+    margin-top: auto
+    margin-bottom: auto
+    content: ''
+    transform: rotate(45deg)
+    border-bottom: 2px solid $key-color
+    border-left: 2px solid $key-color

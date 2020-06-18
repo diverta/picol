@@ -1,0 +1,108 @@
+.p-search
+  margin-bottom: 32px
+  padding-bottom: 1px
+  @media screen and (min-width: $pc-width)
+    margin-bottom: 16px
+    background: none
+
+  &__header
+    @media screen and (min-width: $pc-width)
+      height: 40px
+      position: relative
+      margin-bottom: 1em
+
+  &__header-body
+    position: fixed
+    z-index: $z-index-header
+    top: 0
+    right: 0
+    left: 0
+    padding: 16px
+    background: $white-color
+    @media screen and (min-width: $pc-width)
+      top: $header-height
+      width: $content-max-width
+      margin-right: auto
+      margin-left: auto
+      padding-right: 0
+      padding-left: 0
+    &::before
+      @media screen and (min-width: $pc-width)
+        position: absolute
+        z-index: 0
+        top: 0
+        left: 50%
+        width: 100vw
+        height: 100%
+        margin-left: -50vw
+        content: ''
+        background: $white-color
+
+  &__search-wrapper
+    position: relative
+    display: flex
+
+  &__search
+    font-size: 16px
+    flex: 1
+    width: 100%
+    height: 32px
+    padding: 0 16px 0 36px
+    border: 0
+    border-radius: 8px
+    background: $background-color
+    @media screen and (min-width: $pc-width)
+      height: 44px
+    &::placeholder
+      font-size: 14px
+      font-weight: normal
+      opacity: .5
+    &:focus
+      &::placeholder
+        opacity: 0
+
+  &__search-submit
+    +no-text
+    position: absolute
+    top: 0
+    bottom: 0
+    left: 16px
+    width: 14px
+    height: 14px
+    margin: auto 0
+    padding: 0
+    border: 0
+    background: url('/assets/images/icon_search.svg') center center no-repeat
+    background-size: contain
+    &.is-disabled
+      pointer-events: none
+
+  &__search-cancel
+    margin-left: 8px
+    padding: 0
+    color: $link-color
+
+  &__title
+    @media screen and (min-width: $pc-width)
+      font-size: 18px
+      margin-bottom: 16px
+
+  &__sub-content
+    background: $white-color
+    position: relative
+    z-index: 1
+    padding: 1em 0 1px 0
+    @media screen and (min-width: $pc-width)
+      margin-top: -24px
+      margin-bottom: 24px
+    &::before
+      @media screen and (min-width: $pc-width)
+        position: absolute
+        z-index: -1
+        top: 0
+        left: 50%
+        width: 100vw
+        height: 100%
+        margin-left: -50vw
+        content: ''
+        background: $white-color

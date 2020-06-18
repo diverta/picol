@@ -1,0 +1,50 @@
+.c-comment-field
+  display: flow-root
+  @media screen and (min-width: $pc-width)
+    margin-bottom: 8px
+
+  &__form
+    display: flex
+    align-items: flex-end
+
+  &__icon
+    width: 28px
+    height: 28px
+    margin-top: 4px
+    margin-right: 16px
+    margin-bottom: 4px
+    margin-left: 16px
+    object-fit: cover
+    border-radius: 50%
+
+  &__textarea
+    font-family: $alphabet-font-family
+    font-size: 16px
+    flex: 1
+    min-height: 2em
+    padding-top: 4px
+    padding-bottom: 4px
+    word-break: break-all
+    &:empty
+      &::before
+        font-size: 14px
+        content: attr(data-placeholder)
+        color: $border-color
+    &:focus
+      &::before
+        display: none
+
+  &__submit
+    min-width: 4em
+    font-size: 14px
+    font-weight: bold
+    height: 32px
+    margin-right: 16px
+    margin-bottom: 4px
+    margin-left: 16px
+    padding: 0
+    color: $link-color
+    border: 0
+    background: none
+    &.is-disabled
+      color: $border-color

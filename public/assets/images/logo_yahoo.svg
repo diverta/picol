@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="36" viewBox="0 0 36 36">
+  <defs>
+    <pattern id="pattern" preserveAspectRatio="none" width="100%" height="100%" viewBox="0 0 128 72">
+      <image width="128" height="72" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAABICAMAAAAJWw0gAAAAM1BMVEUAAAD/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADP/ADNdYiPhAAAAEHRSTlMAv++AMBBAz2CP3yCfcK9QDfC23gAAAlxJREFUeF7tmduS4yAQQ5v71cD/f+3WzENq1iq724Rl9iHnmYBiq4VSoS8+fPigxhPcLwvQtJ7xBPXbAhKtx1Slue+tVDLGdG/pX2G9MSoMZIRCK3Ay7fYYQKcVxKFrF0nQYHxHFzQlwnyvHV+0WCYUtPcGWH+f+do1HJZTAFscFyvTuAA/3ccPcvLM6zqhLbOQT4563rL2JwqCY54V9wIow4JMN5hxol6P7/Ea3zO5Ge8upXq6o44TkfFNP/lBmV5u3dL4GwptIH1oATwWmNlGXAAbiEfHwILCDhZSNNhAFh7BEgD5GgjgLR5F51cnSSxPAiLYgD9fR0LI4VCJSGAD7vxgZV+lkIwmGp2o4fEzQ21IiAsC7x68SbQ4A9FcrHkqb5EOm8jpTH64IMiJ9E6vPW4H2GbW13gRFXpEu6nFXUuCzYocKDdix/jXXX61ZkeAxIiYR6699rR0R+DzlDci5lEB+11QGAdOJGL9a0Cbe2Jju+Tna/yZfo9cnGgKd7aBke/oIEZm8AOQWipClE9hZs+nCik2R5g8n/TEJcA3NLmjPNSQWQ5JsUYSU0MmZ1Hu6Aw1ZJkPFQmwUEM2CzjAgZsFBFi+V0CBGrJZQAQHbhbQoIbsFeAgM3cLOBSs3TwF5GLTY9idApAeabcAZL+Aj4DYaTEJBDAhrJOlhbgMAni5OXW36vw2QICsyAdP7+MTVkKtkjHGe2+ZAldoGu99NKaFwZIjNLEV01KHCOw7fVEXV7MC1KIqmIcYB0VoxUUMxr8ijJN5jFryV69Hj8vxKUMV241NudD/zYc/9TOOEdmQQFQAAAAASUVORK5CYII="/>
+    </pattern>
+  </defs>
+  <g id="グループ化_26" data-name="グループ化 26" transform="translate(-291 -527)">
+    <g id="グループ化_21" data-name="グループ化 21">
+      <rect id="長方形_106" data-name="長方形 106" width="36" height="36" rx="8" transform="translate(291 527)" fill="#f5f5f5"/>
+    </g>
+    <rect id="yahoo_japan_icon_128" width="24" height="14" transform="translate(297 538)" fill="url(#pattern)"/>
+  </g>
+</svg>
