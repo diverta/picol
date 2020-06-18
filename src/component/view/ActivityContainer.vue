@@ -48,7 +48,7 @@ export default class ActivityContainer extends Vue {
     return UserStateModule.selfUser;
   }
   get getAvaterSrc() {
-    return UserStateModule.getSmallImage;
+    return UserStateModule.getImage;
   }
 
   // METHODS
