@@ -51,7 +51,9 @@ export default class FeedContentImageWrapper extends Vue {
 
   // METHODS
   handleOnClickMedia(e: any) {
-    this.$router.push({ name: 'feedDetail', query: { topics_id: `${this.feed.topics_id}` } });
+    if (this.$route.path !== '/sub/feed') {
+      this.$router.push({ name: 'feedDetail', query: { topics_id: `${this.feed.topics_id}` } });
+    }
   }
 }
 </script>
