@@ -8,10 +8,13 @@
         <div class="p-post__content">
           <CreateFeedContainerFiles
             v-if="helper"
-            :renderSource="helper.renderSource"
-            :mediaType="helper.mediaType"
-            :imageRotationStyles="imageRotationStyles"
-            :vimeo="initializedWith === 'video'"
+            v-bind="{
+              renderSource: helper.renderSource,
+              mediaType: helper.mediaType,
+              imageRotationStyles,
+              vimeo: initializedWith === 'video' && !updated,
+              postingState,
+            }"
             @change="handleOnMediaInputChange"
             @delete="(idx) => helper.remove(idx)"
           />
@@ -28,7 +31,7 @@
 <script lang="ts">
 import Post from '@/component/view/Post.vue';
 
-import CreateFeedContainerFiles, { POSTING_STATUS } from './CreateFeedContainerFiles.vue';
+import CreateFeedContainerFiles from './CreateFeedContainerFiles.vue';
 import CreateFeedContainerCaption from '@/component/view/createfeed/CreateFeedContainerCaption.vue';
 import CreateFeedContainerTags from '@/component/view/createfeed/CreateFeedContainerTags.vue';
 import CreateFeedContainerActions, {
@@ -69,6 +72,7 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
   POSTING_STATUS = POSTING_STATUS;
   postingState: POSTING_STATUS = POSTING_STATUS.PRE;
   imageRotationStyles = this.helper ? this.helper.renderSource.map(() => ({ transform: 'none' })) : [];
+  updated: boolean = false;
 
   // METHODS
   async readFeeds(topicsID: string) {
@@ -141,6 +145,7 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
             };
           });
         }
+        this.updated = true;
       })
       .then(() => (this.postingState = POSTING_STATUS.COMPLETE))
       .catch((e) => (this.postingState = POSTING_STATUS.ERROR));
@@ -173,5 +178,12 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
         break;
     }
   }
+}
+
+export enum POSTING_STATUS {
+  PRE = 'PRE',
+  COMPLETE = 'COMPLETE',
+  ERROR = 'ERROR',
+  LOADING = 'LOADING',
 }
 </script>
