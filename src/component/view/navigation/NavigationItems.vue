@@ -1,8 +1,8 @@
 <template>
   <nav class="l-navigation">
     <ul class="l-navigation__items">
-      <li class="l-navigation__item" v-for="({ name, title }, idx) in navigationItems" :key="idx">
-        <router-link-ext v-if="$route.name !== name" :to="{ name }" exact>
+      <li class="l-navigation__item" v-for="({ name, title, hook }, idx) in navigationItems" :key="idx">
+        <router-link-ext v-if="$route.name !== name" :to="{ name }" :hook="hook" exact>
           <a :href="name" :class="[`l-navigation__button--${title.toLowerCase()}`]">{{ title }}</a>
         </router-link-ext>
         <a v-else href="javascript:void(0)" :class="[`l-navigation__button--${title.toLowerCase()}`, 'is-current']">{{
@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { UserStateModule } from '@/store';
+import { UserStateModule, FeedStateModule } from '@/store';
 import { CreateElement, VNode } from 'vue';
 import { Component, Vue } from 'vue-property-decorator';
 
@@ -30,7 +30,7 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class NavigationItems extends Vue {
   // FIELDS
   navigationItems = [
-    { name: 'feeds', title: 'HOME' },
+    { name: 'feeds', title: 'HOME', hook: FeedStateModule.clear },
     { name: 'search', title: 'SEARCH' },
     { name: 'post', title: 'POST' },
     {
