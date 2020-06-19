@@ -27,8 +27,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 export default class FeedContentTags extends Vue {
   // PROPS
   @Prop({ type: Array, default: () => [] })
-
-  // FIELDS
   tags!: TagModel.Read.Response.List[];
 }
 </script>

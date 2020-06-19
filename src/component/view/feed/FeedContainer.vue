@@ -8,7 +8,7 @@
       <FeedContentBody :feed="feed" />
       <FeedContentButtonsContainer :feed="feed" :onChangeFeed="onChangeFeed" />
       <FeedContentInfoStatuses :statuses="getFeedStatuses(feed)" />
-      <FeedContentTags :tags="getTag(feed.topics_id)" />
+      <FeedContentTags :tags="feed.tags" />
       <FeedContentComments
         :topicsID="feed.topics_id"
         :comments="getComment(feed.topics_id)"
@@ -64,9 +64,6 @@ export default class FeedContainer extends Vue {
   // MUTATIONS
   get getComment() {
     return (moduleId: number) => this.comments.filter((c) => c.module_id === moduleId);
-  }
-  get getTag() {
-    return TagStateModule.getTag;
   }
   get getFeedStatuses() {
     return (feed: FeedModel.Read.Response.Feed) => [
