@@ -2,7 +2,17 @@
   <div class="p-post__files">
     <div class="p-post__file" v-for="(source, idx) in renderSource" :key="idx">
       <div class="p-post__file-input-wrapper" :style="wrapperStyle">
-        <input type="file" class="p-post__file-input" @change.prevent="($event) => $emit('change', $event, idx)" />
+        <input
+          type="file"
+          class="p-post__file-input"
+          @change.prevent="($event) => $emit('change', $event, idx)"
+          @click="
+            (e) => {
+              e.target.value = null;
+              $emit('delete', idx);
+            }
+          "
+        />
         <CreateFeedContainerFilePreview
           v-bind="{
             ...$props,
