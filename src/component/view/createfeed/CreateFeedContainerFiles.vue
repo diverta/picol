@@ -8,7 +8,7 @@
             ...$props,
             source,
             additionalStyle: imageRotationStyles[idx],
-            vimeo: vimeo && !updated,
+            vimeo,
           }"
           @vimeoLoaded="(elm) => (vimeoElm = elm)"
         />
@@ -30,6 +30,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { TopicsService } from '@/kuroco_api';
 import truncate from 'lodash/truncate';
 import { PostFileHelper, util } from '@/util';
+import { POSTING_STATUS } from './CreateFeedContainer.vue';
 
 @Component<CreateFeedContainerFiles>({
   components: {
@@ -58,6 +59,11 @@ export default class CreateFeedContainerFiles extends Vue {
     required: true,
   })
   vimeo!: boolean;
+  @Prop({
+    type: String,
+    required: true,
+  })
+  postingState!: POSTING_STATUS;
 
   // MUTATIONS
   get wrapperStyle() {
@@ -68,7 +74,7 @@ export default class CreateFeedContainerFiles extends Vue {
     if (this.vimeo && this.postingState === POSTING_STATUS.LOADING) {
       return hidden;
     }
-    if (this.vimeo && !this.updated) {
+    if (this.vimeo) {
       return {
         paddingTop: this.vimeoElm ? `${this.vimeoElm.clientHeight}px` : '260px',
       };
@@ -80,14 +86,6 @@ export default class CreateFeedContainerFiles extends Vue {
   // FIELDS
   vimeoElm: Element | null = null;
   POSTING_STATUS = POSTING_STATUS;
-  postingState?: POSTING_STATUS;
-  updated = false;
-
-  // METHODS
-  @Watch('postingState')
-  emitpostingState(pre: POSTING_STATUS, cur: POSTING_STATUS) {
-    this.$emit('change', cur);
-  }
 }
 
 export interface CreateFeedContainerFilesInput {
@@ -99,12 +97,5 @@ enum ELEMENT_TYPE {
   IMAGE,
   VIDEO_VIMEO,
   VIDEO,
-}
-
-export enum POSTING_STATUS {
-  PRE = 'PRE',
-  COMPLETE = 'COMPLETE',
-  ERROR = 'ERROR',
-  LOADING = 'LOADING',
 }
 </script>

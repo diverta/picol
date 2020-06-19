@@ -1,5 +1,6 @@
 import { Uploader, UploaderFactory } from '@/kuroco_api/core/Uploader';
 import { FeedModel } from '@/type';
+import { Vue } from 'vue-property-decorator';
 
 export class PostFileHelper {
   uploader!: Uploader;
@@ -71,7 +72,7 @@ export class PostFileHelper {
       file_nm: file.name,
       url,
     };
-    this._source[fileType][idx] = source;
+    Vue.set(this._source[fileType], idx, source);
     this.mediaType = fileType;
   }
   public remove(idx: number = 0) {
