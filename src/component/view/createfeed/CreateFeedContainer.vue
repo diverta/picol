@@ -114,19 +114,8 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
     const mediaType = util.File.getFileType(newFile.name);
 
     // confirm if the data is not matching types of previous files.
-    if (
-      this.helper.renderSource.some((d) => d !== null) &&
-      ((mediaType === 'image' && this.helper.mediaType === 'video' && this.helper._source.video.length !== 0) ||
-        (mediaType === 'video' && this.helper.mediaType === 'image' && this.helper._source.image.length !== 0))
-    ) {
-      const result = window.confirm(`
-        画像/動画は同時に投稿できません。
-        このファイルをアップロードする代わりに、
-        アップロード済みの${this.helper.mediaType === 'video' ? '動画' : '写真'}ファイルを削除してよろしいですか？
-      `);
-      if (result === false) {
-        return;
-      }
+    if (!this.helper.confirmOnAdopt(mediaType)) {
+      return;
     }
     this.helper.mediaType = mediaType;
 
@@ -140,9 +129,9 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
       .then(() => {
         if (mediaType === 'image') {
           util.getOrientation(newFile, (orientationValue: number) => {
-            this.imageRotationStyles[idx] = {
+            Vue.set(this.imageRotationStyles, idx, {
               transform: util.getTransformValueByExifOrientationInfo(orientationValue),
-            };
+            });
           });
         }
         this.updated = true;

@@ -58,27 +58,41 @@ export class PostFileHelper {
     this.source = mediasFromFeed;
     this.mediaType = mediasFromFeed.some((d) => d.type === 'video') ? 'video' : 'image';
   }
-  public async adoptVideo(file: File, fileType: 'video') {
-    await this.adopt(file, fileType);
+  public confirmOnAdopt(mediaType: this['mediaType']) {
+    if (this.mediaType === mediaType) {
+      return true;
+    }
+    if (this.renderSource.every((d) => !d)) {
+      return true;
+    }
+
+    return window.confirm(`
+      画像/動画は同時に投稿できません。
+      このファイルをアップロードする代わりに、
+      アップロード済みの${this.mediaType === 'video' ? '動画' : '写真'}ファイルを削除してよろしいですか？
+    `);
   }
-  public async adoptImage(file: File, fileType: 'image', idx: number = 0) {
-    await this.adopt(file, fileType, idx);
+  public async adoptVideo(file: File, mediaType: 'video') {
+    await this.adopt(file, mediaType);
   }
-  public async adopt(file: File, fileType: 'image' | 'video', idx: number = 0) {
+  public async adoptImage(file: File, mediaType: 'image', idx: number = 0) {
+    await this.adopt(file, mediaType, idx);
+  }
+  public async adopt(file: File, mediaType: this['mediaType'], idx: number = 0) {
     const { url, file_id } = await this.uploader.upload(file, idx);
     const source: PostFileHelper.FileData = {
-      type: fileType,
+      type: mediaType,
       file_id,
       file_nm: file.name,
       url,
     };
-    Vue.set(this._source[fileType], idx, source);
-    this.mediaType = fileType;
+    Vue.set(this._source[mediaType], idx, source);
+    this.mediaType = mediaType;
   }
   public remove(idx: number = 0) {
     this._source[this.mediaType].splice(idx, 1, null);
   }
-  public format2requestData(mediaType: 'image' | 'video', shouldNotRequest: boolean) {
+  public format2requestData(mediaType: this['mediaType'], shouldNotRequest: boolean) {
     const src = this._source[mediaType];
     const orig = this._originalSource[mediaType];
     const length = Math.max(src.length, orig.length);
