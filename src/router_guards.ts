@@ -1,8 +1,8 @@
-import { AuthenticationService, LocalStorage } from '@/kuroco_api';
+import { AuthenticationService, LocalStorage, TopicsService } from '@/kuroco_api';
 import { Auth } from '@/kuroco_api/core/Auth';
 import { UserStateModule } from '@/store';
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, { Route } from 'vue-router';
 
 /**
  * makes Vue render snackbar.
@@ -19,13 +19,19 @@ const dispatchRenderSnackbar = (text: string) => {
 };
 
 /**
+ * returns shuold except custom routing guard.
+ */
+const except = (to: Route, exceptionPaths: string[]) => exceptionPaths.some((p) => p === to.path);
+
+/**
  * returns val is empty.
  * @param val any value.
  */
 const isEmpty = (val: any) => val === null || val === undefined || val === '';
 
 const pagePaths = {
-  initial: '/sub/login',
+  login: '/sub/login',
+  feedDetailPreview: '/sub/feed/preview',
   myPage: '/sub/mypage',
 };
 
@@ -41,7 +47,7 @@ const execApplyQueryInfo = (router: Router): void => {
       // in SAML login, the server returns URI which is appended grant_token.
       if (grant_token) {
         await Auth.createToken({ requestBody: { grant_token: grant_token as string } }).catch((err) => {
-          next({ path: pagePaths.initial });
+          next({ path: pagePaths.login });
           return;
         });
       }
@@ -64,9 +70,10 @@ const execApplyQueryInfo = (router: Router): void => {
  */
 const guardNoTokenUsers = (router: Router): void => {
   router.beforeEach(async (to, from, next) => {
-    if (to.path !== pagePaths.initial && isEmpty(LocalStorage.getAccessToken())) {
+    const exceptionPaths = [pagePaths.login, pagePaths.feedDetailPreview];
+    if (!except(to, exceptionPaths) && isEmpty(LocalStorage.getAccessToken())) {
       dispatchRenderSnackbar('ログインしてください。');
-      next({ path: pagePaths.initial });
+      next({ path: pagePaths.login });
       return;
     }
     next();
@@ -80,7 +87,8 @@ const guardNoTokenUsers = (router: Router): void => {
  */
 const guardNoNicknameUsers = (router: Router): void => {
   router.beforeEach((to, from, next) => {
-    if (to.path !== pagePaths.initial && to.path !== pagePaths.myPage && isEmpty(UserStateModule.selfUser.nickname)) {
+    const exceptionPaths = [pagePaths.login, pagePaths.myPage, pagePaths.feedDetailPreview];
+    if (!except(to, exceptionPaths) && isEmpty(UserStateModule.selfUser.nickname)) {
       AuthenticationService.getAuthenticationServiceRcmsApi1Profile({})
         .then((res) => UserStateModule.initialize(res))
         .then(() => {
@@ -92,7 +100,7 @@ const guardNoNicknameUsers = (router: Router): void => {
         .catch(() => {
           dispatchRenderSnackbar('ログインしてください。');
           Auth.logout({}).finally(() => {
-            next({ path: pagePaths.initial });
+            next({ path: pagePaths.login });
           });
         });
     }
