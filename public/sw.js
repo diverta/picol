@@ -1,5 +1,5 @@
 self.addEventListener('fetch', e => {
-  const cache_url = e.request.url.substring(0,e.request.url.indexOf("GoogleAccessId"));
+  const cache_url = e.request.url.substring(0,e.request.url.indexOf("GoogleAccessId")-1);
 
   if (cache_url.indexOf('storage.googleapis.com') == -1) {
     return;
@@ -12,7 +12,7 @@ self.addEventListener('fetch', e => {
     caches.open(cache_nm).then(function (cache) {
       return cache.match(cache_url).then(function (response) {
         if (response) {
-          console.log(cache_url);
+          //console.log(cache_url);
           return response;
         } else {
           return fetch(e.request.clone()).then(function (response) {
