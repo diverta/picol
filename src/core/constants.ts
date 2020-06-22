@@ -20,7 +20,7 @@ export class CONSTANTS {
     NO_DATA: new Error('NO_DATA'),
   };
 
-  public static readonly UNKNOWN_IMAGE_PATH = `/assets/images/feed-catch-03.png`;
+  public static readonly UNKNOWN_IMAGE_PATH = `/assets/images/dummy_image.svg`;
   public static readonly UNKNOWN_USER_IMAGE_PATH = `/assets/images/dummy_icon_mypage.png`;
 }
 
