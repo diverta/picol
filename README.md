@@ -19,7 +19,7 @@ Please refer [deploy] if you want to know how to do it.
 ## Project setup && deploy to your Firebase in short
 
 ```
-npm install && npm run deploy
+npm install && npm run build
 ```
 
 ### for dev
@@ -36,7 +36,7 @@ just for reference, using configuration for Picol of Diverta.co.jp is located at
 
 #### deploy
 
-Just type `npm run deploy` if you already configured.
+Just type `npm run build && firebase deploy` if you already configured.
 
 You have not used fireabase hosting before,
 Please Initialize it.  
@@ -48,6 +48,7 @@ as:
 -> `? What do you want to use as your public directory?` : type `dist` directry  
 -> `? Configure as a single-page app (rewrite all urls to /index.html)? (y/N)` : y  
 -> `? File dist/index.html already exists. Overwrite? (y/N) ` N (optionally question)
+`firebase deploy`
 
 [Charles]: https://www.charlesproxy.com/
 [CharlesConfig]: ./etc/CharlesConfig.png
