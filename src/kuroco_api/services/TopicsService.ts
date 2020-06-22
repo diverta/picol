@@ -538,6 +538,47 @@ export class TopicsService {
     catchGenericError(result);
     return result.body;
   }
+  /**
+   *
+   * ### **Topics::preview (v1)**
+   *
+   *
+   * @param previewToken Preview token
+   * @param outputFormat Format (json|xml|csv)
+   * @param lang Language
+   * @param charset Charset
+   * @result any
+   * @throws ApiError
+   */
+  public static async getTopicsServiceRcmsApi1Preview(
+    requestParam: TopicsService.getTopicsServiceRcmsApi1PreviewRequest,
+  ): Promise<any> {
+    const shouldHookToken = Object.keys({}).length > 0;
+
+    const request = async () =>
+      await __request({
+        headers: shouldHookToken
+          ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
+          : {},
+        method: 'get',
+        path: `/rcms-api/1/preview`,
+        query: {
+          preview_token: requestParam.previewToken,
+          _output_format: requestParam.outputFormat,
+          _lang: requestParam.lang,
+          _charset: requestParam.charset,
+        },
+      });
+
+    let result = await request();
+
+    if (shouldHookToken && !result.ok && result.status === 401) {
+      result = await import('../core/Auth').then(({ Auth }) => Auth.retryRequest(request, result));
+    }
+
+    catchGenericError(result);
+    return result.body;
+  }
 }
 
 export namespace TopicsService {
@@ -932,4 +973,11 @@ export namespace TopicsService {
     id?: Array<number>;
   }
   export type getTopicsServiceRcmsApi1PreInfoResponse = any;
+  export interface getTopicsServiceRcmsApi1PreviewRequest {
+    previewToken: string;
+    outputFormat?: string;
+    lang?: string;
+    charset?: string;
+  }
+  export type getTopicsServiceRcmsApi1PreviewResponse = any;
 }
