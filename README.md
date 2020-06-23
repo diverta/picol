@@ -42,7 +42,7 @@ You have not used fireabase hosting before,
 Please Initialize it.  
 
 as:   
-`npm i -g firebase && firebase init`,  
+`npm i -g firebase-tools && firebase init`,  
 -> loggin  
 -> select firebase hosting  
 -> `? What do you want to use as your public directory?` : type `dist` directry  
