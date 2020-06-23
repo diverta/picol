@@ -1,6 +1,6 @@
 {
 	"sdk_key": "sdk_key",
-	"api_url": "https://test.kuroco-mng.app",
+	"management_url": "https://test.kuroco-mng.app",
 	"gcp": {
 		"firebaseConfig": {
 			"apiKey": "apiKey",
