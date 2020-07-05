@@ -1,6 +1,6 @@
 <template>
   <div class="c-log">
-    <p v-if="comments.length > 0" class="c-log__note">直近１ヶ月のACTIVITYを表示しています。</p>
+    <p v-if="comments.length > 0" class="c-log__note">{{ $t('description_of_activity') }}</p>
     <ul class="c-log__items">
       <li v-for="(data, idx) in comments" :key="idx" class="c-log__item">
         <router-link-ext :to="{ name: 'feedDetail', query: { topics_id: data.module_id } }" exact>
@@ -13,9 +13,9 @@
               <p class="c-log__text">
                 <span class="c-log__name">
                   <span class="c-log__name--name">{{ getUserName(data.member_id) }}</span
-                  >さんが、
+                  >{{ $t('sanga') }}
                 </span>
-                {{ getWitchPost(data) }}にコメントしました。
+                {{ getWitchPost(data) }} {{ $t('commented') }}
               </p>
               <p class="c-log__entry">{{ (data.note || '').trim() }}</p>
             </div>
@@ -55,10 +55,28 @@ export default class ActivityContainer extends Vue {
   getWitchPost(extendedComment: ExtendedCommentList) {
     switch (extendedComment.type) {
       case 'POSTED':
-        return 'あなたの投稿';
+        return this.$t('your_post');
       case 'FAV':
-        return 'あなたがいいね！した投稿';
+        return this.$t('your_favoraited_post');
     }
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "description_of_activity": "直近１ヶ月のACTIVITYを表示しています。",
+  "sanga": "さんが、",
+  "commented": "にコメントしました。",
+  "your_post": "あなたの投稿",
+  "your_favoraited_post": "あなたがいいね！した投稿"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "description_of_activity": "The activity for the last month.",
+  "sanga": "",
+  "commented": "commented.",
+  "your_post": "Your post",
+  "your_favoraited_post": "Your liked post"
+}
+</i18n>

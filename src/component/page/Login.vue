@@ -32,7 +32,7 @@
                 single-line
                 class="p-login__input"
               />
-              <button type="submit" class="p-login__submit" @click="submit">ログイン</button>
+              <button type="submit" class="p-login__submit" @click="submit">{{ $t('login') }}</button>
             </form>
           </div>
 
@@ -131,6 +131,27 @@ export default class Login extends Vue {
   },
   "notice": "下記のGSuiteログインはDiverta社員のみが可能です。\
   <br />社外の方は上記のGuestアカウントをご利用ください。",
-  "loginFailed": "ログインできませんでした。"
+  "loginFailed": "ログインできませんでした。",
+  "login": "ログイン"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "headline": "Private SNS \"Picol\"",
+  "lead": {
+    "header": "You can try the demo version of Picol. Please use the trial account below.<br /> \
+    <br /> \
+    Id: guest<br /> \
+    Password：guest528+<br /> \
+    <br /> \
+    [Notice]<br /> \
+    The service is updated from time to time. Although the actual Picol function is available and you can post, please post the article with the agreement that it will be published and deleted. If the posted content is against public order and morals, we may delete it at our discretion.<br /> \
+    If you have any questions about this service",
+    "link": "Please contact us",
+    "footer": ""
+  },
+  "notice": "The following G Suite SSO login are only available to Diverta employees.",
+  "loginFailed": "Login Failed.",
+  "login": "Login"
 }
 </i18n>

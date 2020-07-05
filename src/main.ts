@@ -79,7 +79,7 @@ new Vue({
   router,
   store,
   i18n: new VueI18n({
-    locale: 'ja',
+    locale: navigator.language == 'ja' ? 'ja' : 'en',
   }),
   render: (h) => h(App),
 }).$mount('#app');

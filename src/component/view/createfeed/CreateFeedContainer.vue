@@ -3,7 +3,7 @@
     <loading :active="postingState === 'LOADING'" :can-cancel="false" :is-full-page="true"></loading>
 
     <div class="p-post" v-if="initializedWith !== null">
-      <h1 class="p-post__title c-headline">投稿する</h1>
+      <h1 class="p-post__title c-headline">{{ $t('post') }}</h1>
       <div class="p-post__body">
         <div class="p-post__content">
           <CreateFeedContainerFiles
@@ -176,3 +176,13 @@ export enum POSTING_STATUS {
   LOADING = 'LOADING',
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "post": "投稿する"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "post": "Post"
+}
+</i18n>

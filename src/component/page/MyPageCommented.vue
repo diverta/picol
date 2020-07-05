@@ -15,9 +15,19 @@ import { TopicsService } from '@/kuroco_api';
 })
 export default class MyPageCommented extends Vue {
   // FIELDS
-  title = 'コメントした投稿';
+  title = this.$t('commented_post');
   query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {
     myCommentList: 1,
   };
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "commented_post": "コメントした投稿"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "commented_post": "Commented post"
+}
+</i18n>
