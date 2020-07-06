@@ -229,7 +229,33 @@ export namespace FavoritesService {
       /**
        * Module type
        */
-      module_type: string;
+      module_type:
+        | 'group'
+        | 'menu'
+        | 'accesscount'
+        | 'comment'
+        | 'inquiry'
+        | 'login'
+        | 'login_history'
+        | 'member'
+        | 'staticcontents'
+        | 'site'
+        | 'topics'
+        | 'memberregist'
+        | 'batch'
+        | 'mailtemplateedit'
+        | 'relation'
+        | 'csvtable'
+        | 'approvalflow'
+        | 'api_googleanalytics'
+        | 'onetime'
+        | 'magazine'
+        | 'tag'
+        | 'api_webpush'
+        | 'rcms_api'
+        | 'firebase'
+        | 'trigger'
+        | 'page';
       /**
        * module_id
        */
@@ -249,7 +275,33 @@ export namespace FavoritesService {
       /**
        * Module type
        */
-      module_type: string;
+      module_type:
+        | 'group'
+        | 'menu'
+        | 'accesscount'
+        | 'comment'
+        | 'inquiry'
+        | 'login'
+        | 'login_history'
+        | 'member'
+        | 'staticcontents'
+        | 'site'
+        | 'topics'
+        | 'memberregist'
+        | 'batch'
+        | 'mailtemplateedit'
+        | 'relation'
+        | 'csvtable'
+        | 'approvalflow'
+        | 'api_googleanalytics'
+        | 'onetime'
+        | 'magazine'
+        | 'tag'
+        | 'api_webpush'
+        | 'rcms_api'
+        | 'firebase'
+        | 'trigger'
+        | 'page';
       /**
        * module_id
        */
