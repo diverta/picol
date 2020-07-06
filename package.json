@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serve": "vue-cli-service serve --target app --port 8080",
     "build": "vue-cli-service build --target app",
     "build:watch": "vue-cli-service build --mode production --target app --watch",
     "build:dev": "vue-cli-service build --mode develop --target app",
