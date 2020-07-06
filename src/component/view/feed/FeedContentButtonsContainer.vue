@@ -57,7 +57,9 @@ export default class FeedContentButtonsContainer extends Vue {
       .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
   }
   handleClickRemove() {
-    if (window.confirm($t('are_you_sure_to_delete_this'))) {
+    const confrim_msg = this.$t('are_you_sure_to_delete_this') as string;
+
+    if (window.confirm(confrim_msg)) {
       FeedStateModule.removeFeed({ topicsId: this.feed.topics_id })
         .then(() => (this as any).$snack.success({ text: this.$t('deleted'), button: 'OK' }))
         .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
