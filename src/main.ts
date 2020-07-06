@@ -11,6 +11,7 @@ import InfiniteLoading from 'vue-infinite-loading';
 import VueSnackbar from 'vue-snack';
 import 'vue-snack/dist/vue-snack.min.css';
 import { CustomVuePlugin } from '@/util';
+import VueI18n from 'vue-i18n';
 
 import TinySpinner from '@/component/atom/TinySpinner.vue';
 import RouterLinkExt from '@/component/atom/RouterLinkExt.vue';
@@ -58,6 +59,7 @@ Vue.use(InfiniteLoading);
 Vue.use(Vuelidate);
 Vue.use(CustomVuePlugin);
 Vue.use(VueSnackbar, { position: 'bottom', time: 3000 });
+Vue.use(VueI18n);
 
 Vue.config.productionTip = false;
 
@@ -76,5 +78,8 @@ try {
 new Vue({
   router,
   store,
+  i18n: new VueI18n({
+    locale: navigator.language == 'ja' ? 'ja' : 'en',
+  }),
   render: (h) => h(App),
 }).$mount('#app');

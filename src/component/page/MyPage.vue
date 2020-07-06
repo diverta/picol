@@ -12,25 +12,25 @@
               <p class="p-mypage__account">{{ selfUser.nickname }}</p>
               <p class="p-mypage__facility">{{ selfUser.team_name }}</p>
               <p class="p-mypage__entry">
-                投稿
-                <span class="p-mypage__entry-number">{{ totalCntStr }} 件</span>
+                {{ $t('post') }}
+                <span class="p-mypage__entry-number">{{ $t('total') }}:{{ totalCntStr }}</span>
               </p>
             </div>
           </div>
           <ul class="p-mypage__menu">
             <li class="p-mypage__menu-item--edit">
-              <a href="#" class="p-mypage__menu-link" @click.prevent="() => (showsProfileEdit = true)"
-                >プロフィールを編集</a
-              >
+              <a href="#" class="p-mypage__menu-link" @click.prevent="() => (showsProfileEdit = true)">{{
+                $t('edit_profile')
+              }}</a>
             </li>
             <li class="p-mypage__menu-item--like">
               <router-link-ext :to="{ name: 'mypageFavorits' }" exact>
-                <a class="p-mypage__menu-link">いいね！した投稿</a>
+                <a class="p-mypage__menu-link">{{ $t('favorited_post') }}</a>
               </router-link-ext>
             </li>
             <li class="p-mypage__menu-item--comment">
               <router-link-ext :to="{ name: 'mypageCommented' }" exact>
-                <a href="#" class="p-mypage__menu-link">コメントした投稿</a>
+                <a href="#" class="p-mypage__menu-link">{{ $t('commented_post') }}</a>
               </router-link-ext>
             </li>
           </ul>
@@ -114,5 +114,28 @@ export default class MyPage extends Vue {
         e === CONSTANTS.APP_ERROR.NO_DATA ? $state.complete() : $state.error();
       });
   }
+
+  // LIFECYCLE HOOKS
+  mounted() {
+    this.UserStateModule.initialize({});
+  }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "post": "投稿",
+  "post_cnt": "総数",
+  "edit_profile": "プロフィール編集",
+  "favorited_post": "いいねした投稿",
+  "commented_post": "コメントした投稿"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "post": "Posted",
+  "post_cnt": "Total",
+  "edit_profile": "Edit profile",
+  "favorited_post": "Liked post",
+  "commented_post": "Commented post"
+}
+</i18n>

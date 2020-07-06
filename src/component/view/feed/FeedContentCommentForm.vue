@@ -19,7 +19,7 @@
         :disabled="isDisabled"
         :onclick="() => handleOnClickAdd(feed)"
       >
-        <span v-if="isProcessing === false">投稿する</span>
+        <span v-if="isProcessing === false">{{ $t('post') }}</span>
         <TinySpinner v-else></TinySpinner>
       </disable-dbclick-button>
     </div>
@@ -35,12 +35,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule } from '@/store';
 import { ServiceHelper } from '../../../util';
 import { CommentsService } from '@/kuroco_api/services/CommentsService';
-
-const errMsg = `
-        タグの投稿に失敗しました。
-        電波状況などが悪い可能性があります。
-        電波状況をご確認の上、再度お試しください。
-      `;
 
 @Component<FeedContentCommentForm>({})
 export default class FeedContentCommentForm extends Vue {
@@ -80,7 +74,7 @@ export default class FeedContentCommentForm extends Vue {
     if (inputStr.length > 140) {
       e.target.innerText = this.content;
       e.preventDefault();
-      (this as any).$snack.danger({ text: '本文は140文字以内で入力してください。', button: 'OK' });
+      (this as any).$snack.danger({ text: this.$t('place_holder'), button: 'OK' });
       return;
     }
     this.content = inputStr;
@@ -137,16 +131,14 @@ export default class FeedContentCommentForm extends Vue {
   feedPostComment(query: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
     return FeedStateModule.createComment(query)
       .then(() => {
-        (this as any).$snack.success({ text: 'コメントを追加しました。', button: 'OK' });
+        (this as any).$snack.success({ text: this.$t('error_occurred'), button: 'OK' });
         return Promise.resolve();
       })
       .catch((e: any) => {
         const isTooManyCommentsInShortTerm = /send many comments/gi.test(e.getValue(['response', 'data', 'errors', 0]));
 
         (this as any).$snack.danger({
-          text: isTooManyCommentsInShortTerm
-            ? '短期間に複数のリクエストがありました。\n時間をおいてから再度コメントしてください。'
-            : 'エラーが発生しました。',
+          text: isTooManyCommentsInShortTerm ? this.$t('too_many_request') : this.$t('add_comment'),
           button: 'OK',
         });
         return Promise.reject();
@@ -154,3 +146,23 @@ export default class FeedContentCommentForm extends Vue {
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "post": "投稿する",
+  "error_occurred": "エラーが発生しました。",
+  "place_holder": "本文は140文字以内で入力してください。",
+  "too_many_request": "短期間に複数のリクエストがありました。\n時間をおいてから再度コメントしてください。",
+  "add_comment": "コメントを追加しました。",
+  "post_tag_errMsg": "タグの投稿に失敗しました。<br>電波状況などが悪い可能性があります。<br>電波状況をご確認の上、再度お試しください。"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "post": "Post",
+  "error_occurred": "An error has occurred.",
+  "place_holder": "Please input the text within 140 characters.",
+  "too_many_request": "There were multiple requests in a short period of time. \nPlease wait a moment and try again.",
+  "add_comment": "No more data.",
+  "post_tag_errMsg": "Could not post the tag. <br>Your network condition may be bad. <br>Please check your network condition and try again."
+}
+</i18n>

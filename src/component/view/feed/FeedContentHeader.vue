@@ -28,7 +28,7 @@ export default class FeedContentHeader extends Vue {
   get getAvaterSrc() {
     return this.memberID === UserStateModule.selfUser.member_id
       ? (dummy: any) => UserStateModule.myImage
-      : UserStateModule.getSmallImage;
+      : UserStateModule.getImage;
   }
 }
 </script>

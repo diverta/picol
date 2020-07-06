@@ -59,7 +59,7 @@ export default class FeedDetail extends Vue {
       })
       .catch((e) => {
         (this as any).$snack.danger({
-          text: '該当の記事が見つかりませんでした。',
+          text: 'Not found.',
         });
         this.$router.push({ path: '/' });
         return Promise.reject('feed datas are not detected.');

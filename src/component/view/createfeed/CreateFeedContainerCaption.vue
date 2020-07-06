@@ -4,7 +4,7 @@
     <div
       class="p-post__caption-input"
       contenteditable="true"
-      data-placeholder="キャプションを書く…"
+      :data-placeholder="$t('write_caption')"
       @input.prevent="sync"
       ref="editable"
     ></div>
@@ -54,3 +54,13 @@ export default class CreateFeedContainerCaption extends Vue {
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "write_caption": "キャプションを書く…"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "write_caption": "Write caption"
+}
+</i18n>
