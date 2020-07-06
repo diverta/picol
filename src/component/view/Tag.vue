@@ -2,11 +2,13 @@
   <div :class="this.editable ? ['p-post__hash-editable'] : ['p-post__hash']">
     <!-- header -->
     <dl class="c-section">
-      <dt v-if="title !== undefined" class="c-section__title">タグをつける</dt>
+      <dt v-if="title !== undefined" class="c-section__title">{{ $t('attach_tag') }}</dt>
       <dd class="c-section__body">
         <div v-if="editable" class="p-post__hash-input-wrapper">
-          <input type="text" placeholder="タグ入力" class="p-post__hash-input" v-model="tagInput" />
-          <button class="p-post__hash-add" @click.prevent="() => handleClickAddInputTag(tagInput)">追加</button>
+          <input type="text" :placeholder="$t('attach_tag')" class="p-post__hash-input" v-model="tagInput" />
+          <button class="p-post__hash-add" @click.prevent="() => handleClickAddInputTag(tagInput)">
+            {{ $t('add') }}
+          </button>
         </div>
         <!-- tag buttons -->
         <div class="p-post__hash-items">
@@ -58,7 +60,8 @@ export default class Tag extends Vue {
     return this.selectedTags;
   }
   get getTagName() {
-    return (tagDef: TagModel.Read.Response.List) => (!!tagDef && !!tagDef.tag_nm ? tagDef.tag_nm : '未分類');
+    return (tagDef: TagModel.Read.Response.List) =>
+      !!tagDef && !!tagDef.tag_nm ? tagDef.tag_nm : this.$t('undefined');
   }
 
   // METHODS
@@ -73,7 +76,7 @@ export default class Tag extends Vue {
   }
   handleClickAddTag(tag: TagModel.Read.Response.List) {
     if (this.selectedTags.map((tag) => tag.tag_id).includes(tag.tag_id)) {
-      (this as any).$snack.danger({ text: 'すでに追加済みです。', button: 'OK' });
+      (this as any).$snack.danger({ text: this.$t('already_added'), button: 'OK' });
       return;
     }
     this.$emit('change', tag);
@@ -81,9 +84,9 @@ export default class Tag extends Vue {
   handleClickAddInputTag(tagInput: string) {
     this.requestAddTag({ tagInput })
       .then((d) => (this.tagInput = ''))
-      .then(() => (this as any).$snack.success({ text: `#${tagInput} を未分類に追加しました。`, button: 'OK' }))
+      .then(() => (this as any).$snack.success({ text: `#${tagInput}  $t('added_to_undefined')`, button: 'OK' }))
       .catch(async (e) => {
-        let errMsg = 'タグを追加できませんでした。';
+        let errMsg = this.$t('cant_add_tag');
 
         try {
           const err = await e.json();
@@ -94,7 +97,7 @@ export default class Tag extends Vue {
               err.errors[0].includes(errMsgDef),
             )
           ) {
-            errMsg = `#${tagInput} はすでに存在しています。`;
+            errMsg = `#${tagInput} this.$t('is_already_exists')`;
           }
         } catch (e) {
           /** NP */
@@ -124,3 +127,25 @@ export default class Tag extends Vue {
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "attach_tag": "タグをつける",
+  "already_added": "すでに追加済みです。",
+  "undefined": "未分類",
+  "cant_add_tag": "タグを追加できませんでした。",
+  "is_already_exists": "はすでに存在しています。",
+  "added_to_undefined": "を未分類に追加しました。",
+  "add": "追加"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "attach_tag": "Attach tags",
+  "already_added": "Already added",
+  "undefined": "Undefined",
+  "cant_add_tag": "Can't add tag.",
+  "is_already_exists": "is already exists.",
+  "added_to_undefined": "added to undefined.",
+  "add": "Add"
+}
+</i18n>

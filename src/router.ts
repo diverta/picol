@@ -2,6 +2,7 @@ import Activity from '@/component/page/Activity.vue';
 import CreateFeed from '@/component/page/CreateFeed.vue';
 import Feed from '@/component/page/Feed.vue';
 import FeedDetail from '@/component/page/FeedDetail.vue';
+import FeedDetailPreview from '@/component/page/FeedDetailPreview.vue';
 import Login from '@/component/page/Login.vue';
 import MyPage from '@/component/page/MyPage.vue';
 import MyPageCommented from '@/component/page/MyPageCommented.vue';
@@ -89,6 +90,12 @@ const routerOptions: RouterOptions = {
           path: 'feed',
           name: 'feedDetail',
           component: FeedDetail,
+          props: true,
+        },
+        {
+          path: 'feed/preview',
+          name: 'feedDetailPreview',
+          component: FeedDetailPreview,
           props: true,
         },
         {

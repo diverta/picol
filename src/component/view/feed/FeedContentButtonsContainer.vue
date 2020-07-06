@@ -52,15 +52,17 @@ export default class FeedContentButtonsContainer extends Vue {
     )
       .then(() => {
         this.onChangeFeed();
-        (this as any).$snack.success({ text: newFav ? 'いいね！しました。' : 'いいね！を外しました。', button: 'OK' });
+        (this as any).$snack.success({ text: newFav ? this.$t('liked') : this.$t('removed'), button: 'OK' });
       })
-      .catch(() => (this as any).$snack.danger({ text: 'エラーが発生しました。', button: 'OK' }));
+      .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
   }
   handleClickRemove() {
-    if (window.confirm('記事を削除してもよろしいですか？')) {
+    const confrim_msg = this.$t('are_you_sure_to_delete_this') as string;
+
+    if (window.confirm(confrim_msg)) {
       FeedStateModule.removeFeed({ topicsId: this.feed.topics_id })
-        .then(() => (this as any).$snack.success({ text: '記事を削除しました。', button: 'OK' }))
-        .catch(() => (this as any).$snack.danger({ text: 'エラーが発生しました。', button: 'OK' }));
+        .then(() => (this as any).$snack.success({ text: this.$t('deleted'), button: 'OK' }))
+        .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
 
       if (this.$route.path !== '/') {
         this.$router.push({ path: '/' });
@@ -96,3 +98,21 @@ export default class FeedContentButtonsContainer extends Vue {
   color: #000;
 }
 </style>
+<i18n locale="ja" lang="json5">
+{
+  "liked": "いいね！しました。",
+  "removed": "いいね！を外しました。",
+  "error_occurred": "エラーが発生しました。",
+  "are_you_sure_to_delete_this": "記事を削除してもよろしいですか？",
+  "deleted": "記事を削除しました。"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "liked": "Liked.",
+  "removed": "Rmoved.",
+  "error_occurred": "エラーが発生しました。",
+  "are_you_sure_to_delete_this": "Are you sure to delete this?",
+  "deleted": "Deleted."
+}
+</i18n>

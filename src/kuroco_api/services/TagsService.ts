@@ -194,8 +194,11 @@ export namespace TagsService {
       tag_nm: string;
       /**
        * Category ID
+       * * 0 => Uncategorized
+       * * 1 => Recommend
+       * * 2 => Menu
        */
-      tag_category_id?: number;
+      tag_category_id?: 0 | 1 | 2;
       /**
        * Published / Not published
        */

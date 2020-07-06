@@ -17,7 +17,7 @@ export default class App extends Vue {
   async created() {
     Auth.onErrorHandler = async (res) => {
       this.$router.push({ path: '/sub/login' });
-      (this as any).$snack.danger({ text: 'ログインしてください。', button: 'OK' });
+      (this as any).$snack.danger({ text: this.$t('please_login'), button: 'OK' });
     };
   }
 }
@@ -27,3 +27,13 @@ export default class App extends Vue {
 @import '@/assets/styles/global.sass';
 @import '@/assets/styles/common.sass';
 </style>
+<i18n locale="ja" lang="json5">
+{
+  "please_login": "ログインしてください。"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "please_login": "Please login."
+}
+</i18n>

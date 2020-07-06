@@ -34,10 +34,10 @@ export default class CreateFeedContainerFilePreview extends Vue {
   })
   source!: InstanceType<typeof PostFileHelper>['renderSource'][0];
   @Prop({
-    type: Object,
+    type: String,
     required: true,
   })
-  helper!: PostFileHelper;
+  mediaType!: PostFileHelper['mediaType'];
   @Prop({
     type: Object,
     required: false,
@@ -57,7 +57,7 @@ export default class CreateFeedContainerFilePreview extends Vue {
     if (!this.source) {
       return ELEMENT_TYPE.NONE;
     }
-    switch (this.helper.mediaType) {
+    switch (this.mediaType) {
       case 'image':
         return ELEMENT_TYPE.IMAGE;
       case 'video':

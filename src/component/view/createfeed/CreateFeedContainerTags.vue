@@ -1,6 +1,5 @@
 <template>
   <Tag
-    title="タグをつける"
     :editable="true"
     :selectedTags="selectedTags"
     @change="

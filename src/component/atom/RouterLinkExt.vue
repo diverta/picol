@@ -35,9 +35,13 @@ import { Location } from 'vue-router';
 export default class RouterLinkExt extends Vue {
   @Prop({ type: Object, required: true })
   to!: Location;
+  /** function that hooks between from to dist */
+  @Prop({ type: Function, required: false, default: () => Promise.resolve() })
+  hook!: <T>() => Promise<T>;
 
-  routeTo(e: Event) {
+  async routeTo(e: Event) {
     abortLoadingBigDatas();
+    await this.hook();
     this.$router.push(this.to);
   }
 }
