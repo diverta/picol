@@ -28,6 +28,6 @@ export default class MyPageLiked extends Vue {
 </i18n>
 <i18n locale="en" lang="json5">
 {
-  "favorited_post": "Favorited post"
+  "favorited_post": "Liked post"
 }
 </i18n>

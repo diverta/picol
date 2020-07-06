@@ -135,7 +135,7 @@ export default class MyPage extends Vue {
   "post": "Posted",
   "post_cnt": "Total",
   "edit_profile": "Edit profile",
-  "favorited_post": "Favorited post",
+  "favorited_post": "Liked post",
   "commented_post": "Commented post"
 }
 </i18n>
