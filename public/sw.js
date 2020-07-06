@@ -6,7 +6,7 @@ self.addEventListener('fetch', e => {
   }
 
   // For example https://storage.googleapis.com/picol-c8553.appspot.com/files/topics/809_ext_04_0.jpg?GoogleAccessId=
-  const cache_nm = 'picol-storage.googleapis.com';
+  const cache_nm = 'storage.googleapis.com';
 
   e.respondWith(
     caches.open(cache_nm).then(function (cache) {

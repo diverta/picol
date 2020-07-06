@@ -6,12 +6,12 @@
         <div class="c-overlay" v-if="isLoading">
           <img src="/assets/images/icon_post_on.svg" alt class="c-overlay__icon" width="56" height="52" />
           <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="false"></loading>
-          <p class="c-overlay__text">送信中です...</p>
+          <p class="c-overlay__text">{{ $t('sending') }}</p>
         </div>
         <!-- done -->
         <div class="c-overlay" v-else>
           <img src="/assets/images/icon_forget.svg" alt class="c-overlay__icon" width="121" height="52" />
-          <p class="c-overlay__text">{{ hasError ? `データの送信に失敗しました。` : `データを送信しました。` }}</p>
+          <p class="c-overlay__text">{{ hasError ? $t('fail_to_send') : $t('sent') }}</p>
         </div>
       </div>
       <div class="l-overlay__footer">
@@ -77,3 +77,17 @@ export interface Prop {
   routeOnError: string;
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "sent": "送信しました。",
+  "fail_to_send": "送信に失敗しました。",
+  "sending": "送信中です..."
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "sent": "Sent",
+  "fail_to_send": "Failed to send.",
+  "sending": "Sending..."
+}
+</i18n>

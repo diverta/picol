@@ -5,7 +5,7 @@
         <input
           type="search"
           class="p-search__search"
-          placeholder="タグ・キーワード検索"
+          :placeholder="$t('tag_keyword_search')"
           :value="queryText"
           @input="
             (e) => {
@@ -71,3 +71,13 @@ export default class SearchInput extends Vue {
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "tag_keyword_search": "タグ・キーワード検索"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "tag_keyword_search": "Tag/keyword search"
+}
+</i18n>

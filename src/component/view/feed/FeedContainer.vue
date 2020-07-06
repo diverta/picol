@@ -68,14 +68,26 @@ export default class FeedContainer extends Vue {
   get getFeedStatuses() {
     return (feed: FeedModel.Read.Response.Feed) => [
       {
-        name: 'いいね',
+        name: this.$t('favorite'),
         cnt: feed.favorite_cnt,
       },
       {
-        name: 'コメント',
+        name: this.$t('comment'),
         cnt: feed.comment_cnt,
       },
     ];
   }
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "favorite": "いいね",
+  "comment": "コメント",
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "favorite": "Like",
+  "comment": "Comment",
+}
+</i18n>

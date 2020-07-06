@@ -1,7 +1,7 @@
 <template>
   <div class="p-post__action">
-    <a href="/" class="p-post__prev" @click.prevent="() => $router.back()">戻る</a>
-    <button class="p-post__submit" @click.prevent="handleOnClickEditPost">投稿する</button>
+    <a href="/" class="p-post__prev" @click.prevent="() => $router.back()">{{ $t('back') }}</a>
+    <button class="p-post__submit" @click.prevent="handleOnClickEditPost">{{ $t('post') }}</button>
 
     <Post :shows.sync="showsPost" :requestFn="requestFn" />
   </div>
@@ -37,7 +37,7 @@ export default class CreateFeedContainerActions extends Vue {
   // METHODS
   handleOnClickEditPost(e: Event): void {
     if (this.input.commentInput === '') {
-      (this as any).$snack.show({ text: 'キャプションを入力してください。', button: 'OK' });
+      (this as any).$snack.show({ text: this.$t('input_caption'), button: 'OK' });
       return;
     }
     this.uploadTopic();
@@ -83,3 +83,17 @@ export interface CreateFeedContainerActionsInput {
   updatePattern: 'create' | 'update';
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "back": "戻る",
+  "post": "投稿する",
+  "input_caption": "キャプションを入力してください。"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "back": "Back",
+  "post": "Post",
+  "input_caption": "Please input caption."
+}
+</i18n>

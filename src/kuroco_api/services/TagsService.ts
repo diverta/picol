@@ -195,8 +195,8 @@ export namespace TagsService {
       /**
        * Category ID
        * * 0 => Uncategorized
-       * * 1 => よく使うタグ
-       * * 2 => メニューにあるタグ
+       * * 1 => Recommend
+       * * 2 => Menu
        */
       tag_category_id?: 0 | 1 | 2;
       /**

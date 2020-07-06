@@ -3,7 +3,7 @@
     <loading :active="postingState === 'LOADING'" :can-cancel="false" :is-full-page="true"></loading>
 
     <div class="p-post" v-if="initializedWith !== null">
-      <h1 class="p-post__title c-headline">投稿する</h1>
+      <h1 class="p-post__title c-headline">{{ $t('post') }}</h1>
       <div class="p-post__body">
         <div class="p-post__content">
           <CreateFeedContainerFiles
@@ -108,7 +108,7 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
 
     // checking does whether this file have a proper extension.
     if (!util.File.isProperFile({ file: newFile })) {
-      window.alert(`${newFile.name} の拡張子は対応していません。`);
+      window.alert(`${newFile.name} ` + this.$t('invaild_image'));
       return;
     }
     const mediaType = util.File.getFileType(newFile.name);
@@ -176,3 +176,15 @@ export enum POSTING_STATUS {
   LOADING = 'LOADING',
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "invaild_image": "の拡張子は対応していません。",
+  "post": "投稿する"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "invaild_image": "extension is not supported.",
+  "post": "Post"
+}
+</i18n>

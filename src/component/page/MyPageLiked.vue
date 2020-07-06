@@ -15,9 +15,19 @@ import { TopicsService } from '@/kuroco_api';
 })
 export default class MyPageLiked extends Vue {
   // FIELDS
-  title = 'いいね！した投稿';
+  title = this.$t('favorited_post');
   query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {
     myFavoriteList: 1,
   };
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "favorited_post": "いいねした投稿"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "favorited_post": "Liked post"
+}
+</i18n>

@@ -16,7 +16,7 @@
               </li>
               <li class="l-menu__item">
                 <a href>
-                  <a class="c-button" @click.prevent="logout">ログアウト</a>
+                  <a class="c-button" @click.prevent="logout">{{ $t('logout') }}</a>
                 </a>
               </li>
             </ul>
@@ -86,3 +86,13 @@ interface ISlideMenu {
   name: string;
 }
 </script>
+<i18n locale="ja" lang="json5">
+{
+  "logout": "ログアウト"
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "logout": "Logout"
+}
+</i18n>
