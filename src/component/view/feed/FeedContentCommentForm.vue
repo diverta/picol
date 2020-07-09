@@ -131,14 +131,14 @@ export default class FeedContentCommentForm extends Vue {
   feedPostComment(query: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
     return FeedStateModule.createComment(query)
       .then(() => {
-        (this as any).$snack.success({ text: this.$t('error_occurred'), button: 'OK' });
+        (this as any).$snack.success({ text: this.$t('add_comment'), button: 'OK' });
         return Promise.resolve();
       })
       .catch((e: any) => {
         const isTooManyCommentsInShortTerm = /send many comments/gi.test(e.getValue(['response', 'data', 'errors', 0]));
 
         (this as any).$snack.danger({
-          text: isTooManyCommentsInShortTerm ? this.$t('too_many_request') : this.$t('add_comment'),
+          text: isTooManyCommentsInShortTerm ? this.$t('too_many_request') : this.$t('error_occurred'),
           button: 'OK',
         });
         return Promise.reject();
@@ -159,7 +159,7 @@ export default class FeedContentCommentForm extends Vue {
 <i18n locale="en" lang="json5">
 {
   "post": "Post",
-  "error_occurred": "An error has occurred.",
+  "add_comment": "An error has occurred.",
   "place_holder": "Please input the text within 140 characters.",
   "too_many_request": "There were multiple requests in a short period of time. \nPlease wait a moment and try again.",
   "add_comment": "No more data.",
