@@ -124,7 +124,7 @@ export default class MyPage extends Vue {
 <i18n locale="ja" lang="json5">
 {
   "post": "投稿",
-  "post_cnt": "総数",
+  "total": "総数",
   "edit_profile": "プロフィール編集",
   "favorited_post": "いいねした投稿",
   "commented_post": "コメントした投稿"
@@ -133,7 +133,7 @@ export default class MyPage extends Vue {
 <i18n locale="en" lang="json5">
 {
   "post": "Posted",
-  "post_cnt": "Total",
+  "total": "Total",
   "edit_profile": "Edit profile",
   "favorited_post": "Liked post",
   "commented_post": "Commented post"
