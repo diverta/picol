@@ -17,6 +17,8 @@ import TinySpinner from '@/component/atom/TinySpinner.vue';
 import RouterLinkExt from '@/component/atom/RouterLinkExt.vue';
 import DisableDbClickButton from '@/component/atom/DisableDbClickButton.vue';
 import Navigation from '@/component/view/navigation/Navigation.vue';
+import SnackbarCommit from '@/component/atom/SnackbarCommit.vue';
+
 import Vuelidate from 'vuelidate';
 import Modal from '@/component/atom/Modal.vue';
 import Loading from 'vue-loading-overlay';
@@ -47,6 +49,7 @@ Vue.component((RouterLinkExt as any).options.name, RouterLinkExt);
 Vue.component((DisableDbClickButton as any).options.name, DisableDbClickButton);
 Vue.component((VueCarouselWrapper as any).options.name, VueCarouselWrapper);
 Vue.component((VimeoContainer as any).options.name, VimeoContainer);
+Vue.component((SnackbarCommit as any).options.name, SnackbarCommit);
 Vue.component('loading', Loading);
 library.add(faTimes, faTimesCircle, faEdit, faTrashAlt);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -58,8 +61,13 @@ Vue.use(VueCarousel);
 Vue.use(InfiniteLoading);
 Vue.use(Vuelidate);
 Vue.use(CustomVuePlugin);
-Vue.use(VueSnackbar, { position: 'bottom', time: 3000 });
 Vue.use(VueI18n);
+Vue.use(VueSnackbar, { position: 'bottom', time: 3000 });
+// overrides VueSnackbar to use fixed button value.
+Object.entries(Vue.prototype.$snack).forEach(
+  ([fnName, fn]) =>
+    (Vue.prototype.$snack[fnName] = (args: any) => (fn as (args: any) => void)({ ...args, button: 'OK' })),
+);
 
 Vue.config.productionTip = false;
 
@@ -79,7 +87,7 @@ new Vue({
   router,
   store,
   i18n: new VueI18n({
-    locale: navigator.language.slice(0, 2).toLowerCase() == 'ja' ? 'ja' : 'en',
+    locale: navigator.language.slice(0, 2).toLowerCase() === 'ja' ? 'ja' : 'en',
   }),
   render: (h) => h(App),
 }).$mount('#app');

@@ -42,7 +42,7 @@ export default class CreateFeedContainerCaption extends Vue {
     if (inputStr.length > 2000) {
       e.target.innerText = this.commentInput;
       e.preventDefault();
-      (this as any).$snack.danger({ text: '本文は2000文字以内で入力してください。', button: 'OK' });
+      this.$snack.danger({ text: '本文は2000文字以内で入力してください。' });
       return;
     }
     this.$emit('update:commentInput', inputStr);

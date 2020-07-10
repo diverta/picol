@@ -58,7 +58,7 @@ export default class FeedDetail extends Vue {
         this.comments.replaceAll(comments.map((c) => c.list).flat());
       })
       .catch((e) => {
-        (this as any).$snack.danger({
+        this.$snack.danger({
           text: 'Not found.',
         });
         this.$router.push({ path: '/' });
