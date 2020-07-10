@@ -74,7 +74,7 @@ export default class FeedContentCommentForm extends Vue {
     if (inputStr.length > 140) {
       e.target.innerText = this.content;
       e.preventDefault();
-      this.$snack.danger({ text: this.$t('place_holder'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('place_holder') });
       return;
     }
     this.content = inputStr;
@@ -131,13 +131,12 @@ export default class FeedContentCommentForm extends Vue {
   feedPostComment(query: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
     return FeedStateModule.createComment(query)
       .then(() => {
-        this.$snack.success({ text: this.$t('add_comment'), button: 'OK' });
+        this.$snack.success({ text: this.$t('add_comment') });
         return Promise.resolve();
       })
       .catch((e: any) => {
         this.$snack.danger({
           text: e?.body?.errors?.[0] ?? this.$t('error_occurred'),
-          button: 'OK',
         });
         return Promise.reject();
       });

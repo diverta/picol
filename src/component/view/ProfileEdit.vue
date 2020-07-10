@@ -119,7 +119,7 @@ export default class ProfileEdit extends Vue {
 
     const { file_id } = await this.uploader.upload(newFile).catch((e) => {
       this.postingState = 'ERROR';
-      this.$snack.danger({ text: this.$t('error_occurred'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('error_occurred') });
       return Promise.reject();
     });
 
@@ -129,7 +129,7 @@ export default class ProfileEdit extends Vue {
       file_nm: newFile.name,
     };
     this.postingState = 'PRE';
-    this.$snack.success({ text: this.$t('updated'), button: 'OK' });
+    this.$snack.success({ text: this.$t('updated') });
   }
   handleClickSubmit(e: Event) {
     if (!this.userName || this.userName === '') {

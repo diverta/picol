@@ -61,8 +61,13 @@ Vue.use(VueCarousel);
 Vue.use(InfiniteLoading);
 Vue.use(Vuelidate);
 Vue.use(CustomVuePlugin);
-Vue.use(VueSnackbar, { position: 'bottom', time: 3000 });
 Vue.use(VueI18n);
+Vue.use(VueSnackbar, { position: 'bottom', time: 3000 });
+// overrides VueSnackbar to use fixed button value.
+Object.entries(Vue.prototype.$snack).forEach(
+  ([fnName, fn]) =>
+    (Vue.prototype.$snack[fnName] = (args: any) => (fn as (args: any) => void)({ ...args, button: 'OK' })),
+);
 
 Vue.config.productionTip = false;
 

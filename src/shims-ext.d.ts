@@ -31,7 +31,6 @@ declare module 'vue/types/vue' {
 
   type SnackbarFn = (opts: {
     text?: any,
-    button?: string,
     action?: Function
   }) => void;
 }
