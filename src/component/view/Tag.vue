@@ -93,16 +93,13 @@ export default class Tag extends Vue {
     this.$emit('change', tag);
   }
   async addInputTag(tagInput: string) {
-    await this.requestAddTag({ tagInput });
+    const payload = { requestBody: { tag_nm: tagInput, open_type: 'open' as 'open' } };
+    await TagCategoryStateModule.addTagCategory(payload).then(() => TagCategoryStateModule.readAll());
     this.tagInput = '';
   }
   handleClickDeleteTag(tag: TagModel.Read.Response.List) {
     const idx = this.selectedTagsCopy.findIndex((t) => t.tag_id === tag.tag_id);
     this.$emit('delete', idx);
-  }
-  requestAddTag(query: { tagInput: string }) {
-    const q = { requestBody: { tag_nm: query.tagInput, open_type: 'open' as 'open' } };
-    return TagCategoryStateModule.addTagCategory(q).then(() => TagCategoryStateModule.readAll());
   }
 
   // LYCYCLE HOOKS
