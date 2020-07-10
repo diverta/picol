@@ -57,8 +57,8 @@ export default class FeedContentComments extends Vue {
   handleClickRemoveComment(commentID: number) {
     FeedStateModule.removeComment({ requestBody: { comment_id: commentID }, moduleId: this.topicsID })
       .then(() => this.onChangeFeed())
-      .then(() => (this as any).$snack.success({ text: 'コメントを削除しました。', button: 'OK' }))
-      .catch(() => (this as any).$snack.danger({ text: 'エラーが発生しました。', button: 'OK' }));
+      .then(() => (this as any).$snack.success({ text: this.$t('deleted'), button: 'OK' }))
+      .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
   }
 }
 </script>
@@ -72,3 +72,16 @@ export default class FeedContentComments extends Vue {
   &:hover
     color: #000
 </style>
+
+<i18n locale="ja" lang="json5">
+{
+  "deleted": "コメントを削除しました。",
+  "error_occurred": "エラーが発生しました。",
+}
+</i18n>
+<i18n locale="en" lang="json5">
+{
+  "deleted": "The comment was deleted.",
+  "error_occurred": "An error has occurred.",
+}
+</i18n>

@@ -135,10 +135,8 @@ export default class FeedContentCommentForm extends Vue {
         return Promise.resolve();
       })
       .catch((e: any) => {
-        const isTooManyCommentsInShortTerm = /send many comments/gi.test(e.getValue(['response', 'data', 'errors', 0]));
-
         (this as any).$snack.danger({
-          text: isTooManyCommentsInShortTerm ? this.$t('too_many_request') : this.$t('error_occurred'),
+          text: e?.body?.errors?.[0] ?? this.$t('error_occurred'),
           button: 'OK',
         });
         return Promise.reject();
@@ -151,7 +149,6 @@ export default class FeedContentCommentForm extends Vue {
   "post": "投稿する",
   "error_occurred": "エラーが発生しました。",
   "place_holder": "本文は140文字以内で入力してください。",
-  "too_many_request": "短期間に複数のリクエストがありました。\n時間をおいてから再度コメントしてください。",
   "add_comment": "コメントを追加しました。",
   "post_tag_errMsg": "タグの投稿に失敗しました。<br>電波状況などが悪い可能性があります。<br>電波状況をご確認の上、再度お試しください。"
 }
@@ -161,8 +158,7 @@ export default class FeedContentCommentForm extends Vue {
   "post": "Post",
   "add_comment": "An error has occurred.",
   "place_holder": "Please input the text within 140 characters.",
-  "too_many_request": "There were multiple requests in a short period of time. \nPlease wait a moment and try again.",
-  "add_comment": "No more data.",
+  "add_comment": "The comment was added.",
   "post_tag_errMsg": "Could not post the tag. <br>Your network condition may be bad. <br>Please check your network condition and try again."
 }
 </i18n>

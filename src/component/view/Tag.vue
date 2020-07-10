@@ -84,27 +84,10 @@ export default class Tag extends Vue {
   handleClickAddInputTag(tagInput: string) {
     this.requestAddTag({ tagInput })
       .then((d) => (this.tagInput = ''))
-      .then(() => (this as any).$snack.success({ text: `#${tagInput}  $t('added_to_undefined')`, button: 'OK' }))
-      .catch(async (e) => {
-        let errMsg = this.$t('cant_add_tag');
-
-        try {
-          const err = await e.json();
-          if (
-            err.errors instanceof Array &&
-            err.errors.length > 0 &&
-            ['Title is specified more than once', 'タイトルが重複しています'].some((errMsgDef) =>
-              err.errors[0].includes(errMsgDef),
-            )
-          ) {
-            errMsg = `#${tagInput} this.$t('is_already_exists')`;
-          }
-        } catch (e) {
-          /** NP */
-        }
-
+      .then(() => (this as any).$snack.success({ text: `#${tagInput} ${this.$t('added_to_undefined')}`, button: 'OK' }))
+      .catch((e) => {
         (this as any).$snack.danger({
-          text: errMsg,
+          text: e?.body?.errors?.[0] ?? this.$t('cant_add_tag'),
           button: 'OK',
         });
       });
@@ -133,7 +116,6 @@ export default class Tag extends Vue {
   "already_added": "すでに追加済みです。",
   "undefined": "未分類",
   "cant_add_tag": "タグを追加できませんでした。",
-  "is_already_exists": "はすでに存在しています。",
   "added_to_undefined": "を未分類に追加しました。",
   "add": "追加"
 }
@@ -144,7 +126,6 @@ export default class Tag extends Vue {
   "already_added": "Already added",
   "undefined": "Undefined",
   "cant_add_tag": "Can't add tag.",
-  "is_already_exists": "is already exists.",
   "added_to_undefined": "added to undefined.",
   "add": "Add"
 }
