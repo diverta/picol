@@ -12,12 +12,11 @@
           ok: $t('deleted'),
           ng: $t('error_occurred'),
         }"
+        v-slot="{ on }"
       >
-        <template #activator="{ on }">
-          <dd v-if="getIsSameMember(comment)" class="c-comment-list__delete-button" @click.prevent="on">
-            <font-awesome-icon :icon="['far', 'times-circle']" />
-          </dd>
-        </template>
+        <dd v-if="getIsSameMember(comment)" class="c-comment-list__delete-button" @click.prevent="on">
+          <font-awesome-icon :icon="['far', 'times-circle']" />
+        </dd>
       </SnackbarCommit>
     </dl>
   </div>

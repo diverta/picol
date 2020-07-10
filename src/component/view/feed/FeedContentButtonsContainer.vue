@@ -3,18 +3,17 @@
     <SnackbarCommit
       :fn="favorite"
       :msg="{
-        ok: this.feed.my_favorite_flg ? $t('removed') : $t('liked'),
+        ok: feed.my_favorite_flg ? $t('removed') : $t('liked'),
       }"
+      v-slot="{ on, processing }"
     >
-      <template #activator="{ on, processing }">
-        <button
-          :disabled="processing"
-          :class="{ 'c-entry__like-button': true, 'is-on': feed.my_favorite_flg }"
-          @click="on"
-        >
-          like
-        </button>
-      </template>
+      <button
+        :disabled="processing"
+        :class="{ 'c-entry__like-button': true, 'is-on': feed.my_favorite_flg }"
+        @click="on"
+      >
+        like
+      </button>
     </SnackbarCommit>
     <div class="icons-wrapper">
       <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'edit']" @click.prevent="handleClickEdit" />
@@ -25,10 +24,9 @@
           ok: $t('deleted'),
         }"
         :confirmMsg="$t('are_you_sure_to_delete_this')"
+        v-slot="{ on }"
       >
-        <template #activator="{ on }">
-          <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'trash-alt']" @click.prevent="on" />
-        </template>
+        <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'trash-alt']" @click.prevent="on" />
       </SnackbarCommit>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot name="activator" :processing="processing" :on="on"></slot>
+    <slot :processing="processing" :on="on"></slot>
   </div>
 </template>
 
@@ -20,10 +20,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
  *         ok: $t('deleted'),
  *         ng: $t('error_occurred'),
  *       }"
+ *       v-slot="{ on }"
  *     >
- *       <template #activator="{ on }">
- *         <button @click="on">click</button>
- *       </template>
+ *       <button @click="on">click</button>
  *     </SnackbarCommit>
  *   </div>
  * </template>

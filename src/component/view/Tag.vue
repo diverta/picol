@@ -14,12 +14,11 @@
               ng: $t('cant_add_tag'),
             }"
             :useServerErrMsg="true"
+            v-slot="{ on }"
           >
-            <template #activator="{ on }">
-              <button class="p-post__hash-add" @click.prevent="on">
-                {{ $t('add') }}
-              </button>
-            </template>
+            <button class="p-post__hash-add" @click.prevent="on">
+              {{ $t('add') }}
+            </button>
           </SnackbarCommit>
         </div>
         <!-- tag buttons -->
