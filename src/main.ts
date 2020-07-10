@@ -17,6 +17,8 @@ import TinySpinner from '@/component/atom/TinySpinner.vue';
 import RouterLinkExt from '@/component/atom/RouterLinkExt.vue';
 import DisableDbClickButton from '@/component/atom/DisableDbClickButton.vue';
 import Navigation from '@/component/view/navigation/Navigation.vue';
+import Snackbar from '@/component/atom/Snackbar.vue';
+
 import Vuelidate from 'vuelidate';
 import Modal from '@/component/atom/Modal.vue';
 import Loading from 'vue-loading-overlay';
@@ -47,6 +49,7 @@ Vue.component((RouterLinkExt as any).options.name, RouterLinkExt);
 Vue.component((DisableDbClickButton as any).options.name, DisableDbClickButton);
 Vue.component((VueCarouselWrapper as any).options.name, VueCarouselWrapper);
 Vue.component((VimeoContainer as any).options.name, VimeoContainer);
+Vue.component((Snackbar as any).options.name, Snackbar);
 Vue.component('loading', Loading);
 library.add(faTimes, faTimesCircle, faEdit, faTrashAlt);
 Vue.component('font-awesome-icon', FontAwesomeIcon);

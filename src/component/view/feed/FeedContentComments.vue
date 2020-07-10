@@ -5,13 +5,20 @@
         <a href="#" class="c-comment-list__name-link">{{ getCommentAuthorName(comment.member_id) }}</a>
       </dt>
       <dd class="c-comment-list__comment" v-sanitize>{{ comment.note }}</dd>
-      <dd
-        v-if="getIsSameMember(comment)"
-        class="c-comment-list__delete-button"
-        @click.prevent="handleClickRemoveComment(comment.comment_id)"
+
+      <Snackbar
+        :fn="() => removeComment(comment.comment_id)"
+        :msg="{
+          ok: $t('deleted'),
+          ng: $t('error_occurred'),
+        }"
       >
-        <font-awesome-icon :icon="['far', 'times-circle']" />
-      </dd>
+        <template #activator="{ on }">
+          <dd v-if="getIsSameMember(comment)" class="c-comment-list__delete-button" @click.prevent="on">
+            <font-awesome-icon :icon="['far', 'times-circle']" />
+          </dd>
+        </template>
+      </Snackbar>
     </dl>
   </div>
 </template>
@@ -54,11 +61,9 @@ export default class FeedContentComments extends Vue {
   }
 
   // METHODS
-  handleClickRemoveComment(commentID: number) {
-    FeedStateModule.removeComment({ requestBody: { comment_id: commentID }, moduleId: this.topicsID })
-      .then(() => this.onChangeFeed())
-      .then(() => (this as any).$snack.success({ text: this.$t('deleted'), button: 'OK' }))
-      .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
+  async removeComment(commentID: number) {
+    const payload = { requestBody: { comment_id: commentID }, moduleId: this.topicsID };
+    await FeedStateModule.removeComment(payload).then(() => this.onChangeFeed());
   }
 }
 </script>
