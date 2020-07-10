@@ -1,43 +1,50 @@
 <template>
   <infinite-loading @infinite="handleOnInfinit" ref="Infinite">
-    <div slot="spinner">
+    <template v-slot:spinner>
       <loading :active="true" :can-cancel="false" :is-full-page="true"></loading>
-    </div>
-    <div :style="messageMarginStyle" slot="no-more">
-      <span class="text-shadow" v-if="showsNoMoreMessage && count > 1">{{ $t('no_more_data') }}</span>
-    </div>
-    <div :style="messageMarginStyle" slot="no-results">
-      <span class="text-shadow">{{ $t('no_result') }}</span>
-    </div>
-    <div :style="messageMarginStyle" slot="error">
-      <AppError :errMsg="errMsg" :trigger="restartLoader" />
-    </div>
+    </template>
+
+    <template v-slot:no-more>
+      <CustomInfiniteLoaderResult v-bind="$attrs">
+        <span class="text-shadow" v-if="showsNoMoreMessage && count > 1">{{ $t('no_more_data') }}</span>
+      </CustomInfiniteLoaderResult>
+    </template>
+    <template v-slot:no-results>
+      <CustomInfiniteLoaderResult v-bind="$attrs">
+        <span class="text-shadow">{{ $t('no_result') }}</span>
+      </CustomInfiniteLoaderResult>
+    </template>
+    <template v-slot:error>
+      <CustomInfiniteLoaderResult v-bind="$attrs">
+        <CustomInfiniteLoaderError :errMsg="$t('err_msg')" @click="restartLoader" />
+      </CustomInfiniteLoaderResult>
+    </template>
   </infinite-loading>
 </template>
 
 <script lang="ts">
-import AppError from '@/component/atom/AppError.vue';
+import CustomInfiniteLoaderResult from './CustomInfiniteLoaderResult.vue';
+import CustomInfiniteLoaderError from './CustomInfiniteLoaderError.vue';
 import InfiniteLoading, { StateChanger } from 'vue-infinite-loading';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component<CustomInfiniteLoader>({
   components: {
     InfiniteLoading,
-    AppError,
+    CustomInfiniteLoaderResult,
+    CustomInfiniteLoaderError,
   },
+  inheritAttrs: false,
 })
 export default class CustomInfiniteLoader extends Vue {
   // PROPS
   @Prop({ type: Function, required: true })
   infiniteHandler!: ($state: StateChanger) => void;
-  @Prop({ type: Object, required: false, default: () => ({}) })
-  messageMarginStyle!: object;
   @Prop({ type: Boolean, required: false, default: false })
   showsNoMoreMessage!: boolean;
 
   // FIELDS
   count = 0;
-  errMsg = this.$t('errMsg');
 
   // METHODS
   restartLoader() {
@@ -67,13 +74,13 @@ export default class CustomInfiniteLoader extends Vue {
 {
   "no_result": "結果が見つかりませんでした。",
   "no_more_data": "これ以上データがありません。",
-  "errMsg": "最新のデータが取得できませんでした。<br>電波状況などが悪い可能性があります。<br>電波状況をご確認の上、再度お試しください。"
+  "err_msg": "最新のデータが取得できませんでした。<br>電波状況などが悪い可能性があります。<br>電波状況をご確認の上、再度お試しください。"
 }
 </i18n>
 <i18n locale="en" lang="json5">
 {
   "no_result": "Not found.",
   "no_more_data": "No more data.",
-  "errMsg": "Could not get the data. <br>Your network condition may be bad. <br>Please check your network condition and try again."
+  "err_msg": "Could not get the data. <br>Your network condition may be bad. <br>Please check your network condition and try again."
 }
 </i18n>

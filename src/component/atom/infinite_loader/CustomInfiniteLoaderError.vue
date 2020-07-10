@@ -1,25 +1,11 @@
-<template>
+<template functional>
   <div class="wrapper">
-    <p class="text">{{ errMsg.trim() }}</p>
+    <p class="text" v-html="props.errMsg"></p>
     <div class="button-wrapper">
-      <button class="button" @click.prevent="trigger">RETRY</button>
+      <button class="button" @click.prevent="listeners.click">RETRY</button>
     </div>
   </div>
 </template>
-
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { CreateElement, VNode } from 'vue';
-
-@Component({ name: 'AppError' })
-export default class AppError extends Vue {
-  @Prop({ type: String, default: '' })
-  errMsg!: string;
-
-  @Prop({ required: true })
-  trigger!: any;
-}
-</script>
 
 <style scoped>
 .wrapper {
