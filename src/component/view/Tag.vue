@@ -6,9 +6,21 @@
       <dd class="c-section__body">
         <div v-if="editable" class="p-post__hash-input-wrapper">
           <input type="text" :placeholder="$t('attach_tag')" class="p-post__hash-input" v-model="tagInput" />
-          <button class="p-post__hash-add" @click.prevent="() => handleClickAddInputTag(tagInput)">
-            {{ $t('add') }}
-          </button>
+
+          <SnackbarCommit
+            :fn="() => addInputTag(tagInput)"
+            :msg="{
+              ok: `#${tagInput} ${$t('added_to_undefined')}`,
+              ng: $t('cant_add_tag'),
+            }"
+            :useServerErrMsg="true"
+          >
+            <template #activator="{ on }">
+              <button class="p-post__hash-add" @click.prevent="on">
+                {{ $t('add') }}
+              </button>
+            </template>
+          </SnackbarCommit>
         </div>
         <!-- tag buttons -->
         <div class="p-post__hash-items">
@@ -81,16 +93,9 @@ export default class Tag extends Vue {
     }
     this.$emit('change', tag);
   }
-  handleClickAddInputTag(tagInput: string) {
-    this.requestAddTag({ tagInput })
-      .then((d) => (this.tagInput = ''))
-      .then(() => (this as any).$snack.success({ text: `#${tagInput} ${this.$t('added_to_undefined')}`, button: 'OK' }))
-      .catch((e) => {
-        (this as any).$snack.danger({
-          text: e?.body?.errors?.[0] ?? this.$t('cant_add_tag'),
-          button: 'OK',
-        });
-      });
+  async addInputTag(tagInput: string) {
+    await this.requestAddTag({ tagInput });
+    this.tagInput = '';
   }
   handleClickDeleteTag(tag: TagModel.Read.Response.List) {
     const idx = this.selectedTagsCopy.findIndex((t) => t.tag_id === tag.tag_id);

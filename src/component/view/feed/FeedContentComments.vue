@@ -6,7 +6,7 @@
       </dt>
       <dd class="c-comment-list__comment" v-sanitize>{{ comment.note }}</dd>
 
-      <Snackbar
+      <SnackbarCommit
         :fn="() => removeComment(comment.comment_id)"
         :msg="{
           ok: $t('deleted'),
@@ -18,7 +18,7 @@
             <font-awesome-icon :icon="['far', 'times-circle']" />
           </dd>
         </template>
-      </Snackbar>
+      </SnackbarCommit>
     </dl>
   </div>
 </template>

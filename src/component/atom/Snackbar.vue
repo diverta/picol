@@ -1,6 +1,6 @@
 <template>
   <div>
-    <slot name="activator" :on="on"></slot>
+    <slot name="activator" :processing="processing" :on="on"></slot>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
  * @example ```
  * <template>
  *   <div>
- *     <Snackbar
+ *     <SnackbarCommit
  *       :fn="promiseFn"
  *       :msg="{
  *         ok: $t('deleted'),
@@ -24,7 +24,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
  *       <template #activator="{ on }">
  *         <button @click="on">click</button>
  *       </template>
- *     </Snackbar>
+ *     </SnackbarCommit>
  *   </div>
  * </template>
  *
@@ -35,21 +35,44 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
  * ...
  * ```
  */
-@Component<Snackbar>({ name: 'Snackbar' })
-export default class Snackbar extends Vue {
+@Component<SnackbarCommit>({ name: 'SnackbarCommit' })
+export default class SnackbarCommit extends Vue {
   @Prop({ type: Function, required: true })
   fn!: () => Promise<any>;
 
   @Prop({ type: Object, required: false, default: () => ({}) })
   msg?: MsgObject;
 
-  on() {
-    const ok = this?.msg?.ok ?? this.$t('success');
-    const ng = this?.msg?.ng ?? this.$t('fail');
+  /** An option whether renders error message server responsed. */
+  @Prop({ type: Boolean, required: false, default: false })
+  useServerErrMsg!: boolean;
 
+  /** An option to use confirmation. */
+  @Prop({ type: String, required: false })
+  confirmMsg?: string;
+
+  processing: boolean = false;
+
+  on() {
+    if (this.confirmMsg !== undefined && !window.confirm(this.confirmMsg)) {
+      return;
+    }
+
+    const ok = this?.msg?.ok ?? this.$t('success');
+
+    const _ng = this?.msg?.ng ?? this.$t('fail');
+    const ng = (e: any) => (this.useServerErrMsg ? e?.body?.errors?.[0] ?? _ng : _ng);
+
+    this.processing = true;
     this.fn()
       .then(() => (this as any).$snack.success({ text: ok, button: 'OK' }))
-      .catch(() => (this as any).$snack.danger({ text: ng, button: 'OK' }));
+      .catch((e) => {
+        (this as any).$snack.danger({
+          text: ng(e),
+          button: 'OK',
+        });
+      })
+      .finally(() => (this.processing = false));
   }
 }
 

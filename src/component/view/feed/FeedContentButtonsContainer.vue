@@ -1,13 +1,35 @@
 <template>
   <div class="c-entry__like-button-wrapper">
-    <disable-dbclick-button
-      :class="{ 'c-entry__like-button': true, 'is-on': feed.my_favorite_flg }"
-      :onclick="handleClickFavorite"
-      >like</disable-dbclick-button
+    <SnackbarCommit
+      :fn="favorite"
+      :msg="{
+        ok: this.feed.my_favorite_flg ? $t('removed') : $t('liked'),
+      }"
     >
+      <template #activator="{ on, processing }">
+        <button
+          :disabled="processing"
+          :class="{ 'c-entry__like-button': true, 'is-on': feed.my_favorite_flg }"
+          @click="on"
+        >
+          like
+        </button>
+      </template>
+    </SnackbarCommit>
     <div class="icons-wrapper">
       <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'edit']" @click.prevent="handleClickEdit" />
-      <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'trash-alt']" @click.prevent="handleClickRemove" />
+
+      <SnackbarCommit
+        :fn="remove"
+        :msg="{
+          ok: $t('deleted'),
+        }"
+        :confirmMsg="$t('are_you_sure_to_delete_this')"
+      >
+        <template #activator="{ on }">
+          <font-awesome-icon v-if="isMyFeed" class="icon" :icon="['far', 'trash-alt']" @click.prevent="on" />
+        </template>
+      </SnackbarCommit>
     </div>
   </div>
 </template>
@@ -39,35 +61,24 @@ export default class FeedContentButtonsContainer extends Vue {
   }
 
   // METHODS
-  handleClickFavorite() {
+  async favorite() {
     const newFav = !this.feed.my_favorite_flg;
 
-    return (newFav
-      ? FeedStateModule.setFavorite({
+    await (this.feed.my_favorite_flg
+      ? FeedStateModule.removeFavorite({
           requestBody: { module_type: 'topics', module_id: this.feed.topics_id },
         })
-      : FeedStateModule.removeFavorite({
+      : FeedStateModule.setFavorite({
           requestBody: { module_type: 'topics', module_id: this.feed.topics_id },
-        })
-    )
-      .then(() => {
-        this.onChangeFeed();
-        (this as any).$snack.success({ text: newFav ? this.$t('liked') : this.$t('removed'), button: 'OK' });
-      })
-      .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
+        }));
+    this.onChangeFeed();
   }
-  handleClickRemove() {
-    const confrim_msg = this.$t('are_you_sure_to_delete_this') as string;
-
-    if (window.confirm(confrim_msg)) {
-      FeedStateModule.removeFeed({ topicsId: this.feed.topics_id })
-        .then(() => (this as any).$snack.success({ text: this.$t('deleted'), button: 'OK' }))
-        .catch(() => (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' }));
-
+  async remove() {
+    await FeedStateModule.removeFeed({ topicsId: this.feed.topics_id }).then(() => {
       if (this.$route.path !== '/') {
         this.$router.push({ path: '/' });
       }
-    }
+    });
   }
   handleClickEdit() {
     const topics_id = `${this.feed.topics_id}` as string;
@@ -111,7 +122,7 @@ export default class FeedContentButtonsContainer extends Vue {
 {
   "liked": "Liked.",
   "removed": "Rmoved.",
-  "error_occurred": "エラーが発生しました。",
+  "error_occurred": "An error has occured.",
   "are_you_sure_to_delete_this": "Are you sure to delete this?",
   "deleted": "Deleted."
 }
