@@ -22,5 +22,16 @@ declare module 'vue/types/vue' {
   interface Vue {
     exists: typeof util.exists;
     getHowLongBeforePostedData: typeof util.getHowLongBeforePostedData;
+    $snack: {
+      success: SnackbarFn,
+      danger: SnackbarFn,
+      show: SnackbarFn,
+    }
   }
+
+  type SnackbarFn = (opts: {
+    text?: any,
+    button?: string,
+    action?: Function
+  }) => void;
 }

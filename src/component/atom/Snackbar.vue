@@ -65,9 +65,9 @@ export default class SnackbarCommit extends Vue {
 
     this.processing = true;
     this.fn()
-      .then(() => (this as any).$snack.success({ text: ok, button: 'OK' }))
+      .then(() => this.$snack.success({ text: ok, button: 'OK' }))
       .catch((e) => {
-        (this as any).$snack.danger({
+        this.$snack.danger({
           text: ng(e),
           button: 'OK',
         });

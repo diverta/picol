@@ -17,7 +17,7 @@ export default class App extends Vue {
   async created() {
     Auth.onErrorHandler = async (res) => {
       this.$router.push({ path: '/sub/login' });
-      (this as any).$snack.danger({ text: this.$t('please_login'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('please_login'), button: 'OK' });
     };
   }
 }

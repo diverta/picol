@@ -37,7 +37,7 @@ export default class CreateFeedContainerActions extends Vue {
   // METHODS
   handleOnClickEditPost(e: Event): void {
     if (this.input.commentInput === '') {
-      (this as any).$snack.show({ text: this.$t('input_caption'), button: 'OK' });
+      this.$snack.show({ text: this.$t('input_caption'), button: 'OK' });
       return;
     }
     this.uploadTopic();

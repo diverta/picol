@@ -62,7 +62,7 @@ export default class FeedDetail extends Vue {
       this.feedDetail = feed.details;
       this.disabledAllLinks();
     } catch (e) {
-      (this as any).$snack.danger({
+      this.$snack.danger({
         text: 'Not found.',
       });
       return Promise.reject('feed datas are not detected.');

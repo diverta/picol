@@ -88,7 +88,7 @@ export default class Tag extends Vue {
   }
   handleClickAddTag(tag: TagModel.Read.Response.List) {
     if (this.selectedTags.map((tag) => tag.tag_id).includes(tag.tag_id)) {
-      (this as any).$snack.danger({ text: this.$t('already_added'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('already_added'), button: 'OK' });
       return;
     }
     this.$emit('change', tag);
