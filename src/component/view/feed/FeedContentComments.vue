@@ -36,14 +36,6 @@ export default class FeedContentComments extends Vue {
   topicsID!: number;
   @Prop({ type: Array, required: true })
   comments!: CommentModel.Read.Response.List[];
-  @Prop({
-    type: Function,
-    required: false,
-    default: () => {
-      /** NP */
-    },
-  })
-  onChangeFeed!: () => void;
 
   // FIELDS
   UserStateModule = UserStateModule;
@@ -62,7 +54,7 @@ export default class FeedContentComments extends Vue {
   // METHODS
   async removeComment(commentID: number) {
     const payload = { requestBody: { comment_id: commentID }, moduleId: this.topicsID };
-    await FeedStateModule.removeComment(payload).then(() => this.onChangeFeed());
+    await FeedStateModule.removeComment(payload).then(() => this.$emit('commit-change'));
   }
 }
 </script>

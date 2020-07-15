@@ -44,14 +44,6 @@ export default class FeedContentButtonsContainer extends Vue {
   // PROPS
   @Prop({ type: Object, required: true })
   feed!: FeedModel.Read.Response.Feed;
-  @Prop({
-    type: Function,
-    required: false,
-    default: () => {
-      /** NP */
-    },
-  })
-  onChangeFeed!: () => void;
 
   // MUTATIONS
   get isMyFeed() {
@@ -69,7 +61,7 @@ export default class FeedContentButtonsContainer extends Vue {
       : FeedStateModule.setFavorite({
           requestBody: { module_type: 'topics', module_id: this.feed.topics_id },
         }));
-    this.onChangeFeed();
+    this.$emit('commit-change');
   }
   async remove() {
     await FeedStateModule.removeFeed({ topicsId: this.feed.topics_id }).then(() => {

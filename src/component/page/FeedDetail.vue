@@ -2,7 +2,12 @@
   <div class="p-feed">
     <loading :active.sync="isLoading" :can-cancel="false" :is-full-page="true"></loading>
 
-    <FeedContainer v-if="Object.keys(feed).length > 0" :feed="feed" :comments="comments" :onChangeFeed="onChangeFeed" />
+    <FeedContainer
+      v-if="Object.keys(feed).length > 0"
+      :feed="feed"
+      :comments="comments"
+      @commit-change="() => loadPage()"
+    />
 
     <div class="p-feed__prev-wrapper">
       <a class="p-feed__prev" @click.prevent="back">&lt;</a>
@@ -65,9 +70,6 @@ export default class FeedDetail extends Vue {
         return Promise.reject('feed datas are not detected.');
       })
       .finally(() => (this.isLoading = false));
-  }
-  onChangeFeed() {
-    this.loadPage();
   }
 
   // LIFECYCLE HOOKS

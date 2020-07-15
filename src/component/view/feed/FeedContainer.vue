@@ -6,17 +6,13 @@
 
     <div class="c-entry__body">
       <FeedContentBody :feed="feed" />
-      <FeedContentButtonsContainer :feed="feed" :onChangeFeed="onChangeFeed" />
+      <FeedContentButtonsContainer :feed="feed" v-on="$listeners" />
       <FeedContentInfoStatuses :statuses="getFeedStatuses(feed)" />
       <FeedContentTags :tags="feed.tags" />
-      <FeedContentComments
-        :topicsID="feed.topics_id"
-        :comments="getComment(feed.topics_id)"
-        :onChangeFeed="onChangeFeed"
-      />
+      <FeedContentComments :topicsID="feed.topics_id" :comments="getComment(feed.topics_id)" v-on="$listeners" />
     </div>
 
-    <FeedContentCommentForm :feed="feed" :onChangeFeed="onChangeFeed" />
+    <FeedContentCommentForm :feed="feed" v-on="$listeners" />
   </article>
 </template>
 
@@ -35,6 +31,7 @@ import FeedContentButtonsContainer from './FeedContentButtonsContainer.vue';
 import FeedContentTags from './FeedContentTags.vue';
 
 @Component<FeedContainer>({
+  inheritAttrs: false,
   components: {
     FeedContentHeader,
     FeedContentImageWrapper,

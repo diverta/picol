@@ -53,14 +53,6 @@ export default class FeedContentCommentForm extends Vue {
   // PROPS
   @Prop()
   feed!: FeedModel.Read.Response.Feed;
-  @Prop({
-    type: Function,
-    required: false,
-    default: () => {
-      /** NP */
-    },
-  })
-  onChangeFeed!: () => void;
 
   // FIELDS
   UserStateModule = UserStateModule;
@@ -95,7 +87,7 @@ export default class FeedContentCommentForm extends Vue {
 
     await FeedStateModule.createComment(comment).then(() => {
       (this.$refs.editable as any).innerText = '';
-      this.onChangeFeed();
+      this.$emit('commit-change');
     });
   }
 
