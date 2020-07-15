@@ -15,7 +15,6 @@ import VueI18n from 'vue-i18n';
 
 import TinySpinner from '@/component/atom/TinySpinner.vue';
 import RouterLinkExt from '@/component/atom/RouterLinkExt.vue';
-import DisableDbClickButton from '@/component/atom/DisableDbClickButton.vue';
 import Navigation from '@/component/view/navigation/Navigation.vue';
 import SnackbarCommit from '@/component/atom/SnackbarCommit.vue';
 import CustomInfiniteLoader from '@/component/atom/infinite_loader/CustomInfiniteLoader.vue';
@@ -47,7 +46,6 @@ Vue.component((Navigation as any).options.name, Navigation);
 Vue.component((Modal as any).options.name, Modal);
 Vue.component((TinySpinner as any).options.name, TinySpinner);
 Vue.component((RouterLinkExt as any).options.name, RouterLinkExt);
-Vue.component((DisableDbClickButton as any).options.name, DisableDbClickButton);
 Vue.component((VueCarouselWrapper as any).options.name, VueCarouselWrapper);
 Vue.component((VimeoContainer as any).options.name, VimeoContainer);
 Vue.component((SnackbarCommit as any).options.name, SnackbarCommit);

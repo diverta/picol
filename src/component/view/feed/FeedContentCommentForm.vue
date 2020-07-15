@@ -1,28 +1,39 @@
 <template>
   <div class="c-comment-field">
-    <div class="c-comment-field__form">
-      <img :src="myAvatarSrc" alt class="c-comment-field__icon" />
+    <SnackbarCommit
+      class="c-comment-field__form"
+      :fn="() => addComment(feed)"
+      :msg="{
+        ok: $t('add_comment'),
+        ng: $t('error_occurred'),
+      }"
+      async
+      :useServerErrMsg="true"
+      v-slot="{ on, processing }"
+    >
+      <img :src="UserStateModule.myImage" alt class="c-comment-field__icon" />
       <div
         class="c-comment-field__textarea"
         type="text"
-        contenteditable="true"
+        :contenteditable="!processing"
         data-placeholder="Comment..."
         required
-        maxlength="140"
+        data-max-length="140"
         ref="editable"
-        @input="onInput"
-        @keydown="(event) => handleOnKeyDown(event)"
-        @keyup.enter.prevent="(event) => handleOnKeyUp(event, feed)"
+        @paste="checkOverMaxLength"
+        @input="checkOverMaxLength"
+        @keydown.enter.exact.stop.prevent="on"
       ></div>
-      <disable-dbclick-button
-        :class="{ 'c-comment-field__submit': true, 'is-disabled': isDisabled }"
-        :disabled="isDisabled"
-        :onclick="() => handleOnClickAdd(feed)"
+      <button
+        class="c-comment-field__submit"
+        :class="{ 'is-disabled': processing }"
+        :disabled="processing"
+        @click.prevent="on"
       >
-        <span v-if="isProcessing === false">{{ $t('post') }}</span>
-        <TinySpinner v-else></TinySpinner>
-      </disable-dbclick-button>
-    </div>
+        <TinySpinner v-if="processing"></TinySpinner>
+        <span v-else>{{ $t('post') }}</span>
+      </button>
+    </SnackbarCommit>
   </div>
 </template>
 
@@ -35,6 +46,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule } from '@/store';
 import { ServiceHelper } from '../../../util';
 import { CommentsService } from '@/kuroco_api/services/CommentsService';
+import { maxlengthContentEditable } from 'maxlength-contenteditable';
 
 @Component<FeedContentCommentForm>({})
 export default class FeedContentCommentForm extends Vue {
@@ -51,66 +63,26 @@ export default class FeedContentCommentForm extends Vue {
   onChangeFeed!: () => void;
 
   // FIELDS
-  isProcessing = false;
-  keyDownCode = 0;
-  /**
-   * due to detect the button is clickable or not.
-   */
-  content = '';
+  UserStateModule = UserStateModule;
 
-  // MUTATIONS
-  get myAvatarSrc(): string {
-    return UserStateModule.myImage;
-  }
-  get isDisabled(): boolean {
-    return this.isProcessing || this.content.trim() === '';
-  }
-  get selfUser() {
-    return UserStateModule.selfUser;
-  }
+  // METHODS
+  checkOverMaxLength(e: any) {
+    const len = (() => {
+      const passed =
+        e.data?.trim().length ||
+        e.clipboardData?.getData('Text')?.trim().length ||
+        (window as any).clipboardData?.getData('Text')?.trim().length ||
+        0;
+      const content = e.target.innerText.length;
 
-  onInput(e: any) {
-    const inputStr = e.target.innerText.trim();
-    if (inputStr.length > 140) {
-      e.target.innerText = this.content;
-      e.preventDefault();
+      return passed + content;
+    })();
+
+    if (len > 140) {
       this.$snack.danger({ text: this.$t('place_holder') });
-      return;
-    }
-    this.content = inputStr;
-  }
-  clearInput() {
-    (this.$refs.editable as any).innerText = '';
-    this.content = '';
-  }
-  handleOnKeyDown(e: any) {
-    this.keyDownCode = e.keyCode;
-  }
-  // handles Enter keyUp event
-  handleOnKeyUp(e: any, feed: FeedModel.Read.Response.Feed) {
-    if (this.isDisabled) {
-      return;
-    }
-    if (e.keyCode && e.keyCode === 13) {
-      // for considering making a new line.
-      if (e.shiftKey) {
-        return;
-      }
-      // for considering the case of conversion key + enter key pressed.
-      // at only enter key (for post comment) pressed, keyCode and keyDownCode are the equal.
-      if (e.keyCode !== this.keyDownCode) {
-        return;
-      }
-
-      this.addComment(feed);
-      e.preventDefault();
-      e.stopPropagation();
     }
   }
-  handleOnClickAdd(feed: FeedModel.Read.Response.Feed) {
-    return this.addComment(feed);
-  }
-  addComment(feed: FeedModel.Read.Response.Feed) {
+  async addComment(feed: FeedModel.Read.Response.Feed) {
     const note = (this.$refs.editable as any).innerText.trim() as string;
 
     const comment: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest = {
@@ -121,25 +93,19 @@ export default class FeedContentCommentForm extends Vue {
       },
     };
 
-    this.isProcessing = true;
-
-    return this.feedPostComment(comment)
-      .then(() => this.clearInput())
-      .then(() => this.onChangeFeed())
-      .finally(() => (this.isProcessing = false));
+    await FeedStateModule.createComment(comment).then(() => {
+      (this.$refs.editable as any).innerText = '';
+      this.onChangeFeed();
+    });
   }
-  feedPostComment(query: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
-    return FeedStateModule.createComment(query)
-      .then(() => {
-        this.$snack.success({ text: this.$t('add_comment') });
-        return Promise.resolve();
-      })
-      .catch((e: any) => {
-        this.$snack.danger({
-          text: e?.body?.errors?.[0] ?? this.$t('error_occurred'),
-        });
-        return Promise.reject();
-      });
+
+  // LYFECYCLE HOOKS
+  mounted() {
+    /**
+     * executes maxlength attribute for contenteditable div element.
+     * @see https://github.com/stephen31/maxlength-contenteditable
+     */
+    maxlengthContentEditable();
   }
 }
 </script>
@@ -155,7 +121,7 @@ export default class FeedContentCommentForm extends Vue {
 <i18n locale="en" lang="json5">
 {
   "post": "Post",
-  "add_comment": "An error has occurred.",
+  "error_occurred": "An error has occurred.",
   "place_holder": "Please input the text within 140 characters.",
   "add_comment": "The comment was added.",
   "post_tag_errMsg": "Could not post the tag. <br>Your network condition may be bad. <br>Please check your network condition and try again."
