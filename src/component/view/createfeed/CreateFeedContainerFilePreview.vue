@@ -5,7 +5,7 @@
     <!-- image element -->
     <img v-if="elmType === ELEMENT_TYPE.IMAGE" class="p-post__thumbnail" :src="source.url" :style="additionalStyle" />
     <!-- video vimeo element -->
-    <vimeo-container
+    <VimeoContainer
       v-if="elmType === ELEMENT_TYPE.VIDEO_VIMEO"
       :class="'p-post__thumbnail'"
       :id="source.file_id"

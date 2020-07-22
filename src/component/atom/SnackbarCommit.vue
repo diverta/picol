@@ -34,7 +34,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
  * ...
  * ```
  */
-@Component<SnackbarCommit>({ name: 'SnackbarCommit' })
+@Component<SnackbarCommit>({})
 export default class SnackbarCommit extends Vue {
   @Prop({ type: Function, required: true })
   fn!: () => Promise<any>;

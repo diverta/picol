@@ -13,10 +13,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import Player from '@vimeo/player';
 
-@Component<VimeoContainer>({
-  name: 'vimeo-container',
-  components: {},
-})
+@Component<VimeoContainer>({})
 export default class VimeoContainer extends Vue {
   // PROPS
   @Prop({ type: String, required: false, default: '' })

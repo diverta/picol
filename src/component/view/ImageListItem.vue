@@ -7,7 +7,7 @@
       class="c-thumbnail-list__image"
       data-bigfile
     />
-    <vimeo-container
+    <VimeoContainer
       v-else-if="mediaDef.type === 'video'"
       :class="'c-thumbnail-list__video'"
       :id="mediaDef.file_id"
