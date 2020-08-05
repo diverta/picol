@@ -28,7 +28,10 @@ export function getSortedComments(comments: CommentModel.Read.Response.RootObjec
 
 export function getMediasFromFeedData(feed: FeedModel.Read.Response.Feed): FeedModel.MediaFromFeed[] {
   const extCol04 = [...(feed.ext_col_04 || []).map((v) => ({ ...v, type: 'image' as 'image' }))];
-  const extCol06 = feed.ext_col_06 ? [{ ...feed.ext_col_06, type: 'video' as 'video' }] : [];
+  const extCol06 =
+    feed.ext_col_06 && Object.keys(feed.ext_col_06).length > 0
+      ? [{ ...feed.ext_col_06, type: 'video' as 'video' }]
+      : [];
   const files = [...extCol04, ...extCol06];
 
   const convert = (file: typeof files[0]) => {
