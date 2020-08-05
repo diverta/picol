@@ -672,6 +672,54 @@ export class TopicsService {
     catchGenericError(result);
     return result.body;
   }
+  /**
+   *
+   * ### **Topics::insert (v1)**
+   *
+   *
+   * ## Controller parameters
+   *
+   * > **topics_group_id** `1`
+   *
+   * @param requestBody
+   * @param outputFormat Format (json|xml|csv)
+   * @param lang Language
+   * @param charset Charset
+   * @result any
+   * @throws ApiError
+   */
+  public static async postTopicsServiceRcmsApi1Test(
+    requestParam: TopicsService.postTopicsServiceRcmsApi1TestRequest,
+  ): Promise<any> {
+    const shouldHookToken =
+      Object.keys({
+        'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
+      }).length > 0;
+
+    const request = async () =>
+      await __request({
+        headers: shouldHookToken
+          ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
+          : {},
+        method: 'post',
+        path: `/rcms-api/1/test`,
+        query: {
+          _output_format: requestParam.outputFormat,
+          _lang: requestParam.lang,
+          _charset: requestParam.charset,
+        },
+        body: requestParam.requestBody,
+      });
+
+    let result = await request();
+
+    if (shouldHookToken && !result.ok && result.status === 401) {
+      result = await import('../core/Auth').then(({ Auth }) => Auth.retryRequest(request, result));
+    }
+
+    catchGenericError(result);
+    return result.body;
+  }
 }
 
 export namespace TopicsService {
@@ -771,6 +819,7 @@ export namespace TopicsService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
        */
       tag_id?: Array<
         | 75
@@ -795,6 +844,7 @@ export namespace TopicsService {
         | 177
         | 178
         | 179
+        | 180
       >;
       /**
        * GCSファイル
@@ -923,6 +973,7 @@ export namespace TopicsService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
        */
       tag_id?: Array<
         | 75
@@ -947,6 +998,7 @@ export namespace TopicsService {
         | 177
         | 178
         | 179
+        | 180
       >;
       /**
        * GCSファイル
@@ -1106,4 +1158,150 @@ export namespace TopicsService {
     id?: Array<number>;
   }
   export type getTopicsServiceRcmsApi1TestResponse = any;
+  export interface postTopicsServiceRcmsApi1TestRequest {
+    requestBody: {
+      /**
+       * Topic title
+       */
+      subject: string;
+      /**
+       * Category ID
+       * * 1 => フィード
+       */
+      contents_type?: 1;
+      /**
+       * Date
+       */
+      ymd?: string;
+      /**
+       * Published / Not published
+       */
+      open_type?: 'open' | 'close' | 'default';
+      /**
+       * Display all topics to logged in members, regardless ther public/hidden status
+       */
+      topics_flg?: 0 | 1;
+      /**
+       * Season
+       */
+      season?: number;
+      /**
+       * Contents
+       */
+      contents?: string;
+      /**
+       * display up
+       */
+      regular_flg?: number;
+      /**
+       * Display method
+       */
+      link_flg?: number;
+      /**
+       * Link
+       */
+      link_url?: string;
+      /**
+       * タグID
+       * * 75 => 推しキャラ(Favorite character)
+       * * 76 => いい感じの何か(good stuff)
+       * * 67 => 近況(Now)
+       * * 68 => ランチ(Lunch)
+       * * 69 => おやつ(Snack)
+       * * 70 => 仕事関係
+       * * 71 => ただしい(Do right)
+       * * 72 => たのしい(Delight)
+       * * 73 => ジレンマ(dilemma)
+       * * 74 => めでたい
+       * * 162 => おやつ
+       * * 163 => sakura
+       * * 164 => 桜
+       * * 166 => 景色
+       * * 171 => 重要なお知らせ
+       * * 173 => ここにタグを設置できます
+       * * 174 => MalaysiaOffice
+       * * 175 => 近況
+       * * 176 => 近所のお店
+       * * 177 => #テスト
+       * * 178 => テスト投稿1
+       * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
+       */
+      tag_id?: Array<
+        | 75
+        | 76
+        | 67
+        | 68
+        | 69
+        | 70
+        | 71
+        | 72
+        | 73
+        | 74
+        | 162
+        | 163
+        | 164
+        | 166
+        | 171
+        | 173
+        | 174
+        | 175
+        | 176
+        | 177
+        | 178
+        | 179
+        | 180
+      >;
+      /**
+       * GCSファイル
+       */
+      ext_col_04?: Array<{
+        /**
+         * File ID returned by File Upload API
+         */
+        file_id?: string;
+        /**
+         * File name
+         */
+        file_nm?: string;
+        /**
+         * Description
+         */
+        desc?: string;
+        /**
+         * File ID. Whether the item should be updated or inserted depends on this ID being set or not.
+         */
+        id?: string;
+      }>;
+      /**
+       * 動画
+       */
+      ext_col_06?: {
+        /**
+         * File ID returned by File Upload API
+         */
+        file_id?: string;
+        /**
+         * File name
+         */
+        file_nm?: string;
+        /**
+         * Description
+         */
+        desc?: string;
+      };
+      /**
+       * コメント
+       */
+      ext_col_02?: string;
+      /**
+       * Validate
+       */
+      validate_only?: boolean;
+    };
+    outputFormat?: string;
+    lang?: string;
+    charset?: string;
+  }
+  export type postTopicsServiceRcmsApi1TestResponse = any;
 }

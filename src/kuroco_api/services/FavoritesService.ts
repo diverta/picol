@@ -255,7 +255,8 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page';
+        | 'page'
+        | 'ec';
       /**
        * module_id
        */
@@ -301,7 +302,8 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page';
+        | 'page'
+        | 'ec';
       /**
        * module_id
        */

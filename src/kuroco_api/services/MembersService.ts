@@ -239,6 +239,7 @@ export namespace MembersService {
        * Validate
        */
       validate_only?: boolean;
+      auto_login?: number;
     };
     outputFormat?: string;
     lang?: string;
