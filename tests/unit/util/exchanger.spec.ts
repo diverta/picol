@@ -41,6 +41,13 @@ describe('getMediasFromFeedData()', () => {
     rtn = getMediasFromFeedData(data as FeedModel.Read.Response.Feed);
     expect(rtn.length === 0).toBeTruthy();
 
+    data = {
+      ext_col_04: [],
+      ext_col_06: {} as any,
+    };
+    rtn = getMediasFromFeedData(data as FeedModel.Read.Response.Feed);
+    expect(rtn.length === 0).toBeTruthy();
+
     data = {};
     rtn = getMediasFromFeedData(data as FeedModel.Read.Response.Feed);
     expect(rtn.length === 0).toBeTruthy();
