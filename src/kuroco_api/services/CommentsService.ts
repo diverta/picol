@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class CommentsService {
   /**
@@ -38,14 +39,14 @@ export class CommentsService {
    */
   public static async getCommentsServiceRcmsApi1Comments(
     requestParam: CommentsService.getCommentsServiceRcmsApi1CommentsRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -71,7 +72,7 @@ export class CommentsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -91,14 +92,14 @@ export class CommentsService {
    */
   public static async postCommentsServiceRcmsApi1CommentCreate(
     requestParam: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -119,7 +120,7 @@ export class CommentsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -139,14 +140,14 @@ export class CommentsService {
    */
   public static async postCommentsServiceRcmsApi1CommentDelete(
     requestParam: CommentsService.postCommentsServiceRcmsApi1CommentDeleteRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -167,7 +168,7 @@ export class CommentsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

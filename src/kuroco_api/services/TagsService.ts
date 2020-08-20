@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class TagsService {
   /**
@@ -34,14 +35,14 @@ export class TagsService {
    */
   public static async getTagsServiceRcmsApi1Tags(
     requestParam: TagsService.getTagsServiceRcmsApi1TagsRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -67,7 +68,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -83,14 +84,14 @@ export class TagsService {
    */
   public static async postTagsServiceRcmsApi1TagCreate(
     requestParam: TagsService.postTagsServiceRcmsApi1TagCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -111,7 +112,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -138,14 +139,14 @@ export class TagsService {
    */
   public static async getTagsServiceRcmsApi1TagsCategoryGrouped(
     requestParam: TagsService.getTagsServiceRcmsApi1TagsCategoryGroupedRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -169,7 +170,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

@@ -27,14 +27,15 @@ class Tag extends VuexModule implements ITagState {
 
   @Action({ rawError: true })
   async fetchOnFeeds(request: TagsService.getTagsServiceRcmsApi1TagsRequest) {
-    const tagDefs = (await this.apis.tags.getTagsServiceRcmsApi1Tags(request)) as TagModel.Read.Response.RootObject[];
+    const tagDefs = (await this.apis.tags.getTagsServiceRcmsApi1Tags(request))
+      .body as TagModel.Read.Response.RootObject[];
     this.ADD_TAG_DEFS(tagDefs);
     return tagDefs;
   }
 
   @Action({ rawError: true })
   async addTag(request: TagsService.postTagsServiceRcmsApi1TagCreateRequest) {
-    return (await this.apis.tags.postTagsServiceRcmsApi1TagCreate(request)) as TagModel.Create.Response.RootObject;
+    return (await this.apis.tags.postTagsServiceRcmsApi1TagCreate(request)).body as TagModel.Create.Response.RootObject;
   }
 
   @Action({ rawError: true })

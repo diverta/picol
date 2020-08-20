@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class FavoritesService {
   /**
@@ -23,14 +24,14 @@ export class FavoritesService {
    */
   public static async postFavoritesServiceRcmsApi1FavoriteCreate(
     requestParam: FavoritesService.postFavoritesServiceRcmsApi1FavoriteCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -51,7 +52,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -67,14 +68,14 @@ export class FavoritesService {
    */
   public static async postFavoritesServiceRcmsApi1FavoriteDelete(
     requestParam: FavoritesService.postFavoritesServiceRcmsApi1FavoriteDeleteRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -95,7 +96,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -125,14 +126,14 @@ export class FavoritesService {
    */
   public static async getFavoritesServiceRcmsApi1Favorites(
     requestParam: FavoritesService.getFavoritesServiceRcmsApi1FavoritesRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -157,7 +158,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -187,14 +188,14 @@ export class FavoritesService {
    */
   public static async getFavoritesServiceRcmsApi1FavoritesMylist(
     requestParam: FavoritesService.getFavoritesServiceRcmsApi1FavoritesMylistRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -219,7 +220,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

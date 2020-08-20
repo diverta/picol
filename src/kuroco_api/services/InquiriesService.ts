@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class InquiriesService {
   /**
@@ -27,14 +28,14 @@ export class InquiriesService {
    */
   public static async postInquiriesServiceRcmsApi1Report(
     requestParam: InquiriesService.postInquiriesServiceRcmsApi1ReportRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -55,7 +56,7 @@ export class InquiriesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class FilesService {
   /**
@@ -23,14 +24,14 @@ export class FilesService {
    */
   public static async postFilesServiceRcmsApi1FileUpload(
     requestParam: FilesService.postFilesServiceRcmsApi1FileUploadRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -51,7 +52,7 @@ export class FilesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

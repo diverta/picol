@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class TopicsService {
   /**
@@ -66,14 +67,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1Feeds(
     requestParam: TopicsService.getTopicsServiceRcmsApi1FeedsRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -116,7 +117,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -136,14 +137,14 @@ export class TopicsService {
    */
   public static async postTopicsServiceRcmsApi1FeedCreate(
     requestParam: TopicsService.postTopicsServiceRcmsApi1FeedCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -164,7 +165,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -180,14 +181,14 @@ export class TopicsService {
    */
   public static async postTopicsServiceRcmsApi1FeedDeleteTopicsId(
     requestParam: TopicsService.postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -207,7 +208,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -228,14 +229,14 @@ export class TopicsService {
    */
   public static async postTopicsServiceRcmsApi1FeedUpdateTopicsId(
     requestParam: TopicsService.postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -256,7 +257,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -275,14 +276,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1Tg(
     requestParam: TopicsService.getTopicsServiceRcmsApi1TgRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -302,7 +303,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -323,14 +324,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1FeedGroup(
     requestParam: TopicsService.getTopicsServiceRcmsApi1FeedGroupRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -350,7 +351,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -393,14 +394,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1Infos(
     requestParam: TopicsService.getTopicsServiceRcmsApi1InfosRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -443,7 +444,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -486,14 +487,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1PreInfo(
     requestParam: TopicsService.getTopicsServiceRcmsApi1PreInfoRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -536,7 +537,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -552,11 +553,11 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1Preview(
     requestParam: TopicsService.getTopicsServiceRcmsApi1PreviewRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken = Object.keys({}).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -577,7 +578,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -620,14 +621,14 @@ export class TopicsService {
    */
   public static async getTopicsServiceRcmsApi1Test(
     requestParam: TopicsService.getTopicsServiceRcmsApi1TestRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -670,7 +671,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -690,14 +691,14 @@ export class TopicsService {
    */
   public static async postTopicsServiceRcmsApi1Test(
     requestParam: TopicsService.postTopicsServiceRcmsApi1TestRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -718,7 +719,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 
