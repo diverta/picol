@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import FeedContainer from '@/component/view/feed/FeedContainer.vue';
 import { FeedStateModule } from '@/store/feed';
 import { FeedModel, CommentModel } from '@/type/api';
@@ -29,7 +28,6 @@ import { TopicsService } from '@/kuroco_api/services/TopicsService';
 @Component<OptionalFeed>({
   components: {
     FeedContainer,
-    CustomInfiniteLoader,
   },
 })
 export default class OptionalFeed extends Vue {

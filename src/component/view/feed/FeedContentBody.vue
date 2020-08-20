@@ -1,15 +1,8 @@
 <template>
-  <component
-    :is="$route.path === '/' ? 'router-link-ext' : 'div'"
-    :to="{ name: 'feedDetail', query: { topics_id: feed.topics_id } }"
-    class="c-entry__body--content-link"
-    exact
-  >
-    <div class="c-entry__body--content-link">
-      <p v-if="$route.path === '/'" v-trim v-sanitize>{{ feed.ext_col_02 }}</p>
-      <p v-else v-sanitize>{{ feed.ext_col_02 }}</p>
-    </div>
-  </component>
+  <div class="c-entry__body--content-link">
+    <p v-if="$route.path === '/'" v-trim v-sanitize>{{ feed.ext_col_02 }}</p>
+    <p v-else v-sanitize>{{ feed.ext_col_02 }}</p>
+  </div>
 </template>
 
 <script lang="ts">

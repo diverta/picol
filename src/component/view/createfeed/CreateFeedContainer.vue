@@ -77,9 +77,8 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
   // METHODS
   async readFeeds(topicsID: string) {
     const res = await FeedStateModule.loadPage({ id: [Number(topicsID)] }).catch((e: any = {}) => {
-      (this as any).$snack.danger({
+      this.$snack.danger({
         text: '該当の記事が見つかりませんでした。',
-        button: 'OK',
       });
       this.$router.push({ path: '/' });
       return Promise.reject();
@@ -91,9 +90,8 @@ export default class CreateFeedContainer extends Vue implements CreateFeedContai
     // hence in this case it possibly allows that any user can edit other user's topic,
     // to prevent it.
     if (targetFeed.member_id !== UserStateModule.selfUser.member_id) {
-      (this as any).$snack.danger({
+      this.$snack.danger({
         text: '該当の記事を編集する権限がありません。',
-        button: 'OK',
       });
       this.$router.push({ path: '/' });
     }

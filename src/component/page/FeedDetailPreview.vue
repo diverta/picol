@@ -55,14 +55,14 @@ export default class FeedDetail extends Vue {
   async mounted() {
     try {
       const previewToken = this.$route.query.preview_token as string;
-      const feed = await TopicsService.getTopicsServiceRcmsApi1Preview({ previewToken });
+      const feed = (await TopicsService.getTopicsServiceRcmsApi1Preview({ previewToken })).body;
       feed.details.inst_ymdhi = new Date().toUTCString();
       feed.details.favorite_cnt = 0;
       feed.details.comment_cnt = 0;
       this.feedDetail = feed.details;
       this.disabledAllLinks();
     } catch (e) {
-      (this as any).$snack.danger({
+      this.$snack.danger({
         text: 'Not found.',
       });
       return Promise.reject('feed datas are not detected.');

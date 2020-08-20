@@ -18,19 +18,13 @@
         />
 
         <ImageList :feeds="list" :pageID="pageID" />
-        <CustomInfiniteLoader
-          v-if="initialLoaded"
-          :infiniteHandler="infiniteHandler"
-          ref="Infinite"
-          :messageMarginStyle="messageMarginStyle"
-        />
+        <CustomInfiniteLoader v-if="initialLoaded" :infiniteHandler="infiniteHandler" ref="Infinite" margin />
       </div>
     </main>
   </div>
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import ImageList from '@/component/view/ImageList.vue';
 import SearchInput from '@/component/view/SearchInput.vue';
 import Tag from '@/component/view/Tag.vue';
@@ -47,7 +41,6 @@ import { TopicsService } from '@/kuroco_api/services/TopicsService';
 @Component<Search>({
   components: {
     ImageList,
-    CustomInfiniteLoader,
     Tag,
     SearchInput,
   },
@@ -62,9 +55,6 @@ export default class Search extends Vue {
   specTagIDs: string[] = [];
   query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {};
   initialLoaded = false;
-  messageMarginStyle = {
-    margin: '40px 0',
-  };
   /** var syntax binding for enable rodash.debounce function. */
   debouncedRefresh = debounce(this.refresh, 500);
 

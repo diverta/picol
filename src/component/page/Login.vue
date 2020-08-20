@@ -105,7 +105,7 @@ export default class Login extends Vue {
     await Auth.login({ requestBody: { ...this.input } })
       .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
       .catch((e) => {
-        (this as any).$snack.danger({ text: this.$t('loginFailed'), button: 'OK' });
+        this.$snack.danger({ text: this.$t('loginFailed') });
         console.error(e);
         return Promise.reject(e);
       });

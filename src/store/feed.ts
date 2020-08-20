@@ -118,9 +118,11 @@ class Feed extends VuexModule implements IFeedState {
   @Action({ rawError: true })
   async createComment(payload: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
     await ServiceHelper.apis.comments.postCommentsServiceRcmsApi1CommentCreate(payload);
-    const comments = (await this.apis.comments.getCommentsServiceRcmsApi1Comments({
-      moduleId: [payload.requestBody.module_id],
-    })) as CommentModel.Read.Response.RootObject[];
+    const comments = (
+      await this.apis.comments.getCommentsServiceRcmsApi1Comments({
+        moduleId: [payload.requestBody.module_id],
+      })
+    ).body as CommentModel.Read.Response.RootObject[];
 
     this.UPDATE_COMMENTS(comments.map((c) => c.list).flat());
     this.UPDATE_COMMENTS_COUNT({ topicsID: payload.requestBody.module_id, upOrDown: +1 });

@@ -1,6 +1,6 @@
 <template>
   <div :class="[`c-entry__image-wrapper${hasAnyMedias ? '' : '--absent'}`]">
-    <carousel-wrapper>
+    <VueCarouselWrapper>
       <slide v-for="(mediaDef, idx) in medias" :key="`image-${idx}`">
         <img
           v-if="mediaDef.type === 'image'"
@@ -10,9 +10,9 @@
           @click="handleOnClickMedia"
           data-bigfile
         />
-        <vimeo-container v-else :videoClass="'c-entry__video'" :id="mediaDef.file_id" :url="mediaDef.url" />
+        <VimeoContainer v-else :videoClass="'c-entry__video'" :id="mediaDef.file_id" :url="mediaDef.url" />
       </slide>
-    </carousel-wrapper>
+    </VueCarouselWrapper>
   </div>
 </template>
 

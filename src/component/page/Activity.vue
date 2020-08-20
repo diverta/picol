@@ -2,12 +2,11 @@
   <div class="p-activity">
     <h1 class="c-headline">ACTIVITY</h1>
     <ActivityContainer :comments="comments" />
-    <CustomInfiniteLoader :infiniteHandler="infiniteHandler" :messageMarginStyle="messageMarginStyle" />
+    <CustomInfiniteLoader :infiniteHandler="infiniteHandler" margin />
   </div>
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import ActivityContainer from '@/component/view/ActivityContainer.vue';
 import { FeedStateModule } from '@/store/feed';
 import { FavoriteMyListModel, FeedModel, CommentModel } from '@/type/api';
@@ -21,17 +20,12 @@ import { CONSTANTS } from '@/core';
 @Component<Activity>({
   components: {
     ActivityContainer,
-    CustomInfiniteLoader,
   },
 })
 export default class Activity extends Vue {
   comments: ExtendedCommentList[] = [];
 
   dict: { moduleID: number; type: 'POSTED' | 'FAV' }[] = [];
-
-  messageMarginStyle = {
-    margin: '40px 0 80px 0',
-  };
 
   infiniteHandler($state: StateChanger): void {
     FeedStateModule.loadActivity([

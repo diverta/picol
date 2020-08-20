@@ -37,7 +37,7 @@
         </div>
 
         <ImageList :feeds="list" :pageID="pageID" />
-        <CustomInfiniteLoader :messageMarginStyle="messageMarginStyle" :infiniteHandler="infiniteHandler" />
+        <CustomInfiniteLoader margin :infiniteHandler="infiniteHandler" />
       </div>
     </main>
 
@@ -46,7 +46,6 @@
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import ImageList from '@/component/view/ImageList.vue';
 import ProfileEdit from '@/component/view/ProfileEdit.vue';
 import { OverlayStateModule } from '@/store/overlay';
@@ -60,7 +59,6 @@ import { TopicsService } from '@/kuroco_api/services/TopicsService';
 
 @Component<MyPage>({
   components: {
-    CustomInfiniteLoader,
     ImageList,
     ProfileEdit,
   },
@@ -74,9 +72,6 @@ export default class MyPage extends Vue {
   list: FeedModel.Read.Response.Feed[] = [];
   query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {
     myOwnList: '1',
-  };
-  messageMarginStyle = {
-    margin: '40px 0',
   };
   showsProfileEdit = false;
 

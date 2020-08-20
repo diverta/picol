@@ -49,7 +49,7 @@ class User extends VuexModule implements IUserState {
   async initialize(query: { member_id?: number }) {
     let member_id = query.member_id;
     if (member_id === undefined) {
-      member_id = (await this.apis.authentication.getAuthenticationServiceRcmsApi1Profile({})).member_id as number;
+      member_id = (await this.apis.authentication.getAuthenticationServiceRcmsApi1Profile({})).body.member_id as number;
     }
 
     this.UPDATE_SELF_USER_MEMBER_ID(member_id);
@@ -58,9 +58,8 @@ class User extends VuexModule implements IUserState {
 
   @Action({ rawError: true })
   async readMemberInfos(query: Parameters<typeof MembersService.getMembersServiceRcmsApi1Members>[0]) {
-    const { list } = (await this.apis.members.getMembersServiceRcmsApi1Members(
-      query,
-    )) as AccountModel.Read.Response.RootObject;
+    const { list } = (await this.apis.members.getMembersServiceRcmsApi1Members(query))
+      .body as AccountModel.Read.Response.RootObject;
     this.UPDATE_ALL_USERS(list as AccountModel.Read.Response.Details[]);
   }
 
@@ -81,9 +80,8 @@ class User extends VuexModule implements IUserState {
         nickname,
       },
     };
-    const account = (await this.apis.members.postMembersServiceRcmsApi1MemberUpdate(
-      query,
-    )) as AccountModel.Update.Response.RootObject;
+    const account = (await this.apis.members.postMembersServiceRcmsApi1MemberUpdate(query))
+      .body as AccountModel.Update.Response.RootObject;
     this.UPDATE_SELF_MEMBER_INFO(account);
     return account;
   }

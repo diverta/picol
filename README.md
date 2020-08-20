@@ -16,8 +16,6 @@ please install and setup in advance.
 
 https://github.com/diverta/kuroco-sdk#installation
 
-The SDK is located at src/kuroco_api
-
 In addition, this app is deployed to firebase hosting in Diverta.
 Please refer [Deploy] if you want to know how to do it.
 

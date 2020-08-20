@@ -28,10 +28,7 @@ import { Location } from 'vue-router';
  * @see https://stackoverflow.com/questions/5278304/how-to-cancel-an-image-from-loading
  * @see https://github.com/vuejs/vue-router/issues/800
  */
-@Component<RouterLinkExt>({
-  name: 'RouterLinkExt',
-  components: {},
-})
+@Component<RouterLinkExt>({})
 export default class RouterLinkExt extends Vue {
   @Prop({ type: Object, required: true })
   to!: Location;

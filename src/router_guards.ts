@@ -90,7 +90,7 @@ const guardNoNicknameUsers = (router: Router): void => {
     const exceptionPaths = [pagePaths.login, pagePaths.myPage, pagePaths.feedDetailPreview];
     if (!except(to, exceptionPaths) && isEmpty(UserStateModule.selfUser.nickname)) {
       AuthenticationService.getAuthenticationServiceRcmsApi1Profile({})
-        .then((res) => UserStateModule.initialize(res))
+        .then(({ body }) => UserStateModule.initialize(body))
         .then(() => {
           if (isEmpty(UserStateModule.selfUser.nickname)) {
             dispatchRenderSnackbar('ニックネームを登録してください。');
