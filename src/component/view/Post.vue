@@ -57,10 +57,16 @@ export default class Post extends Vue {
     this.requestFn()
       .then(() => FeedStateModule.clear())
       .catch((err) => {
-        console.error(err);
+        console.log(err);
         this.hasError = true;
+        this.$snack.danger({
+          text: err?.body?.errors?.[0] ?? this.$t('error_occurred'),
+        });
       })
-      .finally(() => (this.isLoading = false));
+      .finally(() => {
+        this.hasError = false;
+        this.isLoading = false;
+      });
   }
   routeTo() {
     this.$emit('update:shows', false);
