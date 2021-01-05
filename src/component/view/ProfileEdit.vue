@@ -129,7 +129,6 @@ export default class ProfileEdit extends Vue {
       file_nm: newFile.name,
     };
     this.postingState = 'PRE';
-    this.$snack.success({ text: this.$t('updated') });
   }
   handleClickSubmit(e: Event) {
     if (!this.userName || this.userName === '') {
@@ -140,7 +139,7 @@ export default class ProfileEdit extends Vue {
     const query: MembersService.postMembersServiceRcmsApi1MemberUpdateRequest = {
       requestBody: {
         nickname: this.userName,
-        member_photo: this.memberPhoto,
+        image: this.memberPhoto,
       },
     };
 

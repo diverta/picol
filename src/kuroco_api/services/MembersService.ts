@@ -205,7 +205,7 @@ export namespace MembersService {
       /**
        * Image1
        */
-      member_photo?: {
+      image?: {
         /**
          * File ID returned by File Upload API
          */
