@@ -1,5 +1,5 @@
 <template>
-  <div :class="[`c-entry__image-wrapper${hasAnyMedias ? '' : '--absent'}`]">
+  <div :class="[`c-entry__image-wrapper${hasAnyMedias ? '' : '--absent'}`, isDetail ? '' : 'pointer']">
     <VueCarouselWrapper>
       <slide v-for="(mediaDef, idx) in medias" :key="`image-${idx}`">
         <img
@@ -30,6 +30,9 @@ export default class FeedContentImageWrapper extends Vue {
   feed!: FeedModel.Read.Response.Feed;
 
   // MUTATIONS
+  get isDetail() {
+    return this.$route.path === '/sub/feed';
+  }
   get mediasFromFeed() {
     return getMediasFromFeedData(this.feed);
   }
@@ -51,7 +54,7 @@ export default class FeedContentImageWrapper extends Vue {
 
   // METHODS
   handleOnClickMedia(e: any) {
-    if (this.$route.path !== '/sub/feed') {
+    if (!this.isDetail) {
       this.$router.push({ name: 'feedDetail', query: { topics_id: `${this.feed.topics_id}` } });
     }
   }
