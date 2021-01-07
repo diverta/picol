@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    if: ${{ secrets.FIREBASE_TOKEN }}
+    if: ${{ true }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
