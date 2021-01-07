@@ -15,10 +15,10 @@ jobs:
       - env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - run: |
-         if ["$FIREBASE_TOKEN" != ""]; then
+          if ["$FIREBASE_TOKEN" != ""]; then
             echo "FIREBASE_TOKEN is not defined, skipping deployment."
             exit 1
-         fi
+          fi
       #   run: echo 'skipping deployment' || exit 1
       # - name: Checkout Repo
       #   uses: actions/checkout@v2
