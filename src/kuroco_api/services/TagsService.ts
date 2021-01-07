@@ -19,8 +19,6 @@ export class TagsService {
    *
    * > **groupBy** `module_id`
    *
-   * > **groupAs** `array`
-   *
    * @param moduleId module_id
    * @param moduleType Module type
    * @param outputFormat Format (json|xml|csv)
@@ -30,6 +28,7 @@ export class TagsService {
    * @param pageId Page ID
    * @param id Tag IDs that you would like to display
    * @param categoryId ID of the tag category to be displayed. (Default: All)
+   * @param type Grouping List as (array|object)
    * @result any
    * @throws ApiError
    */
@@ -58,6 +57,7 @@ export class TagsService {
           pageID: requestParam.pageId,
           'id[]': requestParam.id,
           'category_id[]': requestParam.categoryId,
+          type: requestParam.type,
         },
       });
 
@@ -123,8 +123,6 @@ export class TagsService {
    *
    * > **groupBy** `category`
    *
-   * > **groupAs** `array`
-   *
    * > **order** `category_weight:desc`
    *
    * @param outputFormat Format (json|xml|csv)
@@ -134,6 +132,7 @@ export class TagsService {
    * @param pageId Page ID
    * @param id Tag IDs that you would like to display
    * @param categoryId ID of the tag category to be displayed. (Default: All)
+   * @param type Grouping List as (array|object)
    * @result any
    * @throws ApiError
    */
@@ -160,6 +159,7 @@ export class TagsService {
           pageID: requestParam.pageId,
           'id[]': requestParam.id,
           'category_id[]': requestParam.categoryId,
+          type: requestParam.type,
         },
       });
 
@@ -185,6 +185,7 @@ export namespace TagsService {
     pageId?: number;
     id?: Array<number>;
     categoryId?: Array<number>;
+    type?: string;
   }
   export type getTagsServiceRcmsApi1TagsResponse = any;
   export interface postTagsServiceRcmsApi1TagCreateRequest {
@@ -262,6 +263,7 @@ export namespace TagsService {
     pageId?: number;
     id?: Array<number>;
     categoryId?: Array<number>;
+    type?: string;
   }
   export type getTagsServiceRcmsApi1TagsCategoryGroupedResponse = any;
 }

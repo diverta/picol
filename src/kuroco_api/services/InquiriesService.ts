@@ -64,14 +64,6 @@ export namespace InquiriesService {
   export interface postInquiriesServiceRcmsApi1ReportRequest {
     requestBody: {
       /**
-       * With ID
-       */
-      from_id?: number;
-      /**
-       * From module
-       */
-      from_module?: string;
-      /**
        * Name
        */
       name?: string;

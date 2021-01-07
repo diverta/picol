@@ -13,9 +13,9 @@ export { default as firebaseApp } from './core/FirebaseUtil';
 
 export { AuthenticationService } from './services/AuthenticationService';
 export { CommentsService } from './services/CommentsService';
+export { ContentService } from './services/ContentService';
 export { FavoritesService } from './services/FavoritesService';
 export { FilesService } from './services/FilesService';
 export { InquiriesService } from './services/InquiriesService';
 export { MembersService } from './services/MembersService';
 export { TagsService } from './services/TagsService';
-export { TopicsService } from './services/TopicsService';

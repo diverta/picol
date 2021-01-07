@@ -19,8 +19,6 @@ export class CommentsService {
    *
    * > **groupBy** `module_id`
    *
-   * > **groupAs** `array`
-   *
    * > **module_type** `topics`
    *
    * > **new_order_flg** `1`
@@ -34,6 +32,8 @@ export class CommentsService {
    * @param pageId Page ID
    * @param fromDate Posted Date
    * @param toDate Posted Date
+   * @param type Grouping List as (array or object)
+   * @param memberId Member ID
    * @result any
    * @throws ApiError
    */
@@ -62,6 +62,8 @@ export class CommentsService {
           pageID: requestParam.pageId,
           from_date: requestParam.fromDate,
           to_date: requestParam.toDate,
+          type: requestParam.type,
+          'member_id[]': requestParam.memberId,
         },
       });
 
@@ -131,6 +133,7 @@ export class CommentsService {
    *
    * > **use_module_type** `topics`
    *
+   * @param commentId
    * @param requestBody
    * @param outputFormat Format (json|xml|csv)
    * @param lang Language
@@ -138,8 +141,8 @@ export class CommentsService {
    * @result any
    * @throws ApiError
    */
-  public static async postCommentsServiceRcmsApi1CommentDelete(
-    requestParam: CommentsService.postCommentsServiceRcmsApi1CommentDeleteRequest,
+  public static async postCommentsServiceRcmsApi1CommentDeleteCommentId(
+    requestParam: CommentsService.postCommentsServiceRcmsApi1CommentDeleteCommentIdRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -152,7 +155,7 @@ export class CommentsService {
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
         method: 'post',
-        path: `/rcms-api/1/comment/delete`,
+        path: `/rcms-api/1/comment/delete/${requestParam.commentId}`,
         query: {
           _output_format: requestParam.outputFormat,
           _lang: requestParam.lang,
@@ -183,6 +186,8 @@ export namespace CommentsService {
     pageId?: number;
     fromDate?: string;
     toDate?: string;
+    type?: string;
+    memberId?: Array<number>;
   }
   export type getCommentsServiceRcmsApi1CommentsResponse = any;
   export interface postCommentsServiceRcmsApi1CommentCreateRequest {
@@ -217,12 +222,9 @@ export namespace CommentsService {
     charset?: string;
   }
   export type postCommentsServiceRcmsApi1CommentCreateResponse = any;
-  export interface postCommentsServiceRcmsApi1CommentDeleteRequest {
+  export interface postCommentsServiceRcmsApi1CommentDeleteCommentIdRequest {
+    commentId: number;
     requestBody: {
-      /**
-       * コメントID
-       */
-      comment_id: number;
       /**
        * 削除キー
        */
@@ -232,5 +234,5 @@ export namespace CommentsService {
     lang?: string;
     charset?: string;
   }
-  export type postCommentsServiceRcmsApi1CommentDeleteResponse = any;
+  export type postCommentsServiceRcmsApi1CommentDeleteCommentIdResponse = any;
 }

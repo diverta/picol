@@ -36,7 +36,7 @@ import { CreateElement, VNode } from 'vue';
 import { StateChanger } from 'vue-infinite-loading';
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { CONSTANTS } from '@/core';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 
 @Component<Search>({
   components: {
@@ -53,7 +53,7 @@ export default class Search extends Vue {
   selectedTags: TagModel.Read.Response.List[] = [];
   searchQuery: string = '';
   specTagIDs: string[] = [];
-  query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {};
+  query: ContentService.getContentServiceRcmsApi1FeedsRequest = {};
   initialLoaded = false;
 
   /** var syntax binding for enable rodash.debounce function. */

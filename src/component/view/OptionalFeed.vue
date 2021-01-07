@@ -23,7 +23,7 @@ import { StateChanger } from 'vue-infinite-loading';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule, TagStateModule } from '@/store';
 import { ServiceHelper } from '@/util';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 
 @Component<OptionalFeed>({
   components: {
@@ -39,7 +39,7 @@ export default class OptionalFeed extends Vue {
     required: true,
     default: () => ({}),
   })
-  query!: TopicsService.getTopicsServiceRcmsApi1FeedsRequest;
+  query!: ContentService.getContentServiceRcmsApi1FeedsRequest;
 
   // FIELDS
   comments: CommentModel.Read.Response.List[] = [];
