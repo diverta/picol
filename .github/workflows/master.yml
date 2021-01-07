@@ -12,8 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: EXIT step
+        env:
+          foreabse_token: ${{ secrets.FIREBASE_TOKEN }}
         # if: secrets.FIREBASE_TOKEN != ''
-        run: echo secrets.FIREBASE_TOKEN
+        run: echo foreabse_token
       #   run: echo 'skipping deployment' || exit 1
       # - name: Checkout Repo
       #   uses: actions/checkout@v2
