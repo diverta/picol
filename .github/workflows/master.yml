@@ -13,9 +13,12 @@ jobs:
     steps:
       - name: EXIT step
         env:
-          fireabse_token: ${{ secrets.FIREBASE_TOKEN }}
-        # if: secrets.FIREBASE_TOKEN != ''
-        run: echo fireabse_token
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: |
+          if ${FIREBASE_TOKEN} == false; then
+            echo "FIREBASE_TOKEN is not defined, skipping deployment."
+            exit 1
+          fi
       #   run: echo 'skipping deployment' || exit 1
       # - name: Checkout Repo
       #   uses: actions/checkout@v2
