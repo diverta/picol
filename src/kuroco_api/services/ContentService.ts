@@ -9,7 +9,7 @@ import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
 import { Result } from '../core/Result';
 
-export class TopicsService {
+export class ContentService {
   /**
    *
    * ### **Topics::list (v1)**
@@ -40,6 +40,7 @@ export class TopicsService {
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -62,11 +63,16 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Feeds(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1FeedsRequest,
+  public static async getContentServiceRcmsApi1Feeds(
+    requestParam: ContentService.getContentServiceRcmsApi1FeedsRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -86,6 +92,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -107,6 +114,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -135,8 +147,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedCreate(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedCreateRequest,
+  public static async postContentServiceRcmsApi1FeedCreate(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedCreateRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -172,6 +184,10 @@ export class TopicsService {
    * ### **Topics::delete (v1)**
    *
    *
+   * ## Controller parameters
+   *
+   * > **topics_group_id** `1`
+   *
    * @param topicsId
    * @param outputFormat Format (json|xml|csv)
    * @param lang Language
@@ -179,8 +195,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedDeleteTopicsId(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest,
+  public static async postContentServiceRcmsApi1FeedDeleteTopicsId(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedDeleteTopicsIdRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -227,8 +243,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedUpdateTopicsId(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest,
+  public static async postContentServiceRcmsApi1FeedUpdateTopicsId(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedUpdateTopicsIdRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -274,8 +290,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Tg(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1TgRequest,
+  public static async getContentServiceRcmsApi1Tg(
+    requestParam: ContentService.getContentServiceRcmsApi1TgRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -322,8 +338,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1FeedGroup(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1FeedGroupRequest,
+  public static async getContentServiceRcmsApi1FeedGroup(
+    requestParam: ContentService.getContentServiceRcmsApi1FeedGroupRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -367,6 +383,7 @@ export class TopicsService {
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -389,11 +406,16 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Infos(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1InfosRequest,
+  public static async getContentServiceRcmsApi1Infos(
+    requestParam: ContentService.getContentServiceRcmsApi1InfosRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -413,6 +435,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -434,6 +457,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -460,6 +488,7 @@ export class TopicsService {
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -482,11 +511,16 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1PreInfo(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1PreInfoRequest,
+  public static async getContentServiceRcmsApi1PreInfo(
+    requestParam: ContentService.getContentServiceRcmsApi1PreInfoRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -506,6 +540,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -527,6 +562,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -551,8 +591,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Preview(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1PreviewRequest,
+  public static async getContentServiceRcmsApi1Preview(
+    requestParam: ContentService.getContentServiceRcmsApi1PreviewRequest,
   ): Promise<Result<any>> {
     const shouldHookToken = Object.keys({}).length > 0;
 
@@ -594,6 +634,7 @@ export class TopicsService {
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -616,11 +657,16 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Test(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1TestRequest,
+  public static async getContentServiceRcmsApi1Test(
+    requestParam: ContentService.getContentServiceRcmsApi1TestRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -640,6 +686,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -661,6 +708,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -689,8 +741,8 @@ export class TopicsService {
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1Test(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1TestRequest,
+  public static async postContentServiceRcmsApi1Test(
+    requestParam: ContentService.postContentServiceRcmsApi1TestRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -723,13 +775,14 @@ export class TopicsService {
   }
 }
 
-export namespace TopicsService {
-  export interface getTopicsServiceRcmsApi1FeedsRequest {
+export namespace ContentService {
+  export interface getContentServiceRcmsApi1FeedsRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -751,9 +804,14 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1FeedsResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedCreateRequest {
+  export type getContentServiceRcmsApi1FeedsResponse = any;
+  export interface postContentServiceRcmsApi1FeedCreateRequest {
     requestBody: {
       /**
        * Topic title
@@ -765,10 +823,6 @@ export namespace TopicsService {
        */
       contents_type?: 1;
       /**
-       * Date
-       */
-      ymd?: string;
-      /**
        * Published / Not published
        */
       open_type?: 'open' | 'close' | 'default';
@@ -776,10 +830,6 @@ export namespace TopicsService {
        * Display all topics to logged in members, regardless ther public/hidden status
        */
       topics_flg?: 0 | 1;
-      /**
-       * Season
-       */
-      season?: number;
       /**
        * Contents
        */
@@ -789,13 +839,9 @@ export namespace TopicsService {
        */
       regular_flg?: number;
       /**
-       * Display method
+       * Date
        */
-      link_flg?: number;
-      /**
-       * Link
-       */
-      link_url?: string;
+      ymd?: string;
       /**
        * タグID
        * * 75 => 推しキャラ(Favorite character)
@@ -821,6 +867,16 @@ export namespace TopicsService {
        * * 178 => テスト投稿1
        * * 179 => aaa
        * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -846,6 +902,16 @@ export namespace TopicsService {
         | 178
         | 179
         | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル
@@ -898,15 +964,15 @@ export namespace TopicsService {
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedCreateResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest {
+  export type postContentServiceRcmsApi1FeedCreateResponse = any;
+  export interface postContentServiceRcmsApi1FeedDeleteTopicsIdRequest {
     topicsId: number;
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedDeleteTopicsIdResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest {
+  export type postContentServiceRcmsApi1FeedDeleteTopicsIdResponse = any;
+  export interface postContentServiceRcmsApi1FeedUpdateTopicsIdRequest {
     topicsId: number;
     requestBody: {
       /**
@@ -919,10 +985,6 @@ export namespace TopicsService {
        */
       contents_type?: 1;
       /**
-       * Date
-       */
-      ymd?: string;
-      /**
        * Published / Not published
        */
       open_type?: 'open' | 'close' | 'default';
@@ -930,10 +992,6 @@ export namespace TopicsService {
        * Display all topics to logged in members, regardless ther public/hidden status
        */
       topics_flg?: 0 | 1;
-      /**
-       * Season
-       */
-      season?: number;
       /**
        * Contents
        */
@@ -943,13 +1001,9 @@ export namespace TopicsService {
        */
       regular_flg?: number;
       /**
-       * Display method
+       * Date
        */
-      link_flg?: number;
-      /**
-       * Link
-       */
-      link_url?: string;
+      ymd?: string;
       /**
        * タグID
        * * 75 => 推しキャラ(Favorite character)
@@ -975,6 +1029,16 @@ export namespace TopicsService {
        * * 178 => テスト投稿1
        * * 179 => aaa
        * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1000,6 +1064,16 @@ export namespace TopicsService {
         | 178
         | 179
         | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル
@@ -1052,25 +1126,26 @@ export namespace TopicsService {
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedUpdateTopicsIdResponse = any;
-  export interface getTopicsServiceRcmsApi1TgRequest {
+  export type postContentServiceRcmsApi1FeedUpdateTopicsIdResponse = any;
+  export interface getContentServiceRcmsApi1TgRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1TgResponse = any;
-  export interface getTopicsServiceRcmsApi1FeedGroupRequest {
+  export type getContentServiceRcmsApi1TgResponse = any;
+  export interface getContentServiceRcmsApi1FeedGroupRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1FeedGroupResponse = any;
-  export interface getTopicsServiceRcmsApi1InfosRequest {
+  export type getContentServiceRcmsApi1FeedGroupResponse = any;
+  export interface getContentServiceRcmsApi1InfosRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1092,14 +1167,20 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1InfosResponse = any;
-  export interface getTopicsServiceRcmsApi1PreInfoRequest {
+  export type getContentServiceRcmsApi1InfosResponse = any;
+  export interface getContentServiceRcmsApi1PreInfoRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1121,21 +1202,27 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1PreInfoResponse = any;
-  export interface getTopicsServiceRcmsApi1PreviewRequest {
+  export type getContentServiceRcmsApi1PreInfoResponse = any;
+  export interface getContentServiceRcmsApi1PreviewRequest {
     previewToken: string;
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1PreviewResponse = any;
-  export interface getTopicsServiceRcmsApi1TestRequest {
+  export type getContentServiceRcmsApi1PreviewResponse = any;
+  export interface getContentServiceRcmsApi1TestRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1157,9 +1244,14 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1TestResponse = any;
-  export interface postTopicsServiceRcmsApi1TestRequest {
+  export type getContentServiceRcmsApi1TestResponse = any;
+  export interface postContentServiceRcmsApi1TestRequest {
     requestBody: {
       /**
        * Topic title
@@ -1171,10 +1263,6 @@ export namespace TopicsService {
        */
       contents_type?: 1;
       /**
-       * Date
-       */
-      ymd?: string;
-      /**
        * Published / Not published
        */
       open_type?: 'open' | 'close' | 'default';
@@ -1182,10 +1270,6 @@ export namespace TopicsService {
        * Display all topics to logged in members, regardless ther public/hidden status
        */
       topics_flg?: 0 | 1;
-      /**
-       * Season
-       */
-      season?: number;
       /**
        * Contents
        */
@@ -1195,13 +1279,9 @@ export namespace TopicsService {
        */
       regular_flg?: number;
       /**
-       * Display method
+       * Date
        */
-      link_flg?: number;
-      /**
-       * Link
-       */
-      link_url?: string;
+      ymd?: string;
       /**
        * タグID
        * * 75 => 推しキャラ(Favorite character)
@@ -1227,6 +1307,16 @@ export namespace TopicsService {
        * * 178 => テスト投稿1
        * * 179 => aaa
        * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1252,6 +1342,16 @@ export namespace TopicsService {
         | 178
         | 179
         | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル
@@ -1304,5 +1404,5 @@ export namespace TopicsService {
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1TestResponse = any;
+  export type postContentServiceRcmsApi1TestResponse = any;
 }

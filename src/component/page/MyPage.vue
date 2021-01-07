@@ -55,7 +55,7 @@ import { StateChanger } from 'vue-infinite-loading';
 import { Component, Vue } from 'vue-property-decorator';
 import { UserStateModule, FeedStateModule } from '@/store';
 import { CONSTANTS } from '@/core';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 
 @Component<MyPage>({
   components: {
@@ -70,7 +70,7 @@ export default class MyPage extends Vue {
   totalCntStr = '...';
   totalPageCnt?: number;
   list: FeedModel.Read.Response.Feed[] = [];
-  query: TopicsService.getTopicsServiceRcmsApi1FeedsRequest = {
+  query: ContentService.getContentServiceRcmsApi1FeedsRequest = {
     myOwnList: '1',
   };
   showsProfileEdit = false;

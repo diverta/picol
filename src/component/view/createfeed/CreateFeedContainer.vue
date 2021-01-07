@@ -43,7 +43,7 @@ import { FeedModel, TagModel } from '@/type/api';
 import { PostFileHelper, getMediasFromFeedData, util } from '@/util';
 import { CreateElement, VNode } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 
 @Component<CreateFeedContainer>({
   components: {
