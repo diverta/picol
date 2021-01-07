@@ -9,9 +9,7 @@ on:
 jobs:
   build:
     name: Build
-    env:
-      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    if: ${{ env.FIREBASE_TOKEN != 0 }}
+    if: ${{ secrets.FIREBASE_TOKEN != 0 }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
