@@ -11,14 +11,14 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: EXIT step
-        env:
+      - name: TOKEN check
+      - env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: |
-          if ${FIREBASE_TOKEN} == false; then
+      - run: |
+         if ["$FIREBASE_TOKEN" != ""]; then
             echo "FIREBASE_TOKEN is not defined, skipping deployment."
             exit 1
-          fi
+         fi
       #   run: echo 'skipping deployment' || exit 1
       # - name: Checkout Repo
       #   uses: actions/checkout@v2
