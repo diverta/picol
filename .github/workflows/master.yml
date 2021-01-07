@@ -11,7 +11,7 @@ jobs:
     name: Build
     env:
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-    if: ${{ FIREBASE_TOKEN }}
+    if: ${{ env.FIREBASE_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
