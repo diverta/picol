@@ -9,16 +9,9 @@ on:
 jobs:
   build:
     name: Build
+    if: ${{ secrets.FIREBASE_TOKEN != '' }}
     runs-on: ubuntu-latest
     steps:
-      - name: TOKEN check
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        run: |
-          if ["$FIREBASE_TOKEN" == ""]; then
-            echo "FIREBASE_TOKEN is not defined, skipping deployment."
-            exit 0
-          fi
       - name: Checkout Repo
         uses: actions/checkout@v2
       # - name: Cache node modules
