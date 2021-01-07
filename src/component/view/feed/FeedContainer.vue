@@ -49,14 +49,6 @@ export default class FeedContainer extends Vue {
   feed!: FeedModel.Read.Response.Feed;
   @Prop({ type: Array, required: true })
   comments!: CommentModel.Read.Response.List[];
-  @Prop({
-    type: Function,
-    required: false,
-    default: () => {
-      /** NP */
-    },
-  })
-  onChangeFeed!: () => void;
 
   // MUTATIONS
   get getComment() {
