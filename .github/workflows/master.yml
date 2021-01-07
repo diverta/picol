@@ -19,9 +19,8 @@ jobs:
             echo "FIREBASE_TOKEN is not defined, skipping deployment."
             exit 0
           fi
-      #   run: echo 'skipping deployment' || exit 1
-      # - name: Checkout Repo
-      #   uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v2
       # - name: Cache node modules
       #   uses: actions/cache@v2
       #   env:
