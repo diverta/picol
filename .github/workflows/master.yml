@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: EXIT step
-        if: secrets.FIREBASE_TOKEN != ''
+        # if: secrets.FIREBASE_TOKEN != ''
         run: echo secrets.FIREBASE_TOKEN
       #   run: echo 'skipping deployment' || exit 1
       # - name: Checkout Repo
