@@ -1,7 +1,7 @@
 import { CONSTANTS } from '@/core';
 import { AccountModel, CommentModel, FeedModel, TagModel } from '@/type';
 import dayjs from 'dayjs';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 import { TagsService } from '@/kuroco_api/services/TagsService';
 import { FavoritesService } from '@/kuroco_api/services/FavoritesService';
 import { CommentsService } from '@/kuroco_api/services/CommentsService';
@@ -9,7 +9,7 @@ import { MembersService } from '@/kuroco_api/services/MembersService';
 
 export namespace ServiceHelper {
   export const apis = {
-    topics: TopicsService,
+    topics: ContentService,
     tags: TagsService,
     favorites: FavoritesService,
     comments: CommentsService,
@@ -17,9 +17,9 @@ export namespace ServiceHelper {
   };
 
   export class Feed {
-    public static async LoadPage(req: TopicsService.getTopicsServiceRcmsApi1FeedsRequest) {
+    public static async LoadPage(req: ContentService.getContentServiceRcmsApi1FeedsRequest) {
       const feed = (
-        await ServiceHelper.apis.topics.getTopicsServiceRcmsApi1Feeds({
+        await ServiceHelper.apis.topics.getContentServiceRcmsApi1Feeds({
           ...req,
         })
       ).body as FeedModel.Read.Response.RootObject;
@@ -58,12 +58,12 @@ export namespace ServiceHelper {
       };
     }
 
-    public static async LoadActivity(reqs: TopicsService.getTopicsServiceRcmsApi1FeedsRequest[]) {
+    public static async LoadActivity(reqs: ContentService.getContentServiceRcmsApi1FeedsRequest[]) {
       const feeds = await Promise.all([
         ...reqs.map(
           async (req) =>
             (
-              await ServiceHelper.apis.topics.getTopicsServiceRcmsApi1Feeds({
+              await ServiceHelper.apis.topics.getContentServiceRcmsApi1Feeds({
                 ...req,
               })
             ).body as FeedModel.Read.Response.RootObject,

@@ -1,4 +1,4 @@
-import { AuthenticationService, LocalStorage, TopicsService } from '@/kuroco_api';
+import { AuthenticationService, LocalStorage } from '@/kuroco_api';
 import { Auth } from '@/kuroco_api/core/Auth';
 import { UserStateModule } from '@/store';
 import Vue from 'vue';

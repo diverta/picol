@@ -107,8 +107,6 @@ export class FavoritesService {
    *
    * > **groupBy** `module_id`
    *
-   * > **groupAs** `array`
-   *
    * > **module_type** `topics`
    *
    * > **order** `inst_ymdhi:desc`
@@ -120,7 +118,7 @@ export class FavoritesService {
    * @param pageId Page ID
    * @param moduleId
    * @param memberId Member ID
-   * @param rcmsid rcmsid
+   * @param type Grouping List as (array or object)
    * @result any
    * @throws ApiError
    */
@@ -147,7 +145,7 @@ export class FavoritesService {
           pageID: requestParam.pageId,
           'module_id[]': requestParam.moduleId,
           'member_id[]': requestParam.memberId,
-          'rcmsid[]': requestParam.rcmsid,
+          type: requestParam.type,
         },
       });
 
@@ -182,7 +180,7 @@ export class FavoritesService {
    * @param pageId Page ID
    * @param moduleId
    * @param groupBy Grouping List by (module_id)
-   * @param groupAs Grouping List as (array or object)
+   * @param type Grouping List as (array or object)
    * @result any
    * @throws ApiError
    */
@@ -209,7 +207,7 @@ export class FavoritesService {
           pageID: requestParam.pageId,
           'module_id[]': requestParam.moduleId,
           groupBy: requestParam.groupBy,
-          groupAs: requestParam.groupAs,
+          type: requestParam.type,
         },
       });
 
@@ -233,7 +231,6 @@ export namespace FavoritesService {
       module_type:
         | 'group'
         | 'menu'
-        | 'accesscount'
         | 'comment'
         | 'inquiry'
         | 'login'
@@ -256,7 +253,6 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page'
         | 'ec';
       /**
        * module_id
@@ -266,6 +262,10 @@ export namespace FavoritesService {
        * ページシステム名
        */
       page_sysnm?: string;
+      /**
+       * アクション種別
+       */
+      action_type?: number;
     };
     outputFormat?: string;
     lang?: string;
@@ -280,7 +280,6 @@ export namespace FavoritesService {
       module_type:
         | 'group'
         | 'menu'
-        | 'accesscount'
         | 'comment'
         | 'inquiry'
         | 'login'
@@ -303,7 +302,6 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page'
         | 'ec';
       /**
        * module_id
@@ -313,6 +311,10 @@ export namespace FavoritesService {
        * ページシステム名
        */
       page_sysnm?: string;
+      /**
+       * アクション種別
+       */
+      action_type?: number;
     };
     outputFormat?: string;
     lang?: string;
@@ -327,7 +329,7 @@ export namespace FavoritesService {
     pageId?: number;
     moduleId?: Array<number>;
     memberId?: Array<number>;
-    rcmsid?: Array<string>;
+    type?: string;
   }
   export type getFavoritesServiceRcmsApi1FavoritesResponse = any;
   export interface getFavoritesServiceRcmsApi1FavoritesMylistRequest {
@@ -338,7 +340,7 @@ export namespace FavoritesService {
     pageId?: number;
     moduleId?: Array<number>;
     groupBy?: string;
-    groupAs?: string;
+    type?: string;
   }
   export type getFavoritesServiceRcmsApi1FavoritesMylistResponse = any;
 }

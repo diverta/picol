@@ -22,7 +22,7 @@ import { Route } from 'vue-router';
 import { ServiceHelper } from '@/util';
 import { CONSTANTS } from '@/core';
 import { abortLoadingBigDatas } from '../atom/RouterLinkExt.vue';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 
 @Component<FeedDetail>({
   components: {
@@ -55,7 +55,7 @@ export default class FeedDetail extends Vue {
   async mounted() {
     try {
       const previewToken = this.$route.query.preview_token as string;
-      const feed = (await TopicsService.getTopicsServiceRcmsApi1Preview({ previewToken })).body;
+      const feed = (await ContentService.getContentServiceRcmsApi1Preview({ previewToken })).body;
       feed.details.inst_ymdhi = new Date().toUTCString();
       feed.details.favorite_cnt = 0;
       feed.details.comment_cnt = 0;
