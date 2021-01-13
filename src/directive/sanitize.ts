@@ -8,8 +8,8 @@ export const SanitizeDirective = {
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const body = sanitizeHtml(
         el.innerHTML
-          .replace(/(?:\r\n|\r|\n)/g, '<br />')
-          .replace(urlRegex, (url) => '<a href="' + url + '">' + url + '</a>'),
+          .replace(urlRegex, (url) => '<a href="' + url + '" target="_blank">' + url + '</a>')
+          .replace(/(?:\r\n|\r|\n)/g, '<br />'),
         { allowedTags: ['b', 'i', 'em', 'strong', 'a', 'br'] },
       );
       el.innerHTML = body;
