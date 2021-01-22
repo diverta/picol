@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    if: "github.repository == 'front_picol'"
+    if: "github.repository == 'diverta/front_picol'"
     name: Build
     runs-on: ubuntu-latest
     steps:
