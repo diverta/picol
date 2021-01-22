@@ -55,7 +55,6 @@ export default class Search extends Vue {
   specTagIDs: string[] = [];
   query: ContentService.getContentServiceRcmsApi1FeedsRequest = {};
   initialLoaded = false;
-
   /** var syntax binding for enable rodash.debounce function. */
   debouncedRefresh = debounce(this.refresh, 500);
 
