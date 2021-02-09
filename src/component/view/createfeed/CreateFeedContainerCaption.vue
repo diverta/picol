@@ -15,7 +15,7 @@
 import { FeedStateModule, UserStateModule } from '@/store';
 import { TagModel } from '@/type/api';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 import truncate from 'lodash/truncate';
 import { PostFileHelper } from '@/util';
 

@@ -52,8 +52,11 @@ export default class FeedContentComments extends Vue {
   }
 
   // METHODS
-  async removeComment(commentID: number) {
-    const payload = { requestBody: { comment_id: commentID }, moduleId: this.topicsID };
+  async removeComment(commentId: number) {
+    const payload = {
+      body: { commentId, requestBody: {} },
+      topicsID: this.topicsID,
+    };
     await FeedStateModule.removeComment(payload).then(() => this.$emit('commit-change'));
   }
 }

@@ -38,4 +38,8 @@
   transform: translateY(-50%) translateX(-50%) !important;
   background-image: url(/assets/images/next.png) !important;
 }
+.VueCarousel-navigation-next,
+.VueCarousel-navigation-prev {
+  transform: translateY(-50%) translateX(0) !important;
+}
 </style>

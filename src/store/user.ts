@@ -28,7 +28,7 @@ class User extends VuexModule implements IUserState {
   get getUserName(): (memberId: number) => string {
     return (memberId) => {
       const user = this.users.find(({ member_id }) => member_id === memberId) || ({} as any) || {};
-      return user.name || '名無しさん';
+      return user.nickname || '名無しさん';
     };
   }
 
