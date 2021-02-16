@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "picol-ageha-demo",
     "public": "dist",
     "ignore": [
       "firebase.json",
