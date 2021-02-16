@@ -12,8 +12,8 @@ interface Config {
 }
 
 export const OpenAPI: Config = {
-  SAML_URL: 'https://picol.g.kuroco.app/direct/login/saml_login/?spid=1',
-  BASE: 'https://picol.g.kuroco.app',
+  SAML_URL: 'https://ageha.g.kuroco.app/direct/login/saml_login/?spid=1',
+  BASE: 'https://ageha.g.kuroco.app',
   VERSION: '1.0',
   TOKEN: '',
   SECURITY: {

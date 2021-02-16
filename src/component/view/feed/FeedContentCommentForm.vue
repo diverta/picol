@@ -45,7 +45,7 @@ import { CreateElement, VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule } from '@/store';
 import { ServiceHelper } from '../../../util';
-import { CommentsService } from '@/kuroco_api/services/CommentsService';
+import { ActivityService } from '@/kuroco_api/services/ActivityService';
 import { maxlengthContentEditable } from 'maxlength-contenteditable';
 
 @Component<FeedContentCommentForm>({})
@@ -77,7 +77,7 @@ export default class FeedContentCommentForm extends Vue {
   async addComment(feed: FeedModel.Read.Response.Feed) {
     const note = (this.$refs.editable as any).innerText.trim() as string;
 
-    const comment: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest = {
+    const comment: ActivityService.postActivityServiceRcmsApi1CommentCreateRequest = {
       requestBody: {
         note,
         name: UserStateModule.selfUser.nickname as string,

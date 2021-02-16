@@ -35,7 +35,7 @@ export class ContentService {
    *
    * > **get_tag_flg** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
@@ -141,7 +141,7 @@ export class ContentService {
    * > **topics_group_id** `1`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -189,7 +189,7 @@ export class ContentService {
    * > **topics_group_id** `1`
    *
    * @param topicsId
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -237,7 +237,7 @@ export class ContentService {
    *
    * @param topicsId
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -284,7 +284,7 @@ export class ContentService {
    *
    * > **topics_group_id** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -332,7 +332,7 @@ export class ContentService {
    *
    * > **ext_config_flg** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -378,7 +378,7 @@ export class ContentService {
    *
    * > **topics_group_id** `5`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
@@ -483,7 +483,7 @@ export class ContentService {
    *
    * > **topics_group_id** `6`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
@@ -585,7 +585,7 @@ export class ContentService {
    *
    *
    * @param previewToken Preview token
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -629,7 +629,7 @@ export class ContentService {
    *
    * > **topics_group_id** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
@@ -735,7 +735,7 @@ export class ContentService {
    * > **topics_group_id** `1`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -866,17 +866,6 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
-       * * 180 => 飯田橋リニューアル!
-       * * 181 => ttt
-       * * 182 => #CCS事例紹介 #ミルトス
-       * * 183 => CCS事例紹介
-       * * 184 => #ミルトス
-       * * 185 => パジャ・ポス
-       * * 186 => new tag1
-       * * 187 => 花束
-       * * 188 => Gaandu
-       * * 189 => #長濱ねる
-       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -901,17 +890,6 @@ export namespace ContentService {
         | 177
         | 178
         | 179
-        | 180
-        | 181
-        | 182
-        | 183
-        | 184
-        | 185
-        | 186
-        | 187
-        | 188
-        | 189
-        | 190
       >;
       /**
        * GCSファイル
@@ -1028,17 +1006,6 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
-       * * 180 => 飯田橋リニューアル!
-       * * 181 => ttt
-       * * 182 => #CCS事例紹介 #ミルトス
-       * * 183 => CCS事例紹介
-       * * 184 => #ミルトス
-       * * 185 => パジャ・ポス
-       * * 186 => new tag1
-       * * 187 => 花束
-       * * 188 => Gaandu
-       * * 189 => #長濱ねる
-       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1063,17 +1030,6 @@ export namespace ContentService {
         | 177
         | 178
         | 179
-        | 180
-        | 181
-        | 182
-        | 183
-        | 184
-        | 185
-        | 186
-        | 187
-        | 188
-        | 189
-        | 190
       >;
       /**
        * GCSファイル
@@ -1306,17 +1262,6 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
-       * * 180 => 飯田橋リニューアル!
-       * * 181 => ttt
-       * * 182 => #CCS事例紹介 #ミルトス
-       * * 183 => CCS事例紹介
-       * * 184 => #ミルトス
-       * * 185 => パジャ・ポス
-       * * 186 => new tag1
-       * * 187 => 花束
-       * * 188 => Gaandu
-       * * 189 => #長濱ねる
-       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1341,17 +1286,6 @@ export namespace ContentService {
         | 177
         | 178
         | 179
-        | 180
-        | 181
-        | 182
-        | 183
-        | 184
-        | 185
-        | 186
-        | 187
-        | 188
-        | 189
-        | 190
       >;
       /**
        * GCSファイル

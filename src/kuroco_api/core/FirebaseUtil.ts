@@ -6,13 +6,11 @@
 import * as firebase from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAFdIDKslIaL0OW0HbZspkvBvAgLxLJjco',
-  authDomain: 'picol-asia.firebaseapp.com',
-  databaseURL: 'https://picol-asia.firebaseio.com',
-  projectId: 'picol-asia',
-  storageBucket: 'picol-asia.appspot.com',
-  messagingSenderId: '657286700516',
-  appId: '1:657286700516:web:97eb9dc929ab806c433bf1',
-  measurementId: 'G-9JJW1S0FQ6',
+  apiKey: 'AIzaSyB1opMQgyM23EPYPzaX4mc_P5QaHQPOucU',
+  authDomain: 'picol-ageha-demo.firebaseapp.com',
+  projectId: 'picol-ageha-demo',
+  storageBucket: 'picol-ageha-demo.appspot.com',
+  messagingSenderId: '406745347724',
+  appId: '1:406745347724:web:1547969b81b86678682da9',
 };
 export default firebase.initializeApp(firebaseConfig);

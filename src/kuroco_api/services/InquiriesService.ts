@@ -20,7 +20,7 @@ export class InquiriesService {
    * > **id** `5`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -62,24 +62,7 @@ export class InquiriesService {
 
 export namespace InquiriesService {
   export interface postInquiriesServiceRcmsApi1ReportRequest {
-    requestBody: {
-      /**
-       * Name
-       */
-      name?: string;
-      /**
-       * E-mail
-       */
-      from_mail?: string;
-      /**
-       * Message
-       */
-      body: string;
-      /**
-       * Validate
-       */
-      validate_only?: boolean;
-    };
+    requestBody: any;
     outputFormat?: string;
     lang?: string;
     charset?: string;

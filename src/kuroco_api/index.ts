@@ -11,8 +11,9 @@ export { LocalStorage } from './core/LocalStorage';
 export { UploaderFactory } from './core/Uploader';
 export { default as firebaseApp } from './core/FirebaseUtil';
 
+export { ActivityService } from './services/ActivityService';
+export { ApiService } from './services/ApiService';
 export { AuthenticationService } from './services/AuthenticationService';
-export { CommentsService } from './services/CommentsService';
 export { ContentService } from './services/ContentService';
 export { FavoritesService } from './services/FavoritesService';
 export { FilesService } from './services/FilesService';

@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { ContentService } from '@/kuroco_api/services/ContentService';
 import { TagsService } from '@/kuroco_api/services/TagsService';
 import { FavoritesService } from '@/kuroco_api/services/FavoritesService';
-import { CommentsService } from '@/kuroco_api/services/CommentsService';
+import { ActivityService } from '@/kuroco_api/services/ActivityService';
 import { MembersService } from '@/kuroco_api/services/MembersService';
 
 export namespace ServiceHelper {
@@ -12,7 +12,7 @@ export namespace ServiceHelper {
     topics: ContentService,
     tags: TagsService,
     favorites: FavoritesService,
-    comments: CommentsService,
+    comments: ActivityService,
     members: MembersService,
   };
 
@@ -34,7 +34,7 @@ export namespace ServiceHelper {
         .flat(1) as TagModel.Read.Response.RootObject[];
 
       const comments = (
-        await ServiceHelper.apis.comments.getCommentsServiceRcmsApi1Comments({
+        await ServiceHelper.apis.comments.getActivityServiceRcmsApi1Comments({
           moduleId: topicsIDs,
         })
       ).body as CommentModel.Read.Response.RootObject[];
@@ -88,7 +88,7 @@ export namespace ServiceHelper {
 
       // from 1month ago.
       const comments = (
-        await ServiceHelper.apis.comments.getCommentsServiceRcmsApi1Comments({
+        await ServiceHelper.apis.comments.getActivityServiceRcmsApi1Comments({
           moduleId: topicsIDs,
           fromDate: dayjs()
             .subtract(1, 'month')

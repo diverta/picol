@@ -15,7 +15,7 @@ export class FilesService {
    * ### **Files::upload (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param requestBody

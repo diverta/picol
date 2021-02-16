@@ -16,7 +16,7 @@ export class FavoritesService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -60,7 +60,7 @@ export class FavoritesService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -111,7 +111,7 @@ export class FavoritesService {
    *
    * > **order** `inst_ymdhi:desc`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Display number per page
@@ -173,7 +173,7 @@ export class FavoritesService {
    *
    * > **my_list** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Display number per page
