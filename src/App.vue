@@ -11,13 +11,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
+import Navigation from '@/component/view/navigation/Navigation.vue';
 
-@Component({})
+@Component({
+  components: { Navigation },
+})
 export default class App extends Vue {
   async created() {
     Auth.onErrorHandler = async (res) => {
       this.$router.push({ path: '/sub/login' });
-      (this as any).$snack.danger({ text: this.$t('please_login'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('please_login') });
     };
   }
 }

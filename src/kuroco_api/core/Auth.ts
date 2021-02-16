@@ -28,7 +28,7 @@ export class Auth {
     }
 
     const res = await SpecialOperations.login(param);
-    const { grant_token, errors } = res;
+    const { grant_token, errors } = res.body;
 
     if (errors && Array.isArray(errors) && errors.length > 0) {
       return Promise.reject(errors);
@@ -36,7 +36,7 @@ export class Auth {
 
     await Auth.createToken({ requestBody: { grant_token } });
 
-    return res.member_id as number;
+    return res.body.member_id as number;
   }
 
   public static async logout(param: Parameters<typeof SpecialOperations.logout>[0]) {
@@ -49,12 +49,12 @@ export class Auth {
   public static async createToken(param: Parameters<typeof SpecialOperations.token>[0]) {
     if (OpenAPI.SECURITY['Token-Auth']) {
       const res = await SpecialOperations.token(param);
-      const { access_token, refresh_token } = res;
+      const { access_token, refresh_token } = res.body;
       if (access_token) {
-        LocalStorage.setAccessToken(access_token);
+        LocalStorage.setAccessToken(access_token.value);
       }
       if (refresh_token) {
-        LocalStorage.setRefreshToken(refresh_token);
+        LocalStorage.setRefreshToken(refresh_token.value);
       }
       return res;
     }

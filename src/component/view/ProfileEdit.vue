@@ -119,7 +119,7 @@ export default class ProfileEdit extends Vue {
 
     const { file_id } = await this.uploader.upload(newFile).catch((e) => {
       this.postingState = 'ERROR';
-      (this as any).$snack.danger({ text: this.$t('error_occurred'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('error_occurred') });
       return Promise.reject();
     });
 
@@ -129,7 +129,6 @@ export default class ProfileEdit extends Vue {
       file_nm: newFile.name,
     };
     this.postingState = 'PRE';
-    (this as any).$snack.success({ text: this.$t('updated'), button: 'OK' });
   }
   handleClickSubmit(e: Event) {
     if (!this.userName || this.userName === '') {
@@ -140,7 +139,7 @@ export default class ProfileEdit extends Vue {
     const query: MembersService.postMembersServiceRcmsApi1MemberUpdateRequest = {
       requestBody: {
         nickname: this.userName,
-        member_photo: this.memberPhoto,
+        image: this.memberPhoto,
       },
     };
 
@@ -148,11 +147,11 @@ export default class ProfileEdit extends Vue {
     UserStateModule.updateUser(query)
       .then(() => {
         this.postingState = 'COMPLETE';
-        (this as any).$snack.show({ text: this.$t('updated') });
+        this.$snack.show({ text: this.$t('updated') });
       })
       .catch((e) => {
         this.postingState = 'ERROR';
-        (this as any).$snack.danger({ text: this.$t('error_occurred') });
+        this.$snack.danger({ text: this.$t('error_occurred') });
       });
   }
   async uploadImageToStorage(file: File) {

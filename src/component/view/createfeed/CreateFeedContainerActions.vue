@@ -13,7 +13,7 @@ import Post from '@/component/view/Post.vue';
 import { FeedStateModule } from '@/store';
 import { TagModel } from '@/type/api';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 import truncate from 'lodash/truncate';
 import { PostFileHelper } from '@/util';
 
@@ -37,7 +37,7 @@ export default class CreateFeedContainerActions extends Vue {
   // METHODS
   handleOnClickEditPost(e: Event): void {
     if (this.input.commentInput === '') {
-      (this as any).$snack.show({ text: this.$t('input_caption'), button: 'OK' });
+      this.$snack.show({ text: this.$t('input_caption') });
       return;
     }
     this.uploadTopic();
@@ -46,8 +46,8 @@ export default class CreateFeedContainerActions extends Vue {
     const { commentInput, selectedTags, helper, updatePattern } = this.input;
 
     const requestBody: Extract<
-      TopicsService.postTopicsServiceRcmsApi1FeedCreateRequest['requestBody'],
-      TopicsService.postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest['requestBody']
+      ContentService.postContentServiceRcmsApi1FeedCreateRequest['requestBody'],
+      ContentService.postContentServiceRcmsApi1FeedUpdateTopicsIdRequest['requestBody']
     > = {
       ymd: new Date().toISOString().substr(0, 10),
       contents_type: 1 as 1,

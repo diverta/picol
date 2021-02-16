@@ -50,7 +50,7 @@ export namespace util {
     try {
       return distanceInWords(new Date(), parse(ymd_str), {
         addSuffix: true,
-        locale: navigator.language == 'ja' ? 'ja' : 'en',
+        locale: navigator.language.slice(0, 2).toLowerCase() == 'ja' ? 'ja' : 'en',
       });
     } catch (e) {
       return '-';

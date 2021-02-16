@@ -3,7 +3,7 @@ import { OverlayStateModule } from '@/store';
 import { CreateElement, VNode } from 'vue';
 import { Component, Vue } from 'vue-property-decorator';
 
-@Component<Modal>({ name: 'Modal' })
+@Component<Modal>({})
 export default class Modal extends Vue {
   // MUTATIONS
   get overlayComponentDef() {

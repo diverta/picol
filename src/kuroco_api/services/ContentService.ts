@@ -7,8 +7,9 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
-export class TopicsService {
+export class ContentService {
   /**
    *
    * ### **Topics::list (v1)**
@@ -34,11 +35,12 @@ export class TopicsService {
    *
    * > **get_tag_flg** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -61,19 +63,24 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Feeds(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1FeedsRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1Feeds(
+    requestParam: ContentService.getContentServiceRcmsApi1FeedsRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -85,6 +92,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -106,6 +114,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -116,7 +129,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -128,22 +141,22 @@ export class TopicsService {
    * > **topics_group_id** `1`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedCreate(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedCreateRequest,
-  ): Promise<any> {
+  public static async postContentServiceRcmsApi1FeedCreate(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedCreateRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -164,30 +177,34 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
    * ### **Topics::delete (v1)**
    *
    *
+   * ## Controller parameters
+   *
+   * > **topics_group_id** `1`
+   *
    * @param topicsId
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedDeleteTopicsId(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest,
-  ): Promise<any> {
+  public static async postContentServiceRcmsApi1FeedDeleteTopicsId(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedDeleteTopicsIdRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -207,7 +224,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -220,22 +237,22 @@ export class TopicsService {
    *
    * @param topicsId
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async postTopicsServiceRcmsApi1FeedUpdateTopicsId(
-    requestParam: TopicsService.postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest,
-  ): Promise<any> {
+  public static async postContentServiceRcmsApi1FeedUpdateTopicsId(
+    requestParam: ContentService.postContentServiceRcmsApi1FeedUpdateTopicsIdRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -256,7 +273,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -267,22 +284,22 @@ export class TopicsService {
    *
    * > **topics_group_id** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Tg(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1TgRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1Tg(
+    requestParam: ContentService.getContentServiceRcmsApi1TgRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -302,7 +319,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -315,22 +332,22 @@ export class TopicsService {
    *
    * > **ext_config_flg** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1FeedGroup(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1FeedGroupRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1FeedGroup(
+    requestParam: ContentService.getContentServiceRcmsApi1FeedGroupRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -350,7 +367,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -361,11 +378,12 @@ export class TopicsService {
    *
    * > **topics_group_id** `5`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -388,19 +406,24 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Infos(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1InfosRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1Infos(
+    requestParam: ContentService.getContentServiceRcmsApi1InfosRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -412,6 +435,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -433,6 +457,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -443,7 +472,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -454,11 +483,12 @@ export class TopicsService {
    *
    * > **topics_group_id** `6`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -481,19 +511,24 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1PreInfo(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1PreInfoRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1PreInfo(
+    requestParam: ContentService.getContentServiceRcmsApi1PreInfoRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -505,6 +540,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -526,6 +562,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -536,7 +577,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -544,19 +585,19 @@ export class TopicsService {
    *
    *
    * @param previewToken Preview token
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Preview(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1PreviewRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1Preview(
+    requestParam: ContentService.getContentServiceRcmsApi1PreviewRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken = Object.keys({}).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -577,7 +618,7 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -588,11 +629,12 @@ export class TopicsService {
    *
    * > **topics_group_id** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Number of topics per page
    * @param pageId Page ID
+   * @param filter Filter query
    * @param customSearchId search contdition
    * @param topicsKeyword Keyword
    * @param topicsKeywordCond Change the way of narrowing down by keyword (Default: AND)
@@ -615,19 +657,24 @@ export class TopicsService {
    * @param order Set the sort order. Available param {0}
    * @param orderById
    * @param id IDs of the displayed topics
+   * @param type List type as (array or object)
+   * @param groupBy Grouping List by (category)
+   * @param groupByCategoryId Category id list (using with groupBy category)
+   * @param showEmptyCategories Show empty category info (using with groupBy category)
+   * @param orderByCategoryCount Order by category contents count (using with groupBy category)
    * @result any
    * @throws ApiError
    */
-  public static async getTopicsServiceRcmsApi1Test(
-    requestParam: TopicsService.getTopicsServiceRcmsApi1TestRequest,
-  ): Promise<any> {
+  public static async getContentServiceRcmsApi1Test(
+    requestParam: ContentService.getContentServiceRcmsApi1TestRequest,
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -639,6 +686,7 @@ export class TopicsService {
           _charset: requestParam.charset,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
+          filter: requestParam.filter,
           custom_search_id: requestParam.customSearchId,
           topics_keyword: requestParam.topicsKeyword,
           topics_keyword_cond: requestParam.topicsKeywordCond,
@@ -660,6 +708,11 @@ export class TopicsService {
           order: requestParam.order,
           order_by_id: requestParam.orderById,
           'id[]': requestParam.id,
+          type: requestParam.type,
+          groupBy: requestParam.groupBy,
+          'group_by_category_id[]': requestParam.groupByCategoryId,
+          show_empty_categories: requestParam.showEmptyCategories,
+          order_by_category_count: requestParam.orderByCategoryCount,
         },
       });
 
@@ -670,17 +723,66 @@ export class TopicsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
+  }
+  /**
+   *
+   * ### **Topics::insert (v1)**
+   *
+   *
+   * ## Controller parameters
+   *
+   * > **topics_group_id** `1`
+   *
+   * @param requestBody
+   * @param outputFormat Format (json|xml|csv|zip)
+   * @param lang Language
+   * @param charset Charset
+   * @result any
+   * @throws ApiError
+   */
+  public static async postContentServiceRcmsApi1Test(
+    requestParam: ContentService.postContentServiceRcmsApi1TestRequest,
+  ): Promise<Result<any>> {
+    const shouldHookToken =
+      Object.keys({
+        'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
+      }).length > 0;
+
+    const request = async () =>
+      await __request<any>({
+        headers: shouldHookToken
+          ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
+          : {},
+        method: 'post',
+        path: `/rcms-api/1/test`,
+        query: {
+          _output_format: requestParam.outputFormat,
+          _lang: requestParam.lang,
+          _charset: requestParam.charset,
+        },
+        body: requestParam.requestBody,
+      });
+
+    let result = await request();
+
+    if (shouldHookToken && !result.ok && result.status === 401) {
+      result = await import('../core/Auth').then(({ Auth }) => Auth.retryRequest(request, result));
+    }
+
+    catchGenericError(result);
+    return result;
   }
 }
 
-export namespace TopicsService {
-  export interface getTopicsServiceRcmsApi1FeedsRequest {
+export namespace ContentService {
+  export interface getContentServiceRcmsApi1FeedsRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -702,9 +804,14 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1FeedsResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedCreateRequest {
+  export type getContentServiceRcmsApi1FeedsResponse = any;
+  export interface postContentServiceRcmsApi1FeedCreateRequest {
     requestBody: {
       /**
        * Topic title
@@ -716,10 +823,6 @@ export namespace TopicsService {
        */
       contents_type?: 1;
       /**
-       * Date
-       */
-      ymd?: string;
-      /**
        * Published / Not published
        */
       open_type?: 'open' | 'close' | 'default';
@@ -727,10 +830,6 @@ export namespace TopicsService {
        * Display all topics to logged in members, regardless ther public/hidden status
        */
       topics_flg?: 0 | 1;
-      /**
-       * Season
-       */
-      season?: number;
       /**
        * Contents
        */
@@ -740,13 +839,9 @@ export namespace TopicsService {
        */
       regular_flg?: number;
       /**
-       * Display method
+       * Date
        */
-      link_flg?: number;
-      /**
-       * Link
-       */
-      link_url?: string;
+      ymd?: string;
       /**
        * タグID
        * * 75 => 推しキャラ(Favorite character)
@@ -847,15 +942,15 @@ export namespace TopicsService {
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedCreateResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest {
+  export type postContentServiceRcmsApi1FeedCreateResponse = any;
+  export interface postContentServiceRcmsApi1FeedDeleteTopicsIdRequest {
     topicsId: number;
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedDeleteTopicsIdResponse = any;
-  export interface postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest {
+  export type postContentServiceRcmsApi1FeedDeleteTopicsIdResponse = any;
+  export interface postContentServiceRcmsApi1FeedUpdateTopicsIdRequest {
     topicsId: number;
     requestBody: {
       /**
@@ -868,10 +963,6 @@ export namespace TopicsService {
        */
       contents_type?: 1;
       /**
-       * Date
-       */
-      ymd?: string;
-      /**
        * Published / Not published
        */
       open_type?: 'open' | 'close' | 'default';
@@ -879,10 +970,6 @@ export namespace TopicsService {
        * Display all topics to logged in members, regardless ther public/hidden status
        */
       topics_flg?: 0 | 1;
-      /**
-       * Season
-       */
-      season?: number;
       /**
        * Contents
        */
@@ -892,13 +979,9 @@ export namespace TopicsService {
        */
       regular_flg?: number;
       /**
-       * Display method
+       * Date
        */
-      link_flg?: number;
-      /**
-       * Link
-       */
-      link_url?: string;
+      ymd?: string;
       /**
        * タグID
        * * 75 => 推しキャラ(Favorite character)
@@ -999,25 +1082,26 @@ export namespace TopicsService {
     lang?: string;
     charset?: string;
   }
-  export type postTopicsServiceRcmsApi1FeedUpdateTopicsIdResponse = any;
-  export interface getTopicsServiceRcmsApi1TgRequest {
+  export type postContentServiceRcmsApi1FeedUpdateTopicsIdResponse = any;
+  export interface getContentServiceRcmsApi1TgRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1TgResponse = any;
-  export interface getTopicsServiceRcmsApi1FeedGroupRequest {
+  export type getContentServiceRcmsApi1TgResponse = any;
+  export interface getContentServiceRcmsApi1FeedGroupRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1FeedGroupResponse = any;
-  export interface getTopicsServiceRcmsApi1InfosRequest {
+  export type getContentServiceRcmsApi1FeedGroupResponse = any;
+  export interface getContentServiceRcmsApi1InfosRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1039,14 +1123,20 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1InfosResponse = any;
-  export interface getTopicsServiceRcmsApi1PreInfoRequest {
+  export type getContentServiceRcmsApi1InfosResponse = any;
+  export interface getContentServiceRcmsApi1PreInfoRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1068,21 +1158,27 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1PreInfoResponse = any;
-  export interface getTopicsServiceRcmsApi1PreviewRequest {
+  export type getContentServiceRcmsApi1PreInfoResponse = any;
+  export interface getContentServiceRcmsApi1PreviewRequest {
     previewToken: string;
     outputFormat?: string;
     lang?: string;
     charset?: string;
   }
-  export type getTopicsServiceRcmsApi1PreviewResponse = any;
-  export interface getTopicsServiceRcmsApi1TestRequest {
+  export type getContentServiceRcmsApi1PreviewResponse = any;
+  export interface getContentServiceRcmsApi1TestRequest {
     outputFormat?: string;
     lang?: string;
     charset?: string;
     cnt?: number;
     pageId?: number;
+    filter?: string;
     customSearchId?: string;
     topicsKeyword?: string;
     topicsKeywordCond?: string;
@@ -1104,6 +1200,143 @@ export namespace TopicsService {
     order?: string;
     orderById?: string;
     id?: Array<number>;
+    type?: string;
+    groupBy?: string;
+    groupByCategoryId?: Array<number>;
+    showEmptyCategories?: boolean;
+    orderByCategoryCount?: boolean;
   }
-  export type getTopicsServiceRcmsApi1TestResponse = any;
+  export type getContentServiceRcmsApi1TestResponse = any;
+  export interface postContentServiceRcmsApi1TestRequest {
+    requestBody: {
+      /**
+       * Topic title
+       */
+      subject: string;
+      /**
+       * Category ID
+       * * 1 => フィード
+       */
+      contents_type?: 1;
+      /**
+       * Published / Not published
+       */
+      open_type?: 'open' | 'close' | 'default';
+      /**
+       * Display all topics to logged in members, regardless ther public/hidden status
+       */
+      topics_flg?: 0 | 1;
+      /**
+       * Contents
+       */
+      contents?: string;
+      /**
+       * display up
+       */
+      regular_flg?: number;
+      /**
+       * Date
+       */
+      ymd?: string;
+      /**
+       * タグID
+       * * 75 => 推しキャラ(Favorite character)
+       * * 76 => いい感じの何か(good stuff)
+       * * 67 => 近況(Now)
+       * * 68 => ランチ(Lunch)
+       * * 69 => おやつ(Snack)
+       * * 70 => 仕事関係
+       * * 71 => ただしい(Do right)
+       * * 72 => たのしい(Delight)
+       * * 73 => ジレンマ(dilemma)
+       * * 74 => めでたい
+       * * 162 => おやつ
+       * * 163 => sakura
+       * * 164 => 桜
+       * * 166 => 景色
+       * * 171 => 重要なお知らせ
+       * * 173 => ここにタグを設置できます
+       * * 174 => MalaysiaOffice
+       * * 175 => 近況
+       * * 176 => 近所のお店
+       * * 177 => #テスト
+       * * 178 => テスト投稿1
+       * * 179 => aaa
+       */
+      tag_id?: Array<
+        | 75
+        | 76
+        | 67
+        | 68
+        | 69
+        | 70
+        | 71
+        | 72
+        | 73
+        | 74
+        | 162
+        | 163
+        | 164
+        | 166
+        | 171
+        | 173
+        | 174
+        | 175
+        | 176
+        | 177
+        | 178
+        | 179
+      >;
+      /**
+       * GCSファイル
+       */
+      ext_col_04?: Array<{
+        /**
+         * File ID returned by File Upload API
+         */
+        file_id?: string;
+        /**
+         * File name
+         */
+        file_nm?: string;
+        /**
+         * Description
+         */
+        desc?: string;
+        /**
+         * File ID. Whether the item should be updated or inserted depends on this ID being set or not.
+         */
+        id?: string;
+      }>;
+      /**
+       * 動画
+       */
+      ext_col_06?: {
+        /**
+         * File ID returned by File Upload API
+         */
+        file_id?: string;
+        /**
+         * File name
+         */
+        file_nm?: string;
+        /**
+         * Description
+         */
+        desc?: string;
+      };
+      /**
+       * コメント
+       */
+      ext_col_02?: string;
+      /**
+       * Validate
+       */
+      validate_only?: boolean;
+    };
+    outputFormat?: string;
+    lang?: string;
+    charset?: string;
+  }
+  export type postContentServiceRcmsApi1TestResponse = any;
 }

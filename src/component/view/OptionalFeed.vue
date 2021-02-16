@@ -2,20 +2,13 @@
   <div class="p-feed">
     <h1 v-if="title" class="c-headline">{{ title }}</h1>
     <div v-if="feeds.length > 0">
-      <FeedContainer
-        :feed="feed"
-        v-for="feed in feeds"
-        :key="feed.topics_id"
-        :comments="comments"
-        :onChangeFeed="onChangeFeed"
-      />
+      <FeedContainer v-for="feed in feeds" :feed="feed" :key="feed.topics_id" :comments="comments" />
     </div>
     <CustomInfiniteLoader :infiniteHandler="infiniteHandler" ref="Infinite" />
   </div>
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import FeedContainer from '@/component/view/feed/FeedContainer.vue';
 import { FeedStateModule } from '@/store/feed';
 import { FeedModel, CommentModel } from '@/type/api';
@@ -24,12 +17,11 @@ import { StateChanger } from 'vue-infinite-loading';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule, TagStateModule } from '@/store';
 import { ServiceHelper } from '@/util';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 
 @Component<OptionalFeed>({
   components: {
     FeedContainer,
-    CustomInfiniteLoader,
   },
 })
 export default class OptionalFeed extends Vue {
@@ -41,20 +33,19 @@ export default class OptionalFeed extends Vue {
     required: true,
     default: () => ({}),
   })
-  query!: TopicsService.getTopicsServiceRcmsApi1FeedsRequest;
+  query!: ContentService.getContentServiceRcmsApi1FeedsRequest;
 
   // FIELDS
-  comments: CommentModel.Read.Response.List[] = [];
-  feeds: FeedModel.Read.Response.Feed[] = [];
+  get feeds(): FeedModel.Read.Response.Feed[] {
+    return FeedStateModule.all.list;
+  }
+  get comments(): CommentModel.Read.Response.List[] {
+    return FeedStateModule.comments;
+  }
 
   // METHODS
   infiniteHandler($state: StateChanger): void {
-    FeedStateModule.loadPage(this.query)
-      .then(async (page) => {
-        const { list, pageInfo } = page.feed;
-        this.feeds.replaceAll(list);
-        this.comments.replaceAll(page.comments.map((c) => c.list).flat());
-      })
+    FeedStateModule.loadPageAndStore(this.query)
       .then(() => {
         // InfiniteLoader shows `no-results` msg when it has never been called.
         // hooked loaded() once for showing `no-more` instead of `no-results`.
@@ -63,11 +54,9 @@ export default class OptionalFeed extends Vue {
       })
       .catch((e) => $state.error());
   }
-  onChangeFeed() {
-    // vue-infinit-loader can not detect reset() event properly when scroll events had not dispatched.
-    // clears feeds data to work reset() forcefully.
-    this.feeds.replaceAll([]);
-    (this.$refs.Infinite as any).reset();
+
+  mounted() {
+    FeedStateModule.clear();
   }
 }
 </script>

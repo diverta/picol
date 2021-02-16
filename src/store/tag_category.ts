@@ -48,9 +48,8 @@ class TagCategory extends VuexModule implements ITagCategoryState {
 
   @Action({ rawError: true })
   async readAll() {
-    const tags = (await this.apis.tags.getTagsServiceRcmsApi1TagsCategoryGrouped(
-      {},
-    )) as TagCategoryModel.Read.Response.RootObject[];
+    const tags = (await this.apis.tags.getTagsServiceRcmsApi1TagsCategoryGrouped({}))
+      .body as TagCategoryModel.Read.Response.RootObject[];
     this.UPDATE_ALL_TAG_DEFS(tags);
     return tags;
   }

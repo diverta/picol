@@ -6,9 +6,20 @@
       <dd class="c-section__body">
         <div v-if="editable" class="p-post__hash-input-wrapper">
           <input type="text" :placeholder="$t('attach_tag')" class="p-post__hash-input" v-model="tagInput" />
-          <button class="p-post__hash-add" @click.prevent="() => handleClickAddInputTag(tagInput)">
-            {{ $t('add') }}
-          </button>
+
+          <SnackbarCommit
+            :fn="() => addInputTag(tagInput)"
+            :msg="{
+              ok: `#${tagInput} ${$t('added_to_undefined')}`,
+              ng: $t('cant_add_tag'),
+            }"
+            :useServerErrMsg="true"
+            v-slot="{ on }"
+          >
+            <button class="p-post__hash-add" @click.prevent="on">
+              {{ $t('add') }}
+            </button>
+          </SnackbarCommit>
         </div>
         <!-- tag buttons -->
         <div class="p-post__hash-items">
@@ -76,46 +87,19 @@ export default class Tag extends Vue {
   }
   handleClickAddTag(tag: TagModel.Read.Response.List) {
     if (this.selectedTags.map((tag) => tag.tag_id).includes(tag.tag_id)) {
-      (this as any).$snack.danger({ text: this.$t('already_added'), button: 'OK' });
+      this.$snack.danger({ text: this.$t('already_added') });
       return;
     }
     this.$emit('change', tag);
   }
-  handleClickAddInputTag(tagInput: string) {
-    this.requestAddTag({ tagInput })
-      .then((d) => (this.tagInput = ''))
-      .then(() => (this as any).$snack.success({ text: `#${tagInput}  $t('added_to_undefined')`, button: 'OK' }))
-      .catch(async (e) => {
-        let errMsg = this.$t('cant_add_tag');
-
-        try {
-          const err = await e.json();
-          if (
-            err.errors instanceof Array &&
-            err.errors.length > 0 &&
-            ['Title is specified more than once', 'タイトルが重複しています'].some((errMsgDef) =>
-              err.errors[0].includes(errMsgDef),
-            )
-          ) {
-            errMsg = `#${tagInput} this.$t('is_already_exists')`;
-          }
-        } catch (e) {
-          /** NP */
-        }
-
-        (this as any).$snack.danger({
-          text: errMsg,
-          button: 'OK',
-        });
-      });
+  async addInputTag(tagInput: string) {
+    const payload = { requestBody: { tag_nm: tagInput, open_type: 'open' as 'open' } };
+    await TagCategoryStateModule.addTagCategory(payload).then(() => TagCategoryStateModule.readAll());
+    this.tagInput = '';
   }
   handleClickDeleteTag(tag: TagModel.Read.Response.List) {
     const idx = this.selectedTagsCopy.findIndex((t) => t.tag_id === tag.tag_id);
     this.$emit('delete', idx);
-  }
-  requestAddTag(query: { tagInput: string }) {
-    const q = { requestBody: { tag_nm: query.tagInput, open_type: 'open' as 'open' } };
-    return TagCategoryStateModule.addTagCategory(q).then(() => TagCategoryStateModule.readAll());
   }
 
   // LYCYCLE HOOKS
@@ -133,7 +117,6 @@ export default class Tag extends Vue {
   "already_added": "すでに追加済みです。",
   "undefined": "未分類",
   "cant_add_tag": "タグを追加できませんでした。",
-  "is_already_exists": "はすでに存在しています。",
   "added_to_undefined": "を未分類に追加しました。",
   "add": "追加"
 }
@@ -144,7 +127,6 @@ export default class Tag extends Vue {
   "already_added": "Already added",
   "undefined": "Undefined",
   "cant_add_tag": "Can't add tag.",
-  "is_already_exists": "is already exists.",
   "added_to_undefined": "added to undefined.",
   "add": "Add"
 }

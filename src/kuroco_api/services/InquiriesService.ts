@@ -9,21 +9,25 @@ import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
 import { Result } from '../core/Result';
 
-export class FilesService {
+export class InquiriesService {
   /**
    *
-   * ### **Files::upload (v1)**
+   * ### **InquiryMessage::send (v1)**
    *
    *
+   * ## Controller parameters
+   *
+   * > **id** `5`
+   *
+   * @param requestBody
    * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
-   * @param requestBody
    * @result any
    * @throws ApiError
    */
-  public static async postFilesServiceRcmsApi1FileUpload(
-    requestParam: FilesService.postFilesServiceRcmsApi1FileUploadRequest,
+  public static async postInquiriesServiceRcmsApi1Report(
+    requestParam: InquiriesService.postInquiriesServiceRcmsApi1ReportRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -36,7 +40,7 @@ export class FilesService {
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
         method: 'post',
-        path: `/rcms-api/1/file/upload`,
+        path: `/rcms-api/1/report`,
         query: {
           _output_format: requestParam.outputFormat,
           _lang: requestParam.lang,
@@ -56,12 +60,12 @@ export class FilesService {
   }
 }
 
-export namespace FilesService {
-  export interface postFilesServiceRcmsApi1FileUploadRequest {
+export namespace InquiriesService {
+  export interface postInquiriesServiceRcmsApi1ReportRequest {
+    requestBody: any;
     outputFormat?: string;
     lang?: string;
     charset?: string;
-    requestBody?: any;
   }
-  export type postFilesServiceRcmsApi1FileUploadResponse = any;
+  export type postInquiriesServiceRcmsApi1ReportResponse = any;
 }

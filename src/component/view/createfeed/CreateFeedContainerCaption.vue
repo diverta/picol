@@ -15,7 +15,7 @@
 import { FeedStateModule, UserStateModule } from '@/store';
 import { TagModel } from '@/type/api';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 import truncate from 'lodash/truncate';
 import { PostFileHelper } from '@/util';
 
@@ -42,7 +42,7 @@ export default class CreateFeedContainerCaption extends Vue {
     if (inputStr.length > 2000) {
       e.target.innerText = this.commentInput;
       e.preventDefault();
-      (this as any).$snack.danger({ text: '本文は2000文字以内で入力してください。', button: 'OK' });
+      this.$snack.danger({ text: '本文は2000文字以内で入力してください。' });
       return;
     }
     this.$emit('update:commentInput', inputStr);

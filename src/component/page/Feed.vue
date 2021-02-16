@@ -10,7 +10,6 @@
 </template>
 
 <script lang="ts">
-import CustomInfiniteLoader from '@/component/atom/CustomInfiniteLoader.vue';
 import FeedContainer from '@/component/view/feed/FeedContainer.vue';
 import { FeedStateModule } from '@/store/feed';
 import { FeedModel, CommentModel } from '@/type/api';
@@ -20,11 +19,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { UserStateModule, TagStateModule } from '@/store';
 import { ServiceHelper } from '@/util';
 import { Auth } from '@/kuroco_api/core/Auth';
+import { CONSTANTS } from '@/core/constants';
 
 @Component<Feed>({
   components: {
     FeedContainer,
-    CustomInfiniteLoader,
   },
 })
 export default class Feed extends Vue {
@@ -55,7 +54,7 @@ export default class Feed extends Vue {
       pageId: this.pageID,
     })
       .then(() => $state.loaded())
-      .catch((e) => $state.error());
+      .catch((e) => (CONSTANTS.APP_ERROR.NO_DATA === e ? $state.complete() : $state.error()));
   }
 }
 </script>

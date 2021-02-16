@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class MembersService {
   /**
@@ -19,7 +20,7 @@ export class MembersService {
    * > **group_id** `1`
    *
    * @param memberId
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -27,14 +28,14 @@ export class MembersService {
    */
   public static async getMembersServiceRcmsApi1MembersMemberId(
     requestParam: MembersService.getMembersServiceRcmsApi1MembersMemberIdRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -54,18 +55,14 @@ export class MembersService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
    * ### **Member::list (v1)**
    *
    *
-   * ## Controller parameters
-   *
-   * > **subData_flg** `1`
-   *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param id Member ID
@@ -77,19 +74,20 @@ export class MembersService {
    * @param sAddress Member search
    * @param sTdfkCd Member search
    * @param groupId Member search
+   * @param filter Filter query
    * @result any
    * @throws ApiError
    */
   public static async getMembersServiceRcmsApi1Members(
     requestParam: MembersService.getMembersServiceRcmsApi1MembersRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -107,7 +105,8 @@ export class MembersService {
           s_tel: requestParam.sTel,
           s_address: requestParam.sAddress,
           s_tdfk_cd: requestParam.sTdfkCd,
-          group_id: requestParam.groupId,
+          'group_id[]': requestParam.groupId,
+          filter: requestParam.filter,
         },
       });
 
@@ -118,7 +117,7 @@ export class MembersService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -132,7 +131,7 @@ export class MembersService {
    * > **unuse_columns** `email`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -140,14 +139,14 @@ export class MembersService {
    */
   public static async postMembersServiceRcmsApi1MemberUpdate(
     requestParam: MembersService.postMembersServiceRcmsApi1MemberUpdateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -168,7 +167,7 @@ export class MembersService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 
@@ -192,19 +191,120 @@ export namespace MembersService {
     sTel?: string;
     sAddress?: string;
     sTdfkCd?: string;
-    groupId?: number;
+    groupId?: Array<number>;
+    filter?: string;
   }
   export type getMembersServiceRcmsApi1MembersResponse = any;
   export interface postMembersServiceRcmsApi1MemberUpdateRequest {
     requestBody: {
       /**
-       * Nickname
+       * /label/current_password
+       */
+      current_password?: string;
+      /**
+       * name1
+       */
+      name1?: string;
+      /**
+       * name2
+       */
+      name2?: string;
+      /**
+       * nickname
        */
       nickname?: string;
       /**
-       * Image1
+       * zip_code
        */
-      member_photo?: {
+      zip_code?: string;
+      /**
+       * tdfk_cd
+       */
+      tdfk_cd?:
+        | '01'
+        | '02'
+        | '03'
+        | '04'
+        | '05'
+        | '06'
+        | '07'
+        | '08'
+        | '09'
+        | '10'
+        | '11'
+        | '12'
+        | '13'
+        | '14'
+        | '15'
+        | '16'
+        | '17'
+        | '18'
+        | '19'
+        | '20'
+        | '21'
+        | '22'
+        | '23'
+        | '24'
+        | '25'
+        | '26'
+        | '27'
+        | '28'
+        | '29'
+        | '30'
+        | '31'
+        | '32'
+        | '33'
+        | '34'
+        | '35'
+        | '36'
+        | '37'
+        | '38'
+        | '39'
+        | '40'
+        | '41'
+        | '42'
+        | '43'
+        | '44'
+        | '45'
+        | '46'
+        | '47'
+        | '99';
+      /**
+       * address1
+       */
+      address1?: string;
+      /**
+       * address2
+       */
+      address2?: string;
+      /**
+       * address3
+       */
+      address3?: string;
+      /**
+       * tel
+       */
+      tel?: string;
+      /**
+       * email_send_ng_flg
+       */
+      email_send_ng_flg?: 0 | 1;
+      /**
+       * tel_send_ng_flg
+       */
+      tel_send_ng_flg?: 0 | 1;
+      /**
+       * login_pwd
+       */
+      login_pwd?: string;
+      /**
+       * login_id
+       */
+      login_id?: string;
+      /**
+       * image
+       */
+      image?: {
         /**
          * File ID returned by File Upload API
          */
@@ -217,20 +317,11 @@ export namespace MembersService {
          * Description
          */
         desc?: string;
-        extension?: 'jpg' | 'gif' | 'png';
       };
-      /**
-       * Password
-       */
-      login_pwd?: string;
       /**
        * /label/group_id
        */
       group_id?: Array<1 | 2 | 101 | 102>;
-      /**
-       * /label/open_flg
-       */
-      open_flg?: 0 | 1;
       /**
        * /label/login_ok_flg
        */
@@ -239,6 +330,56 @@ export namespace MembersService {
        * Validate
        */
       validate_only?: boolean;
+      auto_login?: number;
+      /**
+       * タグID
+       * * 75 => 推しキャラ(Favorite character)
+       * * 76 => いい感じの何か(good stuff)
+       * * 67 => 近況(Now)
+       * * 68 => ランチ(Lunch)
+       * * 69 => おやつ(Snack)
+       * * 70 => 仕事関係
+       * * 71 => ただしい(Do right)
+       * * 72 => たのしい(Delight)
+       * * 73 => ジレンマ(dilemma)
+       * * 74 => めでたい
+       * * 162 => おやつ
+       * * 163 => sakura
+       * * 164 => 桜
+       * * 166 => 景色
+       * * 171 => 重要なお知らせ
+       * * 173 => ここにタグを設置できます
+       * * 174 => MalaysiaOffice
+       * * 175 => 近況
+       * * 176 => 近所のお店
+       * * 177 => #テスト
+       * * 178 => テスト投稿1
+       * * 179 => aaa
+       */
+      tag_id?: Array<
+        | 75
+        | 76
+        | 67
+        | 68
+        | 69
+        | 70
+        | 71
+        | 72
+        | 73
+        | 74
+        | 162
+        | 163
+        | 164
+        | 166
+        | 171
+        | 173
+        | 174
+        | 175
+        | 176
+        | 177
+        | 178
+        | 179
+      >;
     };
     outputFormat?: string;
     lang?: string;

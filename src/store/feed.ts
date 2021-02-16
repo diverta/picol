@@ -1,6 +1,6 @@
-import { CommentsService } from '@/kuroco_api/services/CommentsService';
+import { ActivityService } from '@/kuroco_api/services/ActivityService';
 import { FavoritesService } from '@/kuroco_api/services/FavoritesService';
-import { TopicsService } from '@/kuroco_api/services/TopicsService';
+import { ContentService } from '@/kuroco_api/services/ContentService';
 import { TagStateModule, UserStateModule } from '@/store';
 import store from '@/store/store';
 import { CommentModel, FeedModel } from '@/type/api';
@@ -16,9 +16,9 @@ export interface IFeedState extends FeedModel.Read.Response.RootObject {
 @Module({ dynamic: true, store, name: 'feed', namespaced: true })
 class Feed extends VuexModule implements IFeedState {
   apis = {
-    topics: TopicsService,
+    topics: ContentService,
     favorites: FavoritesService,
-    comments: CommentsService,
+    comments: ActivityService,
   };
 
   pageInfo: any = {};
@@ -35,7 +35,7 @@ class Feed extends VuexModule implements IFeedState {
    * @param payload
    */
   @Action({ rawError: true })
-  async loadPageAndStore(payload: TopicsService.getTopicsServiceRcmsApi1FeedsRequest) {
+  async loadPageAndStore(payload: ContentService.getContentServiceRcmsApi1FeedsRequest) {
     const page = await this.loadPage(payload);
     this.UPDATE_FEEDS(page.feed.list);
     this.UPDATE_PAGE_INFO(page.feed.pageInfo);
@@ -48,7 +48,7 @@ class Feed extends VuexModule implements IFeedState {
    * @param payload
    */
   @Action({ rawError: true })
-  async loadPage(payload: TopicsService.getTopicsServiceRcmsApi1FeedsRequest) {
+  async loadPage(payload: ContentService.getContentServiceRcmsApi1FeedsRequest) {
     const { feed, tags, comments, member } = await ServiceHelper.Feed.LoadPage(payload);
     TagStateModule.addTags(tags);
     if (member) {
@@ -67,7 +67,7 @@ class Feed extends VuexModule implements IFeedState {
    * @param payload
    */
   @Action({ rawError: true })
-  async loadActivity(payload: TopicsService.getTopicsServiceRcmsApi1FeedsRequest[]) {
+  async loadActivity(payload: ContentService.getContentServiceRcmsApi1FeedsRequest[]) {
     const { feeds, tags, comments, member } = await ServiceHelper.Feed.LoadActivity(payload);
 
     TagStateModule.addTags(tags);
@@ -83,18 +83,18 @@ class Feed extends VuexModule implements IFeedState {
   }
 
   @Action({ rawError: true })
-  async createFeed(payload: TopicsService.postTopicsServiceRcmsApi1FeedCreateRequest) {
-    await this.apis.topics.postTopicsServiceRcmsApi1FeedCreate(payload);
+  async createFeed(payload: ContentService.postContentServiceRcmsApi1FeedCreateRequest) {
+    await this.apis.topics.postContentServiceRcmsApi1FeedCreate(payload);
   }
 
   @Action({ rawError: true })
-  async updateFeed(payload: TopicsService.postTopicsServiceRcmsApi1FeedUpdateTopicsIdRequest) {
-    await this.apis.topics.postTopicsServiceRcmsApi1FeedUpdateTopicsId(payload);
+  async updateFeed(payload: ContentService.postContentServiceRcmsApi1FeedUpdateTopicsIdRequest) {
+    await this.apis.topics.postContentServiceRcmsApi1FeedUpdateTopicsId(payload);
   }
 
   @Action({ rawError: true })
-  async removeFeed(query: TopicsService.postTopicsServiceRcmsApi1FeedDeleteTopicsIdRequest) {
-    await this.apis.topics.postTopicsServiceRcmsApi1FeedDeleteTopicsId(query);
+  async removeFeed(query: ContentService.postContentServiceRcmsApi1FeedDeleteTopicsIdRequest) {
+    await this.apis.topics.postContentServiceRcmsApi1FeedDeleteTopicsId(query);
     this.DELETE_FEED({ topics_id: query.topicsId });
   }
 
@@ -116,21 +116,23 @@ class Feed extends VuexModule implements IFeedState {
   }
 
   @Action({ rawError: true })
-  async createComment(payload: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
-    await ServiceHelper.apis.comments.postCommentsServiceRcmsApi1CommentCreate(payload);
-    const comments = (await this.apis.comments.getCommentsServiceRcmsApi1Comments({
-      moduleId: [payload.requestBody.module_id],
-    })) as CommentModel.Read.Response.RootObject[];
+  async createComment(payload: ActivityService.postActivityServiceRcmsApi1CommentCreateRequest) {
+    await ServiceHelper.apis.comments.postActivityServiceRcmsApi1CommentCreate(payload);
+    const comments = (
+      await this.apis.comments.getActivityServiceRcmsApi1Comments({
+        moduleId: [payload.requestBody.module_id],
+      })
+    ).body as CommentModel.Read.Response.RootObject[];
 
     this.UPDATE_COMMENTS(comments.map((c) => c.list).flat());
     this.UPDATE_COMMENTS_COUNT({ topicsID: payload.requestBody.module_id, upOrDown: +1 });
   }
 
   @Action({ rawError: true })
-  async removeComment(payload: ExtendedPostCommentsServiceRcmsApi1CommentDeleteRequest) {
-    await this.apis.comments.postCommentsServiceRcmsApi1CommentDelete(payload);
-    this.DELETE_COMMENT(payload.requestBody.comment_id);
-    this.UPDATE_COMMENTS_COUNT({ topicsID: payload.moduleId, upOrDown: -1 });
+  async removeComment(payload: ExtendedPostActivityServiceRcmsApi1CommentDeleteRequest) {
+    await this.apis.comments.postActivityServiceRcmsApi1CommentDeleteCommentId(payload.body);
+    this.DELETE_COMMENT(payload.body.commentId);
+    this.UPDATE_COMMENTS_COUNT({ topicsID: payload.topicsID, upOrDown: -1 });
   }
 
   @Mutation
@@ -200,7 +202,7 @@ class Feed extends VuexModule implements IFeedState {
 
 export const FeedStateModule = getModule(Feed);
 
-export interface ExtendedPostCommentsServiceRcmsApi1CommentDeleteRequest
-  extends CommentsService.postCommentsServiceRcmsApi1CommentDeleteRequest {
-  moduleId: number;
+interface ExtendedPostActivityServiceRcmsApi1CommentDeleteRequest {
+  body: ActivityService.postActivityServiceRcmsApi1CommentDeleteCommentIdRequest;
+  topicsID: number;
 }

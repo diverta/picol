@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class AuthenticationService {
   /**
@@ -15,7 +16,7 @@ export class AuthenticationService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -23,11 +24,11 @@ export class AuthenticationService {
    */
   public static async postAuthenticationServiceRcmsApi1Login(
     requestParam: AuthenticationService.postAuthenticationServiceRcmsApi1LoginRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken = Object.keys({}).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -48,7 +49,7 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -60,7 +61,7 @@ export class AuthenticationService {
    * > **use_refresh_token** `true`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -68,11 +69,11 @@ export class AuthenticationService {
    */
   public static async postAuthenticationServiceRcmsApi1Token(
     requestParam: AuthenticationService.postAuthenticationServiceRcmsApi1TokenRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken = Object.keys({}).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -93,14 +94,14 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
    * ### **Login::logout (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -108,14 +109,14 @@ export class AuthenticationService {
    */
   public static async postAuthenticationServiceRcmsApi1Logout(
     requestParam: AuthenticationService.postAuthenticationServiceRcmsApi1LogoutRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -135,7 +136,7 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -146,7 +147,7 @@ export class AuthenticationService {
    *
    * > **basic_info** `nickname,member_photo`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -154,14 +155,14 @@ export class AuthenticationService {
    */
   public static async getAuthenticationServiceRcmsApi1Profile(
     requestParam: AuthenticationService.getAuthenticationServiceRcmsApi1ProfileRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -181,14 +182,14 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
    * ### **Login::firebaseToken (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -196,14 +197,14 @@ export class AuthenticationService {
    */
   public static async postAuthenticationServiceRcmsApi1FirebaseToken(
     requestParam: AuthenticationService.postAuthenticationServiceRcmsApi1FirebaseTokenRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -223,14 +224,14 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
    * ### **Login::gcs_info (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -238,14 +239,14 @@ export class AuthenticationService {
    */
   public static async postAuthenticationServiceRcmsApi1GcsInfo(
     requestParam: AuthenticationService.postAuthenticationServiceRcmsApi1GcsInfoRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -265,7 +266,7 @@ export class AuthenticationService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 

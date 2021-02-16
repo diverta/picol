@@ -12,7 +12,7 @@
 import OptionalFeed from '@/component/view/OptionalFeed.vue';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 
 @Component<TagFeed>({
   components: {

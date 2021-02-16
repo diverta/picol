@@ -7,6 +7,9 @@
     display: grid
     margin-bottom: 24px
 
+  .pointer
+    cursor: pointer
+
   &__header
     display: flex
     align-items: center
@@ -56,13 +59,13 @@
     &--content-link
       text-decoration: unset
       color: black
-      corsor: pointer
       word-break: break-word
       &:hover
         color: black
 
   &__image-wrapper
     margin-bottom: 14px
+
     @media screen and (min-width: $pc-width)
       order: -1
       grid-row: 1 / 4

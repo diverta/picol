@@ -11,9 +11,7 @@
 import { CreateElement, VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
-@Component<TinySpinner>({
-  name: 'TinySpinner',
-})
+@Component<TinySpinner>({})
 export default class TinySpinner extends Vue {
   @Prop({ type: String, required: false, default: 's' })
   size!: string;

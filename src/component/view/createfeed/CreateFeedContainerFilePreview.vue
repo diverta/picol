@@ -5,7 +5,7 @@
     <!-- image element -->
     <img v-if="elmType === ELEMENT_TYPE.IMAGE" class="p-post__thumbnail" :src="source.url" :style="additionalStyle" />
     <!-- video vimeo element -->
-    <vimeo-container
+    <VimeoContainer
       v-if="elmType === ELEMENT_TYPE.VIDEO_VIMEO"
       :class="'p-post__thumbnail'"
       :id="source.file_id"
@@ -21,7 +21,7 @@
 import { FeedStateModule } from '@/store';
 import { TagModel } from '@/type/api';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { TopicsService } from '@/kuroco_api';
+import { ContentService } from '@/kuroco_api';
 import truncate from 'lodash/truncate';
 import { PostFileHelper, util } from '@/util';
 

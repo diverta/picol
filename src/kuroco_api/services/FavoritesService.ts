@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class FavoritesService {
   /**
@@ -15,7 +16,7 @@ export class FavoritesService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -23,14 +24,14 @@ export class FavoritesService {
    */
   public static async postFavoritesServiceRcmsApi1FavoriteCreate(
     requestParam: FavoritesService.postFavoritesServiceRcmsApi1FavoriteCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -51,7 +52,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -59,7 +60,7 @@ export class FavoritesService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -67,14 +68,14 @@ export class FavoritesService {
    */
   public static async postFavoritesServiceRcmsApi1FavoriteDelete(
     requestParam: FavoritesService.postFavoritesServiceRcmsApi1FavoriteDeleteRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -95,7 +96,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -106,33 +107,31 @@ export class FavoritesService {
    *
    * > **groupBy** `module_id`
    *
-   * > **groupAs** `array`
-   *
    * > **module_type** `topics`
    *
    * > **order** `inst_ymdhi:desc`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Display number per page
    * @param pageId Page ID
    * @param moduleId
    * @param memberId Member ID
-   * @param rcmsid rcmsid
+   * @param type Grouping List as (array or object)
    * @result any
    * @throws ApiError
    */
   public static async getFavoritesServiceRcmsApi1Favorites(
     requestParam: FavoritesService.getFavoritesServiceRcmsApi1FavoritesRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -146,7 +145,7 @@ export class FavoritesService {
           pageID: requestParam.pageId,
           'module_id[]': requestParam.moduleId,
           'member_id[]': requestParam.memberId,
-          'rcmsid[]': requestParam.rcmsid,
+          type: requestParam.type,
         },
       });
 
@@ -157,7 +156,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -174,27 +173,27 @@ export class FavoritesService {
    *
    * > **my_list** `1`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param cnt Display number per page
    * @param pageId Page ID
    * @param moduleId
    * @param groupBy Grouping List by (module_id)
-   * @param groupAs Grouping List as (array or object)
+   * @param type Grouping List as (array or object)
    * @result any
    * @throws ApiError
    */
   public static async getFavoritesServiceRcmsApi1FavoritesMylist(
     requestParam: FavoritesService.getFavoritesServiceRcmsApi1FavoritesMylistRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -208,7 +207,7 @@ export class FavoritesService {
           pageID: requestParam.pageId,
           'module_id[]': requestParam.moduleId,
           groupBy: requestParam.groupBy,
-          groupAs: requestParam.groupAs,
+          type: requestParam.type,
         },
       });
 
@@ -219,7 +218,7 @@ export class FavoritesService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 
@@ -232,7 +231,6 @@ export namespace FavoritesService {
       module_type:
         | 'group'
         | 'menu'
-        | 'accesscount'
         | 'comment'
         | 'inquiry'
         | 'login'
@@ -255,7 +253,7 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page';
+        | 'ec';
       /**
        * module_id
        */
@@ -264,6 +262,10 @@ export namespace FavoritesService {
        * ページシステム名
        */
       page_sysnm?: string;
+      /**
+       * アクション種別
+       */
+      action_type?: number;
     };
     outputFormat?: string;
     lang?: string;
@@ -278,7 +280,6 @@ export namespace FavoritesService {
       module_type:
         | 'group'
         | 'menu'
-        | 'accesscount'
         | 'comment'
         | 'inquiry'
         | 'login'
@@ -301,7 +302,7 @@ export namespace FavoritesService {
         | 'rcms_api'
         | 'firebase'
         | 'trigger'
-        | 'page';
+        | 'ec';
       /**
        * module_id
        */
@@ -310,6 +311,10 @@ export namespace FavoritesService {
        * ページシステム名
        */
       page_sysnm?: string;
+      /**
+       * アクション種別
+       */
+      action_type?: number;
     };
     outputFormat?: string;
     lang?: string;
@@ -324,7 +329,7 @@ export namespace FavoritesService {
     pageId?: number;
     moduleId?: Array<number>;
     memberId?: Array<number>;
-    rcmsid?: Array<string>;
+    type?: string;
   }
   export type getFavoritesServiceRcmsApi1FavoritesResponse = any;
   export interface getFavoritesServiceRcmsApi1FavoritesMylistRequest {
@@ -335,7 +340,7 @@ export namespace FavoritesService {
     pageId?: number;
     moduleId?: Array<number>;
     groupBy?: string;
-    groupAs?: string;
+    type?: string;
   }
   export type getFavoritesServiceRcmsApi1FavoritesMylistResponse = any;
 }

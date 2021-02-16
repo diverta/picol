@@ -7,6 +7,7 @@ import { ApiError, catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
+import { Result } from '../core/Result';
 
 export class TagsService {
   /**
@@ -18,30 +19,29 @@ export class TagsService {
    *
    * > **groupBy** `module_id`
    *
-   * > **groupAs** `array`
-   *
    * @param moduleId module_id
    * @param moduleType Module type
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param order Set the sort order. Available param {0}
    * @param pageId Page ID
    * @param id Tag IDs that you would like to display
    * @param categoryId ID of the tag category to be displayed. (Default: All)
+   * @param type Grouping List as (array|object)
    * @result any
    * @throws ApiError
    */
   public static async getTagsServiceRcmsApi1Tags(
     requestParam: TagsService.getTagsServiceRcmsApi1TagsRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -57,6 +57,7 @@ export class TagsService {
           pageID: requestParam.pageId,
           'id[]': requestParam.id,
           'category_id[]': requestParam.categoryId,
+          type: requestParam.type,
         },
       });
 
@@ -67,7 +68,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -75,7 +76,7 @@ export class TagsService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -83,14 +84,14 @@ export class TagsService {
    */
   public static async postTagsServiceRcmsApi1TagCreate(
     requestParam: TagsService.postTagsServiceRcmsApi1TagCreateRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -111,7 +112,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
   /**
    *
@@ -122,30 +123,29 @@ export class TagsService {
    *
    * > **groupBy** `category`
    *
-   * > **groupAs** `array`
-   *
    * > **order** `category_weight:desc`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param order Set the sort order. Available param {0}
    * @param pageId Page ID
    * @param id Tag IDs that you would like to display
    * @param categoryId ID of the tag category to be displayed. (Default: All)
+   * @param type Grouping List as (array|object)
    * @result any
    * @throws ApiError
    */
   public static async getTagsServiceRcmsApi1TagsCategoryGrouped(
     requestParam: TagsService.getTagsServiceRcmsApi1TagsCategoryGroupedRequest,
-  ): Promise<any> {
+  ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
         'Token-Auth': OpenAPI.SECURITY['Token-Auth'],
       }).length > 0;
 
     const request = async () =>
-      await __request({
+      await __request<any>({
         headers: shouldHookToken
           ? { [(OpenAPI.SECURITY['Token-Auth'] as any).name]: `${LocalStorage.getAccessToken()}` }
           : {},
@@ -159,6 +159,7 @@ export class TagsService {
           pageID: requestParam.pageId,
           'id[]': requestParam.id,
           'category_id[]': requestParam.categoryId,
+          type: requestParam.type,
         },
       });
 
@@ -169,7 +170,7 @@ export class TagsService {
     }
 
     catchGenericError(result);
-    return result.body;
+    return result;
   }
 }
 
@@ -184,6 +185,7 @@ export namespace TagsService {
     pageId?: number;
     id?: Array<number>;
     categoryId?: Array<number>;
+    type?: string;
   }
   export type getTagsServiceRcmsApi1TagsResponse = any;
   export interface postTagsServiceRcmsApi1TagCreateRequest {
@@ -261,6 +263,7 @@ export namespace TagsService {
     pageId?: number;
     id?: Array<number>;
     categoryId?: Array<number>;
+    type?: string;
   }
   export type getTagsServiceRcmsApi1TagsCategoryGroupedResponse = any;
 }
