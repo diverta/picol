@@ -16,7 +16,7 @@ export class AuthenticationService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -61,7 +61,7 @@ export class AuthenticationService {
    * > **use_refresh_token** `true`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -101,7 +101,7 @@ export class AuthenticationService {
    * ### **Login::logout (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -147,7 +147,7 @@ export class AuthenticationService {
    *
    * > **basic_info** `nickname,member_photo`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -189,7 +189,7 @@ export class AuthenticationService {
    * ### **Login::firebaseToken (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -231,7 +231,7 @@ export class AuthenticationService {
    * ### **Login::gcs_info (v1)**
    *
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any

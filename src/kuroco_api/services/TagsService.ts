@@ -21,7 +21,7 @@ export class TagsService {
    *
    * @param moduleId module_id
    * @param moduleType Module type
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param order Set the sort order. Available param {0}
@@ -76,7 +76,7 @@ export class TagsService {
    *
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
@@ -125,7 +125,7 @@ export class TagsService {
    *
    * > **order** `category_weight:desc`
    *
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param order Set the sort order. Available param {0}

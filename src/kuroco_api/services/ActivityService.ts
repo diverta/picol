@@ -9,7 +9,7 @@ import { OpenAPI } from '../core/OpenAPI';
 import { LocalStorage } from '../core/LocalStorage';
 import { Result } from '../core/Result';
 
-export class CommentsService {
+export class ActivityService {
   /**
    *
    * ### **Comment::list (v1)**
@@ -24,7 +24,7 @@ export class CommentsService {
    * > **new_order_flg** `1`
    *
    * @param moduleId モジュールID
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @param newOrderFlg To the display the newest use 1. Default: 0
@@ -37,8 +37,8 @@ export class CommentsService {
    * @result any
    * @throws ApiError
    */
-  public static async getCommentsServiceRcmsApi1Comments(
-    requestParam: CommentsService.getCommentsServiceRcmsApi1CommentsRequest,
+  public static async getActivityServiceRcmsApi1Comments(
+    requestParam: ActivityService.getActivityServiceRcmsApi1CommentsRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -86,14 +86,14 @@ export class CommentsService {
    * > **use_module_type** `topics`
    *
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async postCommentsServiceRcmsApi1CommentCreate(
-    requestParam: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest,
+  public static async postActivityServiceRcmsApi1CommentCreate(
+    requestParam: ActivityService.postActivityServiceRcmsApi1CommentCreateRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -135,14 +135,14 @@ export class CommentsService {
    *
    * @param commentId
    * @param requestBody
-   * @param outputFormat Format (json|xml|csv)
+   * @param outputFormat Format (json|xml|csv|zip)
    * @param lang Language
    * @param charset Charset
    * @result any
    * @throws ApiError
    */
-  public static async postCommentsServiceRcmsApi1CommentDeleteCommentId(
-    requestParam: CommentsService.postCommentsServiceRcmsApi1CommentDeleteCommentIdRequest,
+  public static async postActivityServiceRcmsApi1CommentDeleteCommentId(
+    requestParam: ActivityService.postActivityServiceRcmsApi1CommentDeleteCommentIdRequest,
   ): Promise<Result<any>> {
     const shouldHookToken =
       Object.keys({
@@ -175,8 +175,8 @@ export class CommentsService {
   }
 }
 
-export namespace CommentsService {
-  export interface getCommentsServiceRcmsApi1CommentsRequest {
+export namespace ActivityService {
+  export interface getActivityServiceRcmsApi1CommentsRequest {
     moduleId: Array<number>;
     outputFormat?: string;
     lang?: string;
@@ -189,8 +189,8 @@ export namespace CommentsService {
     type?: string;
     memberId?: Array<number>;
   }
-  export type getCommentsServiceRcmsApi1CommentsResponse = any;
-  export interface postCommentsServiceRcmsApi1CommentCreateRequest {
+  export type getActivityServiceRcmsApi1CommentsResponse = any;
+  export interface postActivityServiceRcmsApi1CommentCreateRequest {
     requestBody: {
       /**
        * モジュールID
@@ -209,7 +209,7 @@ export namespace CommentsService {
        */
       url?: string;
       /**
-       * Comments
+       * Activity
        */
       note: string;
       /**
@@ -221,8 +221,8 @@ export namespace CommentsService {
     lang?: string;
     charset?: string;
   }
-  export type postCommentsServiceRcmsApi1CommentCreateResponse = any;
-  export interface postCommentsServiceRcmsApi1CommentDeleteCommentIdRequest {
+  export type postActivityServiceRcmsApi1CommentCreateResponse = any;
+  export interface postActivityServiceRcmsApi1CommentDeleteCommentIdRequest {
     commentId: number;
     requestBody: {
       /**
@@ -234,5 +234,5 @@ export namespace CommentsService {
     lang?: string;
     charset?: string;
   }
-  export type postCommentsServiceRcmsApi1CommentDeleteCommentIdResponse = any;
+  export type postActivityServiceRcmsApi1CommentDeleteCommentIdResponse = any;
 }

@@ -1,4 +1,4 @@
-import { CommentsService } from '@/kuroco_api/services/CommentsService';
+import { ActivityService } from '@/kuroco_api/services/ActivityService';
 import { FavoritesService } from '@/kuroco_api/services/FavoritesService';
 import { ContentService } from '@/kuroco_api/services/ContentService';
 import { TagStateModule, UserStateModule } from '@/store';
@@ -18,7 +18,7 @@ class Feed extends VuexModule implements IFeedState {
   apis = {
     topics: ContentService,
     favorites: FavoritesService,
-    comments: CommentsService,
+    comments: ActivityService,
   };
 
   pageInfo: any = {};
@@ -116,10 +116,10 @@ class Feed extends VuexModule implements IFeedState {
   }
 
   @Action({ rawError: true })
-  async createComment(payload: CommentsService.postCommentsServiceRcmsApi1CommentCreateRequest) {
-    await ServiceHelper.apis.comments.postCommentsServiceRcmsApi1CommentCreate(payload);
+  async createComment(payload: ActivityService.postActivityServiceRcmsApi1CommentCreateRequest) {
+    await ServiceHelper.apis.comments.postActivityServiceRcmsApi1CommentCreate(payload);
     const comments = (
-      await this.apis.comments.getCommentsServiceRcmsApi1Comments({
+      await this.apis.comments.getActivityServiceRcmsApi1Comments({
         moduleId: [payload.requestBody.module_id],
       })
     ).body as CommentModel.Read.Response.RootObject[];
@@ -129,8 +129,8 @@ class Feed extends VuexModule implements IFeedState {
   }
 
   @Action({ rawError: true })
-  async removeComment(payload: ExtendedPostCommentsServiceRcmsApi1CommentDeleteRequest) {
-    await this.apis.comments.postCommentsServiceRcmsApi1CommentDeleteCommentId(payload.body);
+  async removeComment(payload: ExtendedPostActivityServiceRcmsApi1CommentDeleteRequest) {
+    await this.apis.comments.postActivityServiceRcmsApi1CommentDeleteCommentId(payload.body);
     this.DELETE_COMMENT(payload.body.commentId);
     this.UPDATE_COMMENTS_COUNT({ topicsID: payload.topicsID, upOrDown: -1 });
   }
@@ -202,7 +202,7 @@ class Feed extends VuexModule implements IFeedState {
 
 export const FeedStateModule = getModule(Feed);
 
-interface ExtendedPostCommentsServiceRcmsApi1CommentDeleteRequest {
-  body: CommentsService.postCommentsServiceRcmsApi1CommentDeleteCommentIdRequest;
+interface ExtendedPostActivityServiceRcmsApi1CommentDeleteRequest {
+  body: ActivityService.postActivityServiceRcmsApi1CommentDeleteCommentIdRequest;
   topicsID: number;
 }
