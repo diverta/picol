@@ -2,6 +2,7 @@ export namespace AccountModel {
   export namespace Read {
     export namespace Response {
       export interface Details {
+        image: any;
         acount_kind?: any;
         acount_num?: any;
         acount_user?: any;
