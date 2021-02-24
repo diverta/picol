@@ -1,6 +1,6 @@
 <template>
   <article class="c-entry">
-    <FeedContentHeader :memberID="feed.member_id" :feedPostedDateStr="feed.inst_ymdhi" />
+    <FeedContentHeader :feed="feed" />
 
     <FeedContentImageWrapper :feed="feed" />
 
