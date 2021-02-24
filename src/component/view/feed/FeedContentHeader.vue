@@ -1,7 +1,7 @@
 <template>
   <div class="c-entry__header">
-    <img :src="getAvaterSrc(this.memberID)" alt class="c-entry__post-icon" />
-    <p class="c-entry__post-name">{{ getUserName(memberID) }}</p>
+    <img :src="getAvaterSrc(feed.member_id)" alt class="c-entry__post-icon" />
+    <p class="c-entry__post-name">{{ getUserName(feed.memberID) }}</p>
     <p class="c-entry__post-time">{{ getHowLongBeforePostedData(this.feedPostedDateStr) }}</p>
   </div>
 </template>
@@ -20,12 +20,12 @@ export default class FeedContentHeader extends Vue {
 
   // MUTATIONS
   get getUserName() {
-    return this.feed.member_id === UserStateModule.selfUser.member_id
+    return this.feed?.member_id === UserStateModule.selfUser.member_id
       ? (dummy: any) => UserStateModule.selfUser.nickname
       : UserStateModule.getUserName;
   }
   get getAvaterSrc() {
-    return this.feed.member_id === UserStateModule.selfUser.member_id
+    return this.feed?.member_id === UserStateModule.selfUser.member_id
       ? (dummy: any) => UserStateModule.myImage
       : UserStateModule.getImage;
   }
