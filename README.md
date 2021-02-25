@@ -16,6 +16,10 @@ please install and setup in advance.
 
 https://github.com/diverta/kuroco-sdk#installation
 
+```
+npx kuroco pull && \
+npx kuroco generate -o src/kuroco_api
+```
 In addition, this app is deployed to firebase hosting in Diverta.
 Please refer [Deploy] if you want to know how to do it.
 
@@ -55,3 +59,9 @@ as:
 [cors_config]: ./etc/cors_config.png
 [Deploy]: #Deploy
 [Run Locally]: #Run-Locally
+
+```
+ firebase use picol-****
+ firebase target:apply hosting picol-**** picol-****
+ firebase deploy picol-****
+```
