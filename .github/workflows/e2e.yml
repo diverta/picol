@@ -1,21 +1,15 @@
 name: e2e testing
 
 on:
-  push:
-    branches: 
-      - feature/e2e
-  workflow_dispatch:
-    branches: [ feature/e2e ]
-
-# on:
-#   schedule:
-#   - cron: "0 0 * * *"
+  schedule:
+  - cron: "0 0 * * *"
 
 env:
   ACTIONS_STEP_DEBUG: true
 
 jobs:
   e2e:
+    if: "github.repository == 'diverta/front_picol'"
     runs-on: macos-latest
     steps:
       - name: Checkout Locally
