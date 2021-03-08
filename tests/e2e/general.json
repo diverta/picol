@@ -1,0 +1,92 @@
+[
+  {
+    "command": "open",
+    "target": "http://localhost:8080/",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "name=email",
+    "value": ""
+  },
+  {
+    "command": "type",
+    "target": "name=email",
+    "value": "yabe@diverta.co.jp"
+  },
+  {
+    "command": "click",
+    "target": "name=password",
+    "value": ""
+  },
+  {
+    "command": "type",
+    "target": "name=password",
+    "value": "panda9337"
+  },
+  {
+    "command": "click",
+    "target": "//button[@type='submit']",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//a[contains(text(),'POST')]",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//a[contains(text(),'ACTIVITY')]",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//img[@alt='My Page']",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//a[contains(text(),'Liked post')]",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//img[@alt='My Page']",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//a[contains(text(),'Commented post')]",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//img[@alt='My Page']",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "link=Edit profile",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//div[@id='app']/div/div[2]/div/button",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "xpath=(//img[@alt='image'])[4]",
+    "value": ""
+  },
+  {
+    "command": "open",
+    "target": "http://localhost:8080/sub/search?tag_id=186&tag_nm=new%20tag1",
+    "value": ""
+  },
+  {
+    "command": "click",
+    "target": "//img[@alt='image']",
+    "value": ""
+  }
+]

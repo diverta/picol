@@ -1,0 +1,53 @@
+name: e2e testing
+
+on:
+  push:
+    branches: 
+      - feature/e2e
+  workflow_dispatch:
+    branches: [ feature/e2e ]
+
+# on:
+#   schedule:
+#   - cron: "0 0 * * *"
+
+env:
+  ACTIONS_STEP_DEBUG: true
+
+jobs:
+  e2e:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Locally
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: install dependencies
+        run: npm install
+      - name: e2e
+        id: e2e
+        uses: yabe-diverta/e2e-sequential-puppeteer-action@v1
+        with:
+          serve_cmd: npm run serve
+          wait_on: http://localhost:8080/
+          scripts_dir: tests/e2e
+      - name: reg-cli
+        run: npx reg-cli tests/e2e/capture ${{ steps.e2e.outputs.capture_dir }} diff -M 0.75 -R report.html
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: report
+          path: |
+            report.html
+            diff
+            tests/e2e/capture
+            ${{ steps.e2e.outputs.capture_dir }}
