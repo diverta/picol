@@ -41,7 +41,7 @@ jobs:
           wait_on: http://localhost:8080/
           scripts_dir: tests/e2e
       - name: reg-cli
-        run: npx reg-cli tests/e2e/capture ${{ steps.e2e.outputs.capture_dir }} diff -M 0.75 -R report.html
+        run: npx reg-cli tests/e2e/capture ${{ steps.e2e.outputs.capture_dir }} diff -M 0.9 -R report.html
       - uses: actions/upload-artifact@v2
         if: always()
         with:
