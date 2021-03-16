@@ -167,7 +167,7 @@ function delay(time) {
         elm.click();
       }, element[0]),
   );
-  await delay(3000);
+  await delay(10000);
   await page.screenshot({
     path: `${captureDir}${
       require('path').sep
