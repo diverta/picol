@@ -12,7 +12,6 @@ export { UploaderFactory } from './core/Uploader';
 export { default as firebaseApp } from './core/FirebaseUtil';
 
 export { ActivityService } from './services/ActivityService';
-export { ApiService } from './services/ApiService';
 export { AuthenticationService } from './services/AuthenticationService';
 export { ContentService } from './services/ContentService';
 export { FavoritesService } from './services/FavoritesService';

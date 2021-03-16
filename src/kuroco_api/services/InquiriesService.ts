@@ -62,7 +62,24 @@ export class InquiriesService {
 
 export namespace InquiriesService {
   export interface postInquiriesServiceRcmsApi1ReportRequest {
-    requestBody: any;
+    requestBody: {
+      /**
+       * Name
+       */
+      name?: string;
+      /**
+       * E-mail
+       */
+      from_mail?: string;
+      /**
+       * Message
+       */
+      body: string;
+      /**
+       * Validate
+       */
+      validate_only?: boolean;
+    };
     outputFormat?: string;
     lang?: string;
     charset?: string;

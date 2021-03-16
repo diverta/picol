@@ -40,6 +40,11 @@ export namespace ApiError {
  * @param result
  */
 export function catchGenericError(result: Result): void {
+  if (ApiError.onErrorHandler !== null) {
+    ApiError.onErrorHandler(result);
+    return;
+  }
+
   switch (result.status) {
     case 400:
       throw new ApiError(result, ApiError.Message.BAD_REQUEST);
@@ -60,4 +65,8 @@ export function catchGenericError(result: Result): void {
   if (!isSuccess(result.status)) {
     throw new ApiError(result, ApiError.Message.GENERIC_ERROR);
   }
+}
+
+export namespace ApiError {
+  export let onErrorHandler: null | ((result: Result) => void) = null;
 }
