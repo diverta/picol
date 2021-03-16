@@ -1,0 +1,9 @@
+{
+    "basic":[],
+    "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+}
