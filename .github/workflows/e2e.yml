@@ -46,3 +46,26 @@ jobs:
             diff
             tests/e2e/capture
             ${{ steps.e2e.outputs.capture_dir }}
+            # slack
+      - name: Slack Notification on Success
+        if: success()
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: notice-kuroco_e2e_test
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: '*Picol* Test Success :rocket:'
+          SLACK_COLOR: good
+          SLACK_MESSAGE: |
+            please check the result at:
+            ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@master
+        if: failure()
+        env:
+          SLACK_CHANNEL: notice-kuroco_e2e_test
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: '*Picol* Test Failure :boom:'
+          SLACK_COLOR: danger
+          SLACK_MESSAGE: |
+            please check the result at:
+            ${{ env.GITHUB_SERVER_URL }}/${{ env.GITHUB_REPOSITORY }}/actions/runs/${{ env.GITHUB_RUN_ID }}
