@@ -46,10 +46,14 @@ jobs:
             diff
             tests/e2e/capture
             ${{ steps.e2e.outputs.capture_dir }}
-      # slack
+
+  slack:
+    needs: [e2e]
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
       - name: Slack Notification on Failure
         uses: rtCamp/action-slack-notify@master
-        if: failure()
         env:
           SLACK_CHANNEL: notice-kuroco_e2e_test
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
