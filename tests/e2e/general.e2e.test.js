@@ -279,7 +279,7 @@ function delay(time) {
         }, element[0]),
     );
     // await page.waitForNavigation();
-    await delay(3000);
+    await delay(10000);
     await page.screenshot({
       path: `${captureDir}${
         require('path').sep
