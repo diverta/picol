@@ -65,3 +65,8 @@ as:
  firebase target:apply hosting picol-**** picol-****
  firebase deploy picol-****
 ```
+
+## public/kuroco_front.json
+
+the file is a configuration file for Kuroco front-end server.  
+see [comment](https://github.com/diverta/front_picol/commit/631470674dca98db5348391fbaf99b8ee96b5615#commitcomment-48336379).
