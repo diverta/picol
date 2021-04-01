@@ -8,20 +8,16 @@
 
 > :information_source: This command will not work without configuration, please refere to [Run Locally]
 
-## Overview
+## Configure hostname of API
 
-This app is considered to be used Kuroco and it's SDK.  
-If you don't have it,  
-please install and setup in advance.  
-
-https://github.com/diverta/kuroco-sdk#installation
+This app will load the hostname of Kuroco API from a configuration in `env.js`.  
+Please modify the file if you own your Kuroco environment.  
+```javascript
+module.exports = {
+  KUROCO_HOST: 'https://your-host-name.com',
+};
 
 ```
-npx kuroco pull && \
-npx kuroco generate -o src/kuroco_api
-```
-In addition, this app is deployed to firebase hosting in Diverta.
-Please refer [Deploy] if you want to know how to do it.
 
 ## Project setup && deploy to your Firebase in short
 

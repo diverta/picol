@@ -1,11 +1,12 @@
+const webpack = require('webpack');
 const path = require('path');
-
 const PrettierPlugin = require('prettier-webpack-plugin');
 const prettierConfig = require('./.prettierrc.json');
-
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 console.log(`build mode: ${process.env.NODE_ENV}`);
+
+const { KUROCO_HOST } = require('./env.js');
 
 module.exports = {
   outputDir: path.resolve(__dirname, 'dist'),
@@ -16,6 +17,14 @@ module.exports = {
   },
 
   filenameHashing: true,
+
+  configureWebpack: {
+    plugins: [
+      new webpack.EnvironmentPlugin({
+        KUROCO_HOST,
+      }),
+    ],
+  },
 
   chainWebpack: (config) => {
     config
