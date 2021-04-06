@@ -18,13 +18,13 @@ module.exports = {
 
   filenameHashing: true,
 
-  configureWebpack: {
-    plugins: [
-      new webpack.EnvironmentPlugin({
-        KUROCO_HOST,
-      }),
-    ],
-  },
+  // configureWebpack: {
+  //   plugins: [
+  //     new webpack.EnvironmentPlugin({
+  //       KUROCO_HOST,
+  //     }),
+  //   ],
+  // },
 
   chainWebpack: (config) => {
     config
