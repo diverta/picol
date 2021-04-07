@@ -4,8 +4,8 @@
 name: CI/CD to Development Site
 
 on:
-  push:
-    branches: [ master ]
+#  push:
+#    branches: [ master ]
   workflow_dispatch:
     branches: [ master ]
 
