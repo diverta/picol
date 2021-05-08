@@ -48,9 +48,8 @@ export namespace util {
 
   export function getHowLongBeforePostedData(ymd_str: string) {
     try {
-      return distanceInWords(new Date(), parse(ymd_str), {
+      return distanceInWords(Date.now(), parse(ymd_str), {
         addSuffix: true,
-        locale: navigator.language.slice(0, 2).toLowerCase() == 'ja' ? 'ja' : 'en',
       });
     } catch (e) {
       return '-';

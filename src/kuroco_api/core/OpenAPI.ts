@@ -11,9 +11,11 @@ interface Config {
     SECURITY: { [definedName: string]: object };
 }
 
+const BASE = process.env.KUROCO_HOST || 'https://picol.g.kuroco.app';
+const SAML_URL = `${BASE}/direct/login/saml_login/?spid=1`;
 export const OpenAPI: Config = {
-  SAML_URL: 'https://picol.kuroco.app/direct/login/saml_login/?spid=1',
-  BASE: 'https://picol.kuroco.app',
+  SAML_URL,
+  BASE,
   VERSION: '1.0',
   TOKEN: '',
   SECURITY: {

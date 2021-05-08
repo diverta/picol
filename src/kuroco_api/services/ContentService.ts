@@ -818,6 +818,10 @@ export namespace ContentService {
        */
       subject: string;
       /**
+       * Slug
+       */
+      slug?: string;
+      /**
        * Category ID
        * * 1 => フィード
        */
@@ -866,6 +870,17 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -890,6 +905,17 @@ export namespace ContentService {
         | 177
         | 178
         | 179
+        | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル
@@ -958,6 +984,10 @@ export namespace ContentService {
        */
       subject?: string;
       /**
+       * Slug
+       */
+      slug?: string;
+      /**
        * Category ID
        * * 1 => フィード
        */
@@ -1006,6 +1036,17 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1030,6 +1071,17 @@ export namespace ContentService {
         | 177
         | 178
         | 179
+        | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル
@@ -1214,6 +1266,10 @@ export namespace ContentService {
        */
       subject: string;
       /**
+       * Slug
+       */
+      slug?: string;
+      /**
        * Category ID
        * * 1 => フィード
        */
@@ -1262,6 +1318,17 @@ export namespace ContentService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -1286,6 +1353,17 @@ export namespace ContentService {
         | 177
         | 178
         | 179
+        | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
       /**
        * GCSファイル

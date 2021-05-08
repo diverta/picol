@@ -68,11 +68,6 @@ export class MembersService {
    * @param id Member ID
    * @param cnt Number of topics per page
    * @param pageId Page ID
-   * @param sName Member search
-   * @param sEmail Member search
-   * @param sTel Member search
-   * @param sAddress Member search
-   * @param sTdfkCd Member search
    * @param groupId Member search
    * @param filter Filter query
    * @result any
@@ -100,11 +95,6 @@ export class MembersService {
           'id[]': requestParam.id,
           cnt: requestParam.cnt,
           pageID: requestParam.pageId,
-          s_name: requestParam.sName,
-          s_email: requestParam.sEmail,
-          s_tel: requestParam.sTel,
-          s_address: requestParam.sAddress,
-          s_tdfk_cd: requestParam.sTdfkCd,
           'group_id[]': requestParam.groupId,
           filter: requestParam.filter,
         },
@@ -186,11 +176,6 @@ export namespace MembersService {
     id?: Array<number>;
     cnt?: number;
     pageId?: number;
-    sName?: string;
-    sEmail?: string;
-    sTel?: string;
-    sAddress?: string;
-    sTdfkCd?: string;
     groupId?: Array<number>;
     filter?: string;
   }
@@ -355,6 +340,17 @@ export namespace MembersService {
        * * 177 => #テスト
        * * 178 => テスト投稿1
        * * 179 => aaa
+       * * 180 => 飯田橋リニューアル!
+       * * 181 => ttt
+       * * 182 => #CCS事例紹介 #ミルトス
+       * * 183 => CCS事例紹介
+       * * 184 => #ミルトス
+       * * 185 => パジャ・ポス
+       * * 186 => new tag1
+       * * 187 => 花束
+       * * 188 => Gaandu
+       * * 189 => #長濱ねる
+       * * 190 => testtest
        */
       tag_id?: Array<
         | 75
@@ -379,6 +375,17 @@ export namespace MembersService {
         | 177
         | 178
         | 179
+        | 180
+        | 181
+        | 182
+        | 183
+        | 184
+        | 185
+        | 186
+        | 187
+        | 188
+        | 189
+        | 190
       >;
     };
     outputFormat?: string;

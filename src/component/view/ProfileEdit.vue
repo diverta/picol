@@ -61,6 +61,7 @@ import { CONSTANTS } from '@/core';
 import { AccountModel, FileUploadModel } from '../../type';
 import { MembersService } from '@/kuroco_api/services/MembersService';
 import { Uploader, UploaderFactory } from '@/kuroco_api/core/Uploader';
+import isEmpty from 'lodash/isEmpty';
 
 @Component<ProfileEdit>({})
 export default class ProfileEdit extends Vue {
@@ -137,11 +138,11 @@ export default class ProfileEdit extends Vue {
     }
 
     const query: MembersService.postMembersServiceRcmsApi1MemberUpdateRequest = {
-      requestBody: {
-        nickname: this.userName,
-        image: this.memberPhoto,
-      },
+      requestBody: { nickname: this.userName },
     };
+    if (!isEmpty(this.memberPhoto)) {
+      query.requestBody.image = this.memberPhoto;
+    }
 
     this.postingState = 'LOADING';
     UserStateModule.updateUser(query)
