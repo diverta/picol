@@ -1,0 +1,61 @@
+name: e2e testing
+
+on:
+  schedule:
+  - cron: "0 0 * * *"
+  workflow_dispatch:
+
+env:
+  ACTIONS_STEP_DEBUG: true
+
+jobs:
+  e2e:
+    if: "github.repository == 'diverta/picol'"
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Locally
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: install dependencies
+        run: npm install
+      - name: e2e
+        id: e2e
+        uses: yabe-diverta/e2e-sequential-puppeteer-action@v1
+        with:
+          serve_cmd: npm run serve
+          wait_on: http://localhost:8080/
+          scripts_dir: tests/e2e
+      - name: reg-cli
+        run: npx reg-cli tests/e2e/capture ${{ steps.e2e.outputs.capture_dir }} diff -M 0.9 -R report.html
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: report
+          path: |
+            report.html
+            diff
+            tests/e2e/capture
+            ${{ steps.e2e.outputs.capture_dir }}
+
+  slack:
+    needs: [e2e]
+    runs-on: ubuntu-latest
+    if: failure()
+    steps:
+      - name: Slack Notification on Failure
+        uses: rtCamp/action-slack-notify@master
+        env:
+          SLACK_CHANNEL: notice-kuroco_e2e_test
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_TITLE: 'Test Failure :boom: at *Picol*'
+          SLACK_COLOR: danger
