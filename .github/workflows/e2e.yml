@@ -30,7 +30,7 @@ jobs:
         run: npm install
       - name: e2e
         id: e2e
-        uses: yabe-diverta/e2e-sequential-puppeteer-action@v1
+        uses: yabe-diverta/e2e-sequential-puppeteer-action@v2
         with:
           serve_cmd: npm run serve
           wait_on: http://localhost:8080/
