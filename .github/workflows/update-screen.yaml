@@ -1,0 +1,48 @@
+name: update capchers for e2e
+
+on:
+  workflow_dispatch:
+
+env:
+  ACTIONS_STEP_DEBUG: true
+
+jobs:
+  e2e:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Locally
+        uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: install dependencies
+        run: npm install
+      - name: e2e
+        id: e2e
+        uses: yabe-diverta/e2e-sequential-puppeteer-action@v2
+        with:
+          update_captures: true
+          serve_cmd: npm run serve
+          wait_on: http://localhost:8080/
+          scripts_dir: tests/e2e
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Update report
+          branch: update-capchers-patch
+          delete-branch: true
+          title: '[BOT] Update capchers'
+          body: |
+            chore: Update capchers
+
+            created by manually dispatch event.  
+            **note**: because we've already made sure the latest captures are all valid. checkout tests/screen/capture.            
+          draft: false
