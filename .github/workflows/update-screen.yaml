@@ -1,8 +1,6 @@
-name: e2e testing
+name: update capchers for e2e
 
 on:
-  schedule:
-  - cron: "0 0 * * *"
   workflow_dispatch:
 
 env:
@@ -10,7 +8,6 @@ env:
 
 jobs:
   e2e:
-    if: "github.repository == 'diverta/front_picol'"
     runs-on: macos-latest
     steps:
       - name: Checkout Locally
@@ -32,30 +29,20 @@ jobs:
         id: e2e
         uses: yabe-diverta/e2e-sequential-puppeteer-action@v2
         with:
+          update_captures: true
           serve_cmd: npm run serve
           wait_on: http://localhost:8080/
           scripts_dir: tests/e2e
-      - name: reg-cli
-        run: npx reg-cli tests/e2e/capture ${{ steps.e2e.outputs.capture_dir }} diff -M 0.9 -R report.html
-      - uses: actions/upload-artifact@v2
-        if: always()
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
         with:
-          name: report
-          path: |
-            report.html
-            diff
-            tests/e2e/capture
-            ${{ steps.e2e.outputs.capture_dir }}
+          commit-message: Update report
+          branch: update-capchers-patch
+          delete-branch: true
+          title: '[BOT] Update capchers'
+          body: |
+            chore: Update capchers
 
-  slack:
-    needs: [e2e]
-    runs-on: ubuntu-latest
-    if: failure()
-    steps:
-      - name: Slack Notification on Failure
-        uses: rtCamp/action-slack-notify@master
-        env:
-          SLACK_CHANNEL: notice-kuroco_e2e_test
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_TITLE: 'Test Failure :boom: at *Picol*'
-          SLACK_COLOR: danger
+            created by manually dispatch event.  
+            **note**: because we've already made sure the latest captures are all valid. checkout tests/screen/capture.            
+          draft: false
