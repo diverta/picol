@@ -17,13 +17,13 @@ export function getMemberIDsFromComments(comments: CommentModel.Read.Response.Ro
 
 export function getSortedComments(comments: CommentModel.Read.Response.RootObject[] = []) {
   const getUnix = (updateDate: string) => {
-    const d = dayjs(updateDate.replace(/\.\d+/g, '')); // Safari can't parse milli seconds.
+    const d = dayjs(updateDate);
     return d.unix();
   };
   return comments
     .map((v) => v.list)
     .flat()
-    .sort((a, b) => getUnix(b.update_date) - getUnix(a.update_date));
+    .sort((a, b) => getUnix(b.update_ymdhi) - getUnix(a.update_ymdhi));
 }
 
 export function getMediasFromFeedData(feed: FeedModel.Read.Response.Feed): FeedModel.MediaFromFeed[] {
