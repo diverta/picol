@@ -3,19 +3,21 @@
 /* eslint-disable */
 /* prettier-ignore */
 
+import { LocalStorage } from '@/kuroco_api/core/LocalStorage';
+
 interface Config {
-    SAML_URL: string;
-    BASE: string;
-    VERSION: string;
-    TOKEN: string;
-    SECURITY: { [definedName: string]: object };
+  getSamlUrl: () => string;
+  getBase: () => string;
+  VERSION: string;
+  TOKEN: string;
+  SECURITY: { [definedName: string]: object };
 }
 
-const BASE = process.env.KUROCO_HOST || 'https://picol.g.kuroco.app';
-const SAML_URL = `${BASE}/direct/login/saml_login/?spid=1`;
+const getBase = () => `https://${LocalStorage.getCompanyCode()}.g.kuroco.app`;
+const getSamlUrl = () => `${getBase()}/direct/login/saml_login/?spid=1`;
 export const OpenAPI: Config = {
-  SAML_URL,
-  BASE,
+  getSamlUrl,
+  getBase,
   VERSION: '1.0',
   TOKEN: '',
   SECURITY: {

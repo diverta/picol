@@ -18,6 +18,14 @@
             <form>
               <input
                 type="text"
+                name="company_code"
+                v-model.trim="input.companyCode"
+                placeholder="Company Code"
+                single-line
+                class="p-login__input"
+              />
+              <input
+                type="text"
                 name="email"
                 v-model.trim="input.email"
                 placeholder="Account"
@@ -61,7 +69,7 @@ import { Vue, Prop } from 'vue-property-decorator';
 import { Component } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
 import { UserStateModule } from '../../store';
-import { OpenAPI } from '../../kuroco_api';
+import { LocalStorage, OpenAPI } from '../../kuroco_api';
 
 @Component<Login>({})
 export default class Login extends Vue {
@@ -69,6 +77,7 @@ export default class Login extends Vue {
   input = {
     email: '',
     password: '',
+    companyCode: '',
   };
 
   // METHODS
@@ -84,7 +93,7 @@ export default class Login extends Vue {
 
     const form = createNodeWithAttributes('form', [
       { nm: 'id', val: 'google_login_saml' },
-      { nm: 'action', val: OpenAPI.SAML_URL },
+      { nm: 'action', val: OpenAPI.getSamlUrl() },
       { nm: 'method', val: 'POST' },
     ]);
     const input = createNodeWithAttributes('input', [
@@ -102,14 +111,32 @@ export default class Login extends Vue {
     e.stopPropagation();
     e.preventDefault();
 
+    console.dir(this.input.companyCode);
+    LocalStorage.setCompanyCode(this.input.companyCode);
     await Auth.login({ requestBody: { ...this.input } })
       .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
       .catch((e) => {
-        this.$snack.danger({ text: this.$t('loginFailed') });
-        console.error(e);
+        switch (e.status) {
+          case 401:
+            this.$snack.danger({ text: this.$t('loginFailed') });
+            break;
+          case 404:
+          case 0:
+            this.$snack.danger({ text: this.$t('invalidCompanyCode') });
+            break;
+          default:
+            console.dir(e.status);
+            this.$snack.danger({ text: this.$t('loginFailed') });
+        }
+        LocalStorage.restoreCompanyCode();
+        console.info(e);
         return Promise.reject(e);
       });
     this.$router.push({ path: '/' });
+  }
+
+  mounted() {
+    this.input.companyCode = LocalStorage.getCompanyCode() || 'picol';
   }
 }
 </script>
@@ -132,6 +159,7 @@ export default class Login extends Vue {
   "notice": "下記のGSuiteログインはDiverta社員のみが可能です。\
   <br />社外の方は上記のGuestアカウントをご利用ください。",
   "loginFailed": "ログインできませんでした。",
+  "invalidCompanyCode": "company code が違います。",
   "login": "ログイン"
 }
 </i18n>
@@ -152,6 +180,7 @@ export default class Login extends Vue {
   },
   "notice": "The following G Suite SSO login are only available to Diverta employees.",
   "loginFailed": "Login Failed.",
+  "invalidCompanyCode": "The company code is not found.",
   "login": "Login"
 }
 </i18n>
