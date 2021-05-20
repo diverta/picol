@@ -1,25 +1,70 @@
-name: Build and Deploy
+name: Build and deploy to Kuroco front
 on:
   push:
     branches:
       - master
+  issue_comment:
+    types: [created, edited]
   workflow_dispatch:
     branches: [ master ]
 jobs:
-  build:
-    name: Build
+  # for Pull Request (exclude merged)
+  pullreq_build:
+    name: Build(pullreq)
+    if: (github.repository == 'diverta/picol' && github.event_name == 'issue_comment' && startsWith(github.event.comment.body, '/kuroco stage') && github.event.issue.pull_request != null)
     runs-on: ubuntu-latest
     steps:
+      - name: "Get branch name and sha"
+        id: get_branch
+        run: |
+          PR=$(curl -H "Authorization: token c8d46940eda0f5b27daeda1ade4a5e43" https://picol.g.kuroco.app/direct/menu/github/?pr=${{ github.event.issue.pull_request.url }})
+          echo "::set-output name=branch::$(echo $PR | jq -r '.ref')"
+          echo "::set-output name=sha::$(echo $PR | jq -r '.sha')"
       - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Install Dependencies
-        run: npm install
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.get_branch.outputs.branch }}
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.sha }}
+          name: ${{ steps.get_branch.outputs.sha }}-${{ github.run_id }}
+          path: dist
+          retention-days: 7
+      - name: Webhook
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: "https://picol.g.kuroco.app/direct/menu/github/"
+          webhook_secret: "c8d46940eda0f5b27daeda1ade4a5e43"
+          data: '{"domain":"demo.picol.app","pr":"${{ github.event.issue.pull_request.url }}",  "repository":"${{ github.repository }}", "run_id":"${{ github.run_id }}", "hash":"${{ steps.get_branch.outputs.sha }}"}'
+          
+  #for Push
+  pushed_build:
+    name: Build(pushed)
+    if: (github.repository == 'diverta/picol' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.sha }}-${{ github.run_id }}
           path: dist
           retention-days: 7
       - name: Webhook
