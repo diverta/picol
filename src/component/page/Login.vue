@@ -17,9 +17,10 @@
           <div class="p-login__form">
             <form>
               <input
+                v-if="showsCompanyCdInput"
                 type="text"
-                name="company_code"
-                v-model.trim="input.companyCode"
+                name="company_cd"
+                v-model.trim="input.companyCd"
                 placeholder="Company Code"
                 single-line
                 class="p-login__input"
@@ -77,13 +78,16 @@ export default class Login extends Vue {
   input = {
     email: '',
     password: '',
-    companyCode: '',
+    companyCd: '',
   };
+  showsCompanyCdInput = false;
 
   // METHODS
   samlLogin(e: Event) {
     e.stopPropagation();
     e.preventDefault();
+
+    LocalStorage.setCompanyCd('picol');
 
     function createNodeWithAttributes(tagName: string, attributes: { nm: string; val: string }[] = []) {
       const node = document.createElement(tagName);
@@ -111,8 +115,7 @@ export default class Login extends Vue {
     e.stopPropagation();
     e.preventDefault();
 
-    console.dir(this.input.companyCode);
-    LocalStorage.setCompanyCode(this.input.companyCode);
+    LocalStorage.setCompanyCd(this.input.companyCd);
     await Auth.login({ requestBody: { ...this.input } })
       .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
       .catch((e) => {
@@ -122,21 +125,41 @@ export default class Login extends Vue {
             break;
           case 404:
           case 0:
-            this.$snack.danger({ text: this.$t('invalidCompanyCode') });
+            this.$snack.danger({ text: this.$t('invalidcompanyCd') });
             break;
           default:
             console.dir(e.status);
             this.$snack.danger({ text: this.$t('loginFailed') });
         }
-        LocalStorage.restoreCompanyCode();
-        console.info(e);
+        LocalStorage.restoreCompanyCd();
+        this.showsCompanyCdInput = true;
         return Promise.reject(e);
       });
     this.$router.push({ path: '/' });
   }
 
+  initialize() {
+    const companyCdQuery = this.$route.query?.company_cd;
+    if (typeof companyCdQuery === 'string' && companyCdQuery) {
+      LocalStorage.setCompanyCd(companyCdQuery);
+      this.input.companyCd = companyCdQuery as string;
+      this.showsCompanyCdInput = false;
+      return;
+    }
+
+    const companyCdOnStorage = LocalStorage.getCompanyCd();
+    if (companyCdOnStorage) {
+      this.input.companyCd = companyCdOnStorage;
+      this.showsCompanyCdInput = true;
+      return;
+    }
+
+    this.input.companyCd = 'picol';
+    this.showsCompanyCdInput = true;
+  }
+
   mounted() {
-    this.input.companyCode = LocalStorage.getCompanyCode() || 'picol';
+    this.initialize();
   }
 }
 </script>
@@ -159,7 +182,7 @@ export default class Login extends Vue {
   "notice": "下記のGSuiteログインはDiverta社員のみが可能です。\
   <br />社外の方は上記のGuestアカウントをご利用ください。",
   "loginFailed": "ログインできませんでした。",
-  "invalidCompanyCode": "company code が違います。",
+  "invalidcompanyCd": "company code が違います。",
   "login": "ログイン"
 }
 </i18n>
@@ -180,7 +203,7 @@ export default class Login extends Vue {
   },
   "notice": "The following G Suite SSO login are only available to Diverta employees.",
   "loginFailed": "Login Failed.",
-  "invalidCompanyCode": "The company code is not found.",
+  "invalidcompanyCd": "The company code is not found.",
   "login": "Login"
 }
 </i18n>

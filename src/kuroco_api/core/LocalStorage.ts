@@ -3,7 +3,7 @@
 /* eslint-disable */
 /* prettier-ignore */
 
-let companyCodeCache = '';
+let companyCdCache = '';
 
 export class LocalStorage {
   /** get */
@@ -15,8 +15,8 @@ export class LocalStorage {
     const token = localStorage.getItem(LocalStorage.TokenKeys.refreshToken);
     return !!token ? token : '';
   }
-  public static getCompanyCode() {
-    return localStorage.getItem('company_code');
+  public static getCompanyCd() {
+    return localStorage.getItem('company_cd');
   }
 
   /** set */
@@ -26,9 +26,9 @@ export class LocalStorage {
   public static setRefreshToken(token: string) {
     localStorage.setItem(LocalStorage.TokenKeys.refreshToken, token);
   }
-  public static setCompanyCode(companyCode: string) {
-    companyCodeCache = LocalStorage.getCompanyCode() || '';
-    localStorage.setItem('company_code', companyCode);
+  public static setCompanyCd(companyCd: string) {
+    companyCdCache = LocalStorage.getCompanyCd() || '';
+    localStorage.setItem('company_cd', companyCd);
   }
 
   /** delete */
@@ -42,13 +42,13 @@ export class LocalStorage {
     localStorage.removeItem(LocalStorage.TokenKeys.accessToken);
     localStorage.removeItem(LocalStorage.TokenKeys.refreshToken);
   }
-  public static deleteCompanyCode() {
-    localStorage.removeItem('company_code');
+  public static deleteCompanyCd() {
+    localStorage.removeItem('company_cd');
   }
 
   /** restore */
-  public static restoreCompanyCode() {
-    localStorage.setItem('company_code', companyCodeCache);
+  public static restoreCompanyCd() {
+    localStorage.setItem('company_cd', companyCdCache);
   }
 }
 

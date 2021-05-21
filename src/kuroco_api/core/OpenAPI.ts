@@ -13,7 +13,7 @@ interface Config {
   SECURITY: { [definedName: string]: object };
 }
 
-const getBase = () => `https://${LocalStorage.getCompanyCode()}.g.kuroco.app`;
+const getBase = () => `https://${LocalStorage.getCompanyCd()}.g.kuroco.app`;
 const getSamlUrl = () => `${getBase()}/direct/login/saml_login/?spid=1`;
 export const OpenAPI: Config = {
   getSamlUrl,
