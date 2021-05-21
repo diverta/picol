@@ -6,8 +6,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 console.log(`build mode: ${process.env.NODE_ENV}`);
 
-const { KUROCO_HOST } = require('./env.js');
-
 module.exports = {
   outputDir: path.resolve(__dirname, 'dist'),
   publicPath: '/',
@@ -17,14 +15,6 @@ module.exports = {
   },
 
   filenameHashing: true,
-
-  // configureWebpack: {
-  //   plugins: [
-  //     new webpack.EnvironmentPlugin({
-  //       KUROCO_HOST,
-  //     }),
-  //   ],
-  // },
 
   chainWebpack: (config) => {
     config

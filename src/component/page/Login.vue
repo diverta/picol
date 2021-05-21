@@ -17,6 +17,15 @@
           <div class="p-login__form">
             <form>
               <input
+                v-if="showsCompanyCdInput"
+                type="text"
+                name="company_cd"
+                v-model.trim="input.companyCd"
+                placeholder="Company Code"
+                single-line
+                class="p-login__input"
+              />
+              <input
                 type="text"
                 name="email"
                 v-model.trim="input.email"
@@ -61,7 +70,7 @@ import { Vue, Prop } from 'vue-property-decorator';
 import { Component } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
 import { UserStateModule } from '../../store';
-import { OpenAPI } from '../../kuroco_api';
+import { LocalStorage, OpenAPI } from '../../kuroco_api';
 
 @Component<Login>({})
 export default class Login extends Vue {
@@ -69,12 +78,16 @@ export default class Login extends Vue {
   input = {
     email: '',
     password: '',
+    companyCd: '',
   };
+  showsCompanyCdInput = false;
 
   // METHODS
   samlLogin(e: Event) {
     e.stopPropagation();
     e.preventDefault();
+
+    LocalStorage.setCompanyCd('picol');
 
     function createNodeWithAttributes(tagName: string, attributes: { nm: string; val: string }[] = []) {
       const node = document.createElement(tagName);
@@ -84,7 +97,7 @@ export default class Login extends Vue {
 
     const form = createNodeWithAttributes('form', [
       { nm: 'id', val: 'google_login_saml' },
-      { nm: 'action', val: OpenAPI.SAML_URL },
+      { nm: 'action', val: OpenAPI.getSamlUrl() },
       { nm: 'method', val: 'POST' },
     ]);
     const input = createNodeWithAttributes('input', [
@@ -102,14 +115,51 @@ export default class Login extends Vue {
     e.stopPropagation();
     e.preventDefault();
 
+    LocalStorage.setCompanyCd(this.input.companyCd);
     await Auth.login({ requestBody: { ...this.input } })
       .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
       .catch((e) => {
-        this.$snack.danger({ text: this.$t('loginFailed') });
-        console.error(e);
+        switch (e.status) {
+          case 401:
+            this.$snack.danger({ text: this.$t('loginFailed') });
+            break;
+          case 404:
+          case 0:
+            this.$snack.danger({ text: this.$t('invalidcompanyCd') });
+            break;
+          default:
+            console.dir(e.status);
+            this.$snack.danger({ text: this.$t('loginFailed') });
+        }
+        LocalStorage.restoreCompanyCd();
+        this.showsCompanyCdInput = true;
         return Promise.reject(e);
       });
     this.$router.push({ path: '/' });
+  }
+
+  initialize() {
+    const companyCdQuery = this.$route.query?.company_cd;
+    if (typeof companyCdQuery === 'string' && companyCdQuery) {
+      LocalStorage.setCompanyCd(companyCdQuery);
+      this.input.companyCd = companyCdQuery as string;
+      this.showsCompanyCdInput = false;
+      return;
+    }
+
+    const companyCdOnStorage = LocalStorage.getCompanyCd();
+    if (companyCdOnStorage) {
+      this.input.companyCd = companyCdOnStorage;
+      this.showsCompanyCdInput = true;
+      return;
+    }
+
+    this.input.companyCd = 'picol';
+    this.showsCompanyCdInput = true;
+  }
+
+  mounted() {
+    this.initialize();
   }
 }
 </script>
@@ -132,6 +182,7 @@ export default class Login extends Vue {
   "notice": "下記のGSuiteログインはDiverta社員のみが可能です。\
   <br />社外の方は上記のGuestアカウントをご利用ください。",
   "loginFailed": "ログインできませんでした。",
+  "invalidcompanyCd": "company code が違います。",
   "login": "ログイン"
 }
 </i18n>
@@ -152,6 +203,7 @@ export default class Login extends Vue {
   },
   "notice": "The following G Suite SSO login are only available to Diverta employees.",
   "loginFailed": "Login Failed.",
+  "invalidcompanyCd": "The company code is not found.",
   "login": "Login"
 }
 </i18n>
