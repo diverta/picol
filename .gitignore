@@ -27,4 +27,3 @@ openapi.json
 /.firebase
 /.firebaserc
 /firebase-*.log
-/src/kuroco_api/

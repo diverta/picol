@@ -12,6 +12,7 @@
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:watch": "vue-cli-service test:unit --watch",
+    "test:e2e": "node tests/e2e/general/index.js --headless",
     "report": "echo 'REPORT LIBs SIZES' && vue-cli-service build --report && open dist/report.html",
     "postmerge": "(git diff 'HEAD@{1}' --name-only | grep package.json > /dev/null) && npm i || :"
   },

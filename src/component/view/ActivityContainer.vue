@@ -9,7 +9,7 @@
               <img :src="getAvaterSrc(data.member_id)" alt class="c-log__user-icon" />
             </p>
             <div class="c-log__content">
-              <p class="c-log__date">{{ getHowLongBeforePostedData(data.update_date) }}</p>
+              <p class="c-log__date">{{ getHowLongBeforePostedData(data.update_ymdhi) }}</p>
               <p class="c-log__text">
                 <span class="c-log__name">
                   <span class="c-log__name--name">{{ getUserName(data.member_id) }}</span

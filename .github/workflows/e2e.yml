@@ -10,7 +10,7 @@ env:
 
 jobs:
   e2e:
-    if: "github.repository == 'diverta/front_picol'"
+    if: "github.repository == 'diverta/picol'"
     runs-on: macos-latest
     steps:
       - name: Checkout Locally
