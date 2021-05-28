@@ -8,17 +8,6 @@
 
 > :information_source: This command will not work without configuration, please refere to [Run Locally]
 
-## Configure hostname of API
-
-This app will load the hostname of Kuroco API from a configuration in `env.js`.  
-Please modify the file if you own your Kuroco environment.  
-```javascript
-module.exports = {
-  KUROCO_HOST: 'https://your-host-name.com',
-};
-
-```
-
 ### For dev
 
 #### Run Locally
