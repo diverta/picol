@@ -21,7 +21,7 @@ import { Result } from './Result';
 export async function request<T>(options: Readonly<RequestOptions>): Promise<Result<T>> {
   // Escape path (RFC3986) and create the request URL
   let path = options.path.replace(/[:]/g, '_');
-  let url = `${OpenAPI.BASE}${path}`;
+  let url = `${OpenAPI.getBase()}${path}`;
 
   // Create request headers
   const headers = new Headers({
