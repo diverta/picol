@@ -55,15 +55,6 @@ Object.entries(Vue.prototype.$snack).forEach(
 
 Vue.config.productionTip = false;
 
-/** apply analytics */
-import 'firebase/analytics';
-import { firebaseApp } from './kuroco_api';
-try {
-  firebaseApp.analytics();
-} catch (e) {
-  console.info(e);
-}
-
 /**
  * mount.
  */
