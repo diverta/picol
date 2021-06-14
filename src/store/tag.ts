@@ -43,6 +43,11 @@ class Tag extends VuexModule implements ITagState {
     this.ADD_TAG_DEFS(payload);
   }
 
+  @Action({ rawError: true })
+  clear() {
+    this.CLEAR();
+  }
+
   @Mutation
   private UPDATE_ALL_TAG_DEFS(tagDefs: TagModel.Read.Response.RootObject[]) {
     this.tagDefs.replaceAll(tagDefs);
@@ -51,6 +56,11 @@ class Tag extends VuexModule implements ITagState {
   @Mutation
   private ADD_TAG_DEFS(tagDefs: TagModel.Read.Response.RootObject[]) {
     this.tagDefs = [...this.tagDefs, ...tagDefs].filter((x, i, self) => self.indexOf(x) === i);
+  }
+
+  @Mutation
+  private CLEAR() {
+    this.tagDefs.clear();
   }
 }
 

@@ -69,7 +69,7 @@
 import { Vue, Prop } from 'vue-property-decorator';
 import { Component } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
-import { UserStateModule } from '../../store';
+import { FeedStateModule, TagCategoryStateModule, TagStateModule, UserStateModule } from '@/store';
 import { LocalStorage, OpenAPI } from '../../kuroco_api';
 
 @Component<Login>({})
@@ -116,26 +116,34 @@ export default class Login extends Vue {
     e.preventDefault();
 
     LocalStorage.setCompanyCd(this.input.companyCd);
-    await Auth.login({ requestBody: { ...this.input } })
-      .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
-      .catch((e) => {
-        switch (e.status) {
-          case 401:
-            this.$snack.danger({ text: this.$t('loginFailed') });
-            break;
-          case 404:
-          case 0:
-            this.$snack.danger({ text: this.$t('invalidcompanyCd') });
-            break;
-          default:
-            console.dir(e.status);
-            this.$snack.danger({ text: this.$t('loginFailed') });
-        }
-        LocalStorage.restoreCompanyCd();
-        this.showsCompanyCdInput = true;
-        return Promise.reject(e);
-      });
+    const memberId = await Auth.login({ requestBody: { ...this.input } }).catch((e) => {
+      switch (e.status) {
+        case 401:
+          this.$snack.danger({ text: this.$t('loginFailed') });
+          break;
+        case 404:
+        case 0:
+          this.$snack.danger({ text: this.$t('invalidcompanyCd') });
+          break;
+        default:
+          console.dir(e.status);
+          this.$snack.danger({ text: this.$t('loginFailed') });
+      }
+      LocalStorage.restoreCompanyCd();
+      this.showsCompanyCdInput = true;
+      return Promise.reject(e);
+    });
+
+    await this.clearAllState();
+    await UserStateModule.initialize({ member_id: memberId as number });
     this.$router.push({ path: '/' });
+  }
+
+  clearAllState() {
+    UserStateModule.clear();
+    FeedStateModule.clear();
+    TagCategoryStateModule.clear();
+    TagStateModule.clear();
   }
 
   initialize() {
