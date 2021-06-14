@@ -6,7 +6,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/storage';
-import firebaseApp from './FirebaseUtil';
+import { FirebaseUtil } from './FirebaseUtil';
 import { AuthenticationService } from '../services/AuthenticationService';
 
 /**
@@ -18,13 +18,7 @@ export class UploaderFactory {
   public static async create(
     params: AuthenticationService.postAuthenticationServiceRcmsApi1FirebaseTokenRequest,
   ): Promise<Uploader> {
-    if (!this.storage) {
-      const { token } = (await AuthenticationService.postAuthenticationServiceRcmsApi1FirebaseToken(params)).body;
-
-      await firebaseApp.auth().signInWithCustomToken(token);
-      this.storage = firebase.storage();
-    }
-
+    this.storage = await FirebaseUtil.getStorage();
     return new FirebaseStorageUploader(this.storage as firebase.storage.Storage);
   }
 }

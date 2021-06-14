@@ -70,7 +70,7 @@ import { Vue, Prop } from 'vue-property-decorator';
 import { Component } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
 import { UserStateModule } from '../../store';
-import { LocalStorage, OpenAPI } from '../../kuroco_api';
+import { LocalStorage, OpenAPI, FirebaseUtil } from '@/kuroco_api';
 
 @Component<Login>({})
 export default class Login extends Vue {
@@ -116,25 +116,27 @@ export default class Login extends Vue {
     e.preventDefault();
 
     LocalStorage.setCompanyCd(this.input.companyCd);
-    await Auth.login({ requestBody: { ...this.input } })
-      .then((member_id) => UserStateModule.initialize({ member_id: member_id as number }))
-      .catch((e) => {
-        switch (e.status) {
-          case 401:
-            this.$snack.danger({ text: this.$t('loginFailed') });
-            break;
-          case 404:
-          case 0:
-            this.$snack.danger({ text: this.$t('invalidcompanyCd') });
-            break;
-          default:
-            console.dir(e.status);
-            this.$snack.danger({ text: this.$t('loginFailed') });
-        }
-        LocalStorage.restoreCompanyCd();
-        this.showsCompanyCdInput = true;
-        return Promise.reject(e);
-      });
+    const memberId = await Auth.login({ requestBody: { ...this.input } }).catch((e) => {
+      switch (e.status) {
+        case 401:
+          this.$snack.danger({ text: this.$t('loginFailed') });
+          break;
+        case 404:
+        case 0:
+          this.$snack.danger({ text: this.$t('invalidcompanyCd') });
+          break;
+        default:
+          console.dir(e.status);
+          this.$snack.danger({ text: this.$t('loginFailed') });
+      }
+      LocalStorage.restoreCompanyCd();
+      this.showsCompanyCdInput = true;
+      return Promise.reject(e);
+    });
+
+    UserStateModule.initialize({ member_id: memberId as number });
+    await FirebaseUtil.clear();
+    await FirebaseUtil.initialize();
     this.$router.push({ path: '/' });
   }
 

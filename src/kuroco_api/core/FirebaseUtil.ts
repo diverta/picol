@@ -4,15 +4,33 @@
 /* prettier-ignore */
 
 import * as firebase from 'firebase/app';
+import 'firebase/analytics';
+import 'firebase/auth';
+import 'firebase/storage';
+import { AuthenticationService } from '@/kuroco_api/services/AuthenticationService';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyAFdIDKslIaL0OW0HbZspkvBvAgLxLJjco',
-  authDomain: 'picol-asia.firebaseapp.com',
-  databaseURL: 'https://picol-asia.firebaseio.com',
-  projectId: 'picol-asia',
-  storageBucket: 'picol-asia.appspot.com',
-  messagingSenderId: '657286700516',
-  appId: '1:657286700516:web:97eb9dc929ab806c433bf1',
-  measurementId: 'G-9JJW1S0FQ6',
-};
-export default firebase.initializeApp(firebaseConfig);
+export class FirebaseUtil {
+  static app: firebase.app.App;
+
+  static async getStorage() {
+    if (FirebaseUtil.app === undefined) {
+      await FirebaseUtil.initialize();
+    }
+    return firebase.storage();
+  }
+
+  static async initialize() {
+    const { body } = await AuthenticationService.postAuthenticationServiceRcmsApi1FirebaseToken({});
+    console.dir(body);
+    const app = firebase.initializeApp(body.firebaseConfig);
+    await app.auth().signInWithCustomToken(body.token);
+    app.analytics();
+    FirebaseUtil.app = app;
+  }
+
+  static async clear() {
+    if (FirebaseUtil.app !== undefined) {
+      await firebase.app().delete();
+    }
+  }
+}
