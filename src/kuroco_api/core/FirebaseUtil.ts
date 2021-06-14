@@ -21,7 +21,6 @@ export class FirebaseUtil {
 
   static async initialize() {
     const { body } = await AuthenticationService.postAuthenticationServiceRcmsApi1FirebaseToken({});
-    console.dir(body);
     const app = firebase.initializeApp(body.firebaseConfig);
     await app.auth().signInWithCustomToken(body.token);
     app.analytics();

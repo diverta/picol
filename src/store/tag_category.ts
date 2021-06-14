@@ -68,6 +68,11 @@ class TagCategory extends VuexModule implements ITagCategoryState {
     });
   }
 
+  @Action({ rawError: true })
+  clear() {
+    this.CLEAR();
+  }
+
   @Mutation
   private UPDATE_ALL_TAG_DEFS(res: TagCategoryModel.Read.Response.RootObject[]) {
     this.tagDefs.replaceAll(res);
@@ -83,6 +88,11 @@ class TagCategory extends VuexModule implements ITagCategoryState {
           tag_nm,
         } as any),
       );
+  }
+
+  @Mutation
+  private CLEAR() {
+    this.tagDefs.clear();
   }
 }
 

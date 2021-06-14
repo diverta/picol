@@ -91,6 +91,11 @@ class User extends VuexModule implements IUserState {
     this.ADD_USERS(payload);
   }
 
+  @Action({ rawError: true })
+  clear() {
+    this.CLEAR();
+  }
+
   @Mutation
   private UPDATE_ALL_USERS(users: AccountModel.Read.Response.Details[]) {
     const cpy = [...this.users];
@@ -115,6 +120,11 @@ class User extends VuexModule implements IUserState {
   @Mutation
   private UPDATE_SELF_USER_MEMBER_ID(selfUserMemberId: number) {
     this.selfUserMemberId = selfUserMemberId;
+  }
+
+  @Mutation
+  private CLEAR() {
+    this.users.clear();
   }
 }
 

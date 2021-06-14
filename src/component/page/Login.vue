@@ -69,8 +69,8 @@
 import { Vue, Prop } from 'vue-property-decorator';
 import { Component } from 'vue-property-decorator';
 import { Auth } from '@/kuroco_api/core/Auth';
-import { UserStateModule } from '../../store';
 import { LocalStorage, OpenAPI, FirebaseUtil } from '@/kuroco_api';
+import { FeedStateModule, TagCategoryStateModule, TagStateModule, UserStateModule } from '@/store';
 
 @Component<Login>({})
 export default class Login extends Vue {
@@ -134,10 +134,19 @@ export default class Login extends Vue {
       return Promise.reject(e);
     });
 
+    await this.clearAllState();
     UserStateModule.initialize({ member_id: memberId as number });
     await FirebaseUtil.clear();
     await FirebaseUtil.initialize();
+
     this.$router.push({ path: '/' });
+  }
+
+  clearAllState() {
+    UserStateModule.clear();
+    FeedStateModule.clear();
+    TagCategoryStateModule.clear();
+    TagStateModule.clear();
   }
 
   initialize() {
