@@ -9,7 +9,7 @@ export { OpenAPI } from './core/OpenAPI';
 export { Auth } from './core/Auth';
 export { LocalStorage } from './core/LocalStorage';
 export { UploaderFactory } from './core/Uploader';
-export { default as firebaseApp } from './core/FirebaseUtil';
+export * from './core/FirebaseUtil';
 
 export { ActivityService } from './services/ActivityService';
 export { AuthenticationService } from './services/AuthenticationService';
