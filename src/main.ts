@@ -56,12 +56,6 @@ Object.entries(Vue.prototype.$snack).forEach(
 Vue.config.productionTip = false;
 
 /**
- * apply global error handler.
- */
-import { ErrorLogReporter } from '@/ErrorLogReporter';
-new ErrorLogReporter().apply();
-
-/**
  * mount.
  */
 new Vue({

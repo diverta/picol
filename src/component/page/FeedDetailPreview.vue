@@ -12,10 +12,17 @@
 
 <script lang="ts">
 import FeedContainer from '@/component/view/feed/FeedContainer.vue';
-import { CONSTANTS } from '@/core';
-import { ContentService, LocalStorage } from '@/kuroco_api';
+import { UserStateModule, TagStateModule } from '@/store';
+import { FeedStateModule } from '@/store/feed';
+import { FeedModel, CommentModel } from '@/type/api';
+import { CreateElement, VNode } from 'vue';
+import { Vue, Prop } from 'vue-property-decorator';
 import Component from 'vue-class-component';
-import { Vue } from 'vue-property-decorator';
+import { Route } from 'vue-router';
+import { ServiceHelper } from '@/util';
+import { CONSTANTS } from '@/core';
+import { abortLoadingBigDatas } from '../atom/RouterLinkExt.vue';
+import { ContentService } from '@/kuroco_api';
 
 @Component<FeedDetail>({
   components: {
@@ -47,10 +54,6 @@ export default class FeedDetail extends Vue {
   // LIFECYCLE HOOKS
   async mounted() {
     try {
-      const companyCode = this.$route.query.company_cd as string;
-      if (companyCode !== undefined) {
-        LocalStorage.setCompanyCd(companyCode);
-      }
       const previewToken = this.$route.query.preview_token as string;
       const feed = (await ContentService.getContentServiceRcmsApi1Preview({ previewToken })).body;
       feed.details.inst_ymdhi = new Date().toUTCString();

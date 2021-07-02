@@ -17,7 +17,6 @@ module.exports = {
   filenameHashing: true,
 
   chainWebpack: (config) => {
-    config.devtool('source-map');
     config
       .plugin('clean')
       .use(CleanWebpackPlugin)
