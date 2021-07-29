@@ -17,7 +17,7 @@ export class FirebaseUtil {
     if (FirebaseUtil.app === undefined || FirebaseUtil.app.name !== LocalStorage.getCompanyCd()) {
       await FirebaseUtil.initialize(LocalStorage.getCompanyCd()?.toString());
     }
-    return firebase.storage();
+    return firebase.storage(FirebaseUtil.app);
   }
 
   static async initialize(companyCd: string | undefined) {
@@ -29,7 +29,7 @@ export class FirebaseUtil {
     const app = firebase.initializeApp(body.firebaseConfig, companyCd);
     await app.auth().signInWithCustomToken(body.token);
 
-    app.analytics();
+    //app.analytics();
     FirebaseUtil.app = app;
   }
 
