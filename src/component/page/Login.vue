@@ -136,9 +136,8 @@ export default class Login extends Vue {
 
     await this.clearAllState();
     UserStateModule.initialize({ member_id: memberId as number });
-    await FirebaseUtil.clear();
-    await FirebaseUtil.initialize();
-
+    await FirebaseUtil.clear(this.input.companyCd);
+    await FirebaseUtil.initialize(this.input.companyCd);
     this.$router.push({ path: '/' });
   }
 
@@ -181,6 +180,7 @@ export default class Login extends Vue {
   "lead": {
     "header": "デモ版のPicolをお試しいただけます。下記のトライアル用アカウントでご利用ください。<br /> \
     <br /> \
+    Company code: picol<br /> \
     ログインID: guest<br /> \
     パスワード：guest528+<br /> \
     <br /> \
@@ -203,6 +203,7 @@ export default class Login extends Vue {
   "lead": {
     "header": "You can try the demo version of Picol. Please use the trial account below.<br /> \
     <br /> \
+    Company code: picol<br /> \
     Id: guest<br /> \
     Password：guest528+<br /> \
     <br /> \
