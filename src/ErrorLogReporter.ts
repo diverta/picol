@@ -21,7 +21,6 @@ export class ErrorLogReporter {
     try {
       const isError = error instanceof Error;
       const message = `${joinLines(headerMessage, isError ? error.stack : error)}`;
-      console.info(message);
 
       const stackframes = isError ? await StackTrace.fromError(error) : [];
       await StackTrace.report(stackframes, this.reportUrl, message);
