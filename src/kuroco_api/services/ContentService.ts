@@ -829,7 +829,7 @@ export namespace ContentService {
       /**
        * Published / Not published
        */
-      open_type?: 'open' | 'close' | 'default';
+      open_flg?: 0 | 1;
       /**
        * Display all topics to logged in members, regardless ther public/hidden status
        */
@@ -995,7 +995,7 @@ export namespace ContentService {
       /**
        * Published / Not published
        */
-      open_type?: 'open' | 'close' | 'default';
+      open_flg?: 0 | 1;
       /**
        * Display all topics to logged in members, regardless ther public/hidden status
        */
@@ -1277,7 +1277,7 @@ export namespace ContentService {
       /**
        * Published / Not published
        */
-      open_type?: 'open' | 'close' | 'default';
+      open_flg?: 0 | 1;
       /**
        * Display all topics to logged in members, regardless ther public/hidden status
        */
