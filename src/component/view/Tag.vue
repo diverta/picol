@@ -93,7 +93,7 @@ export default class Tag extends Vue {
     this.$emit('change', tag);
   }
   async addInputTag(tagInput: string) {
-    const payload = { requestBody: { tag_nm: tagInput, open_type: 'open' as 'open' } };
+    const payload = { requestBody: { tag_nm: tagInput, open_flg: 1 as 1 } };
     await TagCategoryStateModule.addTagCategory(payload).then(() => TagCategoryStateModule.readAll());
     this.tagInput = '';
   }
