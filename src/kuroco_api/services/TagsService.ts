@@ -204,7 +204,7 @@ export namespace TagsService {
       /**
        * Published / Not published
        */
-      open_type?: 'open' | 'close' | 'default';
+      open_flg?: 0 | 1;
       /**
        * Sort
        */
