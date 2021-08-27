@@ -52,7 +52,7 @@ export default class CreateFeedContainerActions extends Vue {
       ymd: new Date().toISOString().substr(0, 10),
       contents_type: 1 as 1,
       subject: truncate(commentInput, { length: 20 }),
-      open_type: 'open' as 'open',
+      open_flg: 1 as 1,
       topics_flg: 1 as 1,
       tag_id: selectedTags.map((t) => t.tag_id) as any,
       ext_col_02: truncate(commentInput, { length: 2000 }),
