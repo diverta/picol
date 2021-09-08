@@ -46,6 +46,7 @@ jobs:
             diff
             tests/e2e/capture
             ${{ steps.e2e.outputs.capture_dir }}
+          retention-days: 7
 
   slack:
     needs: [e2e]
