@@ -21,12 +21,11 @@ export class ErrorLogReporter {
     try {
       const isError = error instanceof Error;
       const message = `${joinLines(headerMessage, isError ? error.stack : error)}`;
-      console.error(message);
 
       const stackframes = isError ? await StackTrace.fromError(error) : [];
       await StackTrace.report(stackframes, this.reportUrl, message);
     } catch (e) {
-      console.error(e);
+      console.info(e);
     }
   }
 
