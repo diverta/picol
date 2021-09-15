@@ -3,9 +3,8 @@
   "short_name": "Picol",
   "icons": [
     {
-      "src": "./assets/images/favicon.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/icon_kuroco.svg",
+      "sizes": "512x512"
     }
   ],
   "start_url": "/",
