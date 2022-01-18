@@ -24,3 +24,6 @@ You can preview this app with following:
 
 the file is a configuration file for Kuroco front-end server.  
 see [Documents](https://kuroco.app/documentations/kuroco_front/).
+
+# License
+The source code is licensed MIT.
