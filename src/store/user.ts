@@ -41,7 +41,7 @@ class User extends VuexModule implements IUserState {
 
   get myImage(): string {
     return !!this.selfUser && this.selfUser.image !== undefined
-      ? (this.selfUser.image.url as string) + '&v=' + Math.random() // remove cache
+      ? (this.selfUser.image.url as string) // remove cache
       : CONSTANTS.UNKNOWN_USER_IMAGE_PATH;
   }
 
