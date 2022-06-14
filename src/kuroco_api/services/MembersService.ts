@@ -295,10 +295,6 @@ export namespace MembersService {
          */
         file_id?: string;
         /**
-         * File name
-         */
-        file_nm?: string;
-        /**
          * Description
          */
         desc?: string;

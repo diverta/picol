@@ -45,7 +45,7 @@ export default class ImageList extends Vue {
     return medias.length > 0
       ? medias[0]
       : {
-          file_nm: 'dummyImage.png',
+          desc: 'dummyImage.png',
           file_id: 'dummy',
           url: CONSTANTS.UNKNOWN_IMAGE_PATH,
           type: 'image',

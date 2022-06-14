@@ -127,7 +127,7 @@ export default class ProfileEdit extends Vue {
     this.file = newFile;
     this.memberPhoto = {
       file_id,
-      file_nm: newFile.name,
+      desc: newFile.name,
     };
     this.postingState = 'PRE';
   }
@@ -168,7 +168,7 @@ export default class ProfileEdit extends Vue {
 
 interface MemberPhoto {
   file_id: string;
-  file_nm: string;
+  desc: string;
 }
 </script>
 <i18n locale="ja" lang="json5">
