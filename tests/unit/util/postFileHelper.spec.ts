@@ -21,14 +21,14 @@ const stabData: {
   image: {
     type: 'image' as 'image',
     file_id: 'file_id',
-    file_nm: 'file_nm',
+    desc: 'file_nm',
     url: 'url',
     id: 'id',
   },
   video: {
     type: 'video' as 'video',
     file_id: 'file_id',
-    file_nm: 'file_nm',
+    desc: 'file_nm',
     url: 'url',
     id: 'id',
   },
@@ -117,10 +117,10 @@ describe('postFileHelper', () => {
 
   describe('should return proper data for posting to API', () => {
     const expectInsert = (data: any) => {
-      expect(data).toMatchObject({ file_id: 'file_id', file_nm: 'file_nm' });
+      expect(data).toMatchObject({ file_id: 'file_id', desc: 'file_nm' });
     };
     const expectUpdate = (data: any) => {
-      expect(data).toMatchObject({ id: 'id', file_id: 'file_id', file_nm: 'file_nm' });
+      expect(data).toMatchObject({ id: 'id', file_id: 'file_id', desc: 'file_nm' });
     };
     const expectDelete = (data: any) => {
       expect(data).toMatchObject({});
