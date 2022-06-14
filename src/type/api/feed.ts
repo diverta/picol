@@ -320,7 +320,7 @@ export namespace FeedModel {
   export interface MediaFromFeed {
     type: 'image' | 'video';
     file_id: string;
-    file_nm: string;
+    desc: string;
     url: string;
     id?: string;
   }

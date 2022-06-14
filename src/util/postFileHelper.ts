@@ -83,7 +83,7 @@ export class PostFileHelper {
     const source: PostFileHelper.FileData = {
       type: mediaType,
       file_id,
-      file_nm: file.name,
+      desc: file.name,
       url,
     };
     Vue.set(this._source[mediaType], idx, source);
@@ -108,10 +108,10 @@ export class PostFileHelper {
       const source = src[idx];
       const original = orig[idx];
       if (source && original) {
-        return toUpdate(original.id, source.file_id, source.file_nm);
+        return toUpdate(original.id, source.file_id, source.desc);
       }
       if (source && !original) {
-        return toInsert(source.file_id, source.file_nm);
+        return toInsert(source.file_id, source.desc);
       }
       if (!source && original) {
         return toDelete();
@@ -119,17 +119,17 @@ export class PostFileHelper {
       return 'IGNORE';
     }).filter((v) => v !== 'IGNORE');
 
-    function toUpdate(id: string | undefined, file_id: string, file_nm: string) {
+    function toUpdate(id: string | undefined, file_id: string, desc: string) {
       return {
         id,
         file_id,
-        file_nm,
+        desc,
       };
     }
-    function toInsert(file_id: string, file_nm: string) {
+    function toInsert(file_id: string, desc: string) {
       return {
         file_id,
-        file_nm,
+        desc,
       };
     }
     function toDelete() {

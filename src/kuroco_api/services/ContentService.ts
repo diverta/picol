@@ -926,10 +926,6 @@ export namespace ContentService {
          */
         file_id?: string;
         /**
-         * File name
-         */
-        file_nm?: string;
-        /**
          * Description
          */
         desc?: string;
@@ -946,10 +942,6 @@ export namespace ContentService {
          * File ID returned by File Upload API
          */
         file_id?: string;
-        /**
-         * File name
-         */
-        file_nm?: string;
         /**
          * Description
          */
@@ -1092,10 +1084,6 @@ export namespace ContentService {
          */
         file_id?: string;
         /**
-         * File name
-         */
-        file_nm?: string;
-        /**
          * Description
          */
         desc?: string;
@@ -1112,10 +1100,6 @@ export namespace ContentService {
          * File ID returned by File Upload API
          */
         file_id?: string;
-        /**
-         * File name
-         */
-        file_nm?: string;
         /**
          * Description
          */
@@ -1374,10 +1358,6 @@ export namespace ContentService {
          */
         file_id?: string;
         /**
-         * File name
-         */
-        file_nm?: string;
-        /**
          * Description
          */
         desc?: string;
@@ -1394,10 +1374,6 @@ export namespace ContentService {
          * File ID returned by File Upload API
          */
         file_id?: string;
-        /**
-         * File name
-         */
-        file_nm?: string;
         /**
          * Description
          */

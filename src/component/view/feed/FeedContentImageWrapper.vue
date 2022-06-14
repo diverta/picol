@@ -44,7 +44,7 @@ export default class FeedContentImageWrapper extends Vue {
       ? this.mediasFromFeed
       : [
           {
-            file_nm: 'dummyImage.png',
+            desc: 'dummyImage.png',
             file_id: 'dummy',
             type: 'image',
             url: CONSTANTS.UNKNOWN_IMAGE_PATH,

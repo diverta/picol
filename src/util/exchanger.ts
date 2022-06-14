@@ -39,7 +39,7 @@ export function getMediasFromFeedData(feed: FeedModel.Read.Response.Feed): FeedM
     return {
       type: file.type,
       file_id: urlTillEndpoint,
-      file_nm: fileName,
+      desc: fileName,
       url: file.url,
       id: ((file as any).id as string) || undefined,
     };
