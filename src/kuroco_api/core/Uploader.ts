@@ -49,7 +49,7 @@ class UploaderBase {
     let relativePath =
       (file as any).relativePath || (file as any).webkitRelativePath || (file as any).fileName || (file as any).name;
     let time = new Date().getTime();
-    return `${time}_${index}_${relativePath.replace(/[^0-9a-zA-Z_-.]/gim, '')}`;
+    return `${time}_${index}_${relativePath.replace(/[^0-9a-zA-Z._-]/gim, '')}`;
   }
 }
 
